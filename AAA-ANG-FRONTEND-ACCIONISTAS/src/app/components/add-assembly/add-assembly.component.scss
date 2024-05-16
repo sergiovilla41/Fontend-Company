@@ -1,0 +1,125 @@
+.volver {
+  background-color: #fff;
+  color: #30c2e0;
+  border: none;
+  margin-left: 3rem;
+  margin-bottom: 10px;
+}
+
+.volver:hover {
+  background-color: rgba(235, 234, 234, 0.61);
+  color: #30c2e0;
+}
+
+.component {
+  margin-bottom: 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 24px;
+  margin-inline: 3rem 1.25rem;
+  z-index: 10000;
+
+  form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 28px;
+    margin-top: 20px;
+    column-gap: 20px;
+
+    @media(max-width: 1000px) {
+      display: flex;
+      flex-direction: column;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .descripcion {
+      grid-column-start: 1;
+      grid-column-end: 4;
+    }
+
+    .actions {
+      grid-column-start: 3;
+      grid-column-end: 4;
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+      padding: 10px;
+      justify-content: flex-end;
+
+      button:nth-child(1) {
+        font-family: 'Arial';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.1px;
+        color: #0C82C5;
+      }
+
+      button:nth-child(2) {
+        font-family: 'Arial';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        white-space: nowrap;
+
+        /* Secundario/300 */
+
+        color: #0C82C5;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 24px;
+        gap: 10px;
+        border: 1px solid #0C82C5;
+        border-radius: 100px;
+      }
+
+      button:nth-child(3) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 24px;
+        gap: 10px;
+
+        /* Secundario/300 */
+
+        background: #0C82C5;
+        border-radius: 100px;
+
+        font-family: 'Arial';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        /* identical to box height, or 143% */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.1px;
+
+        /* M3/sys/light/on-primary */
+
+        color: #FFFFFF;
+      }
+    }
+  }
+}

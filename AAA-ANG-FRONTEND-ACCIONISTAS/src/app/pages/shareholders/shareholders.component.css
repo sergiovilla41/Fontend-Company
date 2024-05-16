@@ -1,0 +1,101 @@
+h1 {
+  margin-top: 1%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.botones {
+  margin-top: 2%;
+}
+
+.botonesPadding {
+  margin: 0.3%;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+  width: inherit !important;
+}
+
+.editar-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 3px;
+  align-items: center;
+}
+
+.contenedor {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.span {
+  font-size: x-small;
+  margin-left: 1%;
+}
+
+.centrar-imagen {
+  display: flex;
+  justify-content: center;
+}
+
+/* Para pantallas muy pequeñas */
+@media only screen and (max-width: 480px) {
+  .mi-tabla {
+    max-height: 300px;
+  }
+}
+
+/* Para pantallas pequeñas */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .mi-tabla {
+    max-height: 100px;
+  }
+}
+
+/* Para pantallas medianas */
+@media only screen and (min-width: 768px) and (max-width: 823px) {
+  .mi-tabla {
+    max-height: 100px;
+  }
+}
+
+/* Para pantallas medianas */
+@media only screen and (min-width: 824) and (max-width: 1023px) {
+  .mi-tabla {
+    max-height: 100px;
+  }
+}
+
+/* Para pantallas grandes */
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+  .mi-tabla {
+    max-height: 900px;
+  }
+}
+
+/* Para pantallas muy grandes */
+@media only screen and (min-width: 1280px) {
+  .mi-tabla {
+    max-height: 1100px;
+  }
+}
+
+button {
+  background-color: #0c82c5;
+}
+
+
+
+.responsiveButton {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  /* Si el ancho de la pantalla es mayor o igual a 768px */
+  .responsiveButton {
+    display: none;
+  }
+}
+

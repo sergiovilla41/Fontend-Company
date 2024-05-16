@@ -1,0 +1,21 @@
+<div class="component">
+  <h1>Las votaciones de la aamblea extraordinaria #65 se completaron</h1>
+  <div class="content">
+    <div>
+      <span>
+        <h3>Asistencia de accionistas</h3>
+        <p>{{($estadisticasVotacion | async)?.PORCENTAJE_VOTACION}}%</p>
+      </span>
+      <span>
+        <button>Salir de la asamblea</button>
+      </span>
+    </div>
+    <div *ngFor="let i of (data$ | async)">
+      <h2>{{i?.DESCRIPCION}}</h2>
+      <span class="material-symbols-outlined">
+        check_circle
+      </span>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,227 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt [value]="warrantyListState"
+    exportFilename="browsers" csvSeparator=";" [exportHeader]="'customExportHeader'" [rows]="5"
+    [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+
+<div class="animate-fadeInDown pl-8 pb-14" *ngIf="loadings && !isEditWarrantyOpen">
+
+  <div class="">
+    <h1>Garantía</h1>
+  </div>
+  <div class="p-d-flex botones contenedor">
+
+    <button [disabled]="isAddWarrantyOpen" pButton pTooltip="Crear nueva garantía" tooltipPosition="top" type="button"
+      *appRol class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-plus" iconPos="left"
+      (click)="newWarranty()"><span class="pl-2 responsiveButton">Nuevo</span></button>
+
+    <button [disabled]="isAddWarrantyOpen" pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button [disabled]="isAddWarrantyOpen" pButton type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-file-csv" iconPos="left"
+      pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"><span class="pl-2 responsiveButton">CSV</span></button>
+
+      
+<!--     <button [disabled]="isAddWarrantyOpen" pButton pRipple type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-pdf" iconPos="left" pTooltip="Descargar Pdf"
+      tooltipPosition="top" (click)="exportPdf()"><span class="pl-2 responsiveButton">PDF</span></button> -->
+
+    <button [disabled]="isAddWarrantyOpen" pButton pTooltip="Editar garantía" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-cog" iconPos="left"
+      (click)="handleWarranty()"><span class="pl-2 responsiveButton">Edición</span></button>
+
+    <button pButton pTooltip="Inactivar garantía" style="background-color: red; border: none;" tooltipPosition="top"
+      type="button" *appRol class="p-button-rounded botonesPadding p-button-sm"
+      icon="fa-solid fa-trash" iconPos="left" (click)="handleDeleteSeizure()"><span class="pl-2 responsiveButton">Inactivar</span></button>
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+  </div>
+
+
+  <div *ngIf="viewForm" class="pt-8 pb-20">
+    <app-warrantyForm></app-warrantyForm>
+  </div>
+
+
+</div>
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;"
+  *ngIf="loadings && !isEditWarrantyOpen">
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="warrantyListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="50"
+      [rowsPerPageOptions]="[5, 20, 50, 100]"
+      [globalFilterFields]="['TITULO','ESTADO_GARANTIA','FECHA_INICIO','FECHA_FIN','PLAZO', 'NOMBRE_TERCERO', 'IDENTIFICACION_TERCERO', 'OBSERVACION']"
+      selectionMode="single" [(selection)]="warrantySeleccionado" (onRowSelect)="onRowSelect($event)"
+      [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+      [totalRecords]="totRegistros" [loading]="loadingsTable">
+
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" pSortableColumn="TITULO" style="min-width:250px">Titulos<p-sortIcon
+              field="TITULO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="ESTADO_GARANTIA" style="min-width:250px">Estado<p-sortIcon
+              field="ESTADO_GARANTIA"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="FECHA_INICIO" style="min-width:250px">Fecha Inicio<p-sortIcon
+              field="FECHA_INICIO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="FECHA_FIN" style="min-width:250px">Fecha Fin<p-sortIcon
+              field="FECHA_FIN"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="PLAZO" style="min-width:250px">Plazo<p-sortIcon
+              field="PLAZO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="NOMBRE_TERCERO" style="min-width:250px">Nombre del beneficiario de garantía<p-sortIcon
+              field="NOMBRE_TERCERO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="IDENTIFICACION_TERCERO" style="min-width:250px">Identificación del beneficiario de garantía<p-sortIcon
+              field="IDENTIFICACION_TERCERO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="OBSERVACION" style="min-width:250px">Observacion<p-sortIcon
+              field="OBSERVACION"></p-sortIcon></th>
+
+
+        </tr>
+
+        <tr>
+
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TITULO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="ESTADO_GARANTIA" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_INICIO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_FIN" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="PLAZO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NOMBRE_TERCERO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="IDENTIFICACION_TERCERO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="OBSERVACION" [showMenu]="false"></p-columnFilter>
+          </th>
+          
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-warrantyListState>
+        <tr>
+          <td>
+            <p-tableRadioButton [value]="warrantyListState"></p-tableRadioButton>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{warrantyListState.TITULO}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{warrantyListState.ESTADO_GARANTIA}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{warrantyListState.FECHA_INICIO | date:'yyyy-MM-dd'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{warrantyListState.FECHA_FIN | date:'yyyy-MM-dd'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{warrantyListState.PLAZO }}</td>
+          
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(1)"
+            [pSelectableRow]="warrantyListState">
+            <abbr title="{{ warrantyListState.NOMBRE_TERCERO}}" style="text-decoration: none; cursor: pointer;">
+              {{ (warrantyListState.NOMBRE_TERCERO || '').slice(0, 20) }}{{ warrantyListState.NOMBRE_TERCERO &&
+                warrantyListState.NOMBRE_TERCERO.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{warrantyListState.IDENTIFICACION_TERCERO | number: '1.0-9' }}</td>
+
+
+          <td style="min-width: 250px; min-height: 55px;" class="centrar-imagen" [pSelectableRow]="warrantyListState"
+            (click)="showModalData(2)" [pSelectableRow]="warrantyListState">
+            <abbr title="{{ warrantyListState.OBSERVACION }}" style="text-decoration: none; cursor: pointer;"
+              *ngIf="warrantyListState.OBSERVACION">
+              {{ (warrantyListState.OBSERVACION || '').slice(0, 20) }}{{ warrantyListState.OBSERVACION &&
+                warrantyListState.OBSERVACION.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+
+      </ng-template>
+    </p-table>
+
+
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="DataTable" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="Eliminarembargo" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="embargo" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+</div>

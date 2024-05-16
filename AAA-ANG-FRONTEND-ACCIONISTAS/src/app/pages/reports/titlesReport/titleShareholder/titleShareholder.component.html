@@ -1,0 +1,86 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loadings"></mat-progress-bar>
+
+
+<div class="px-5 text-center-test animate-fadeInDown">
+
+  <div>
+    <button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Cerrar" class="volver"></button>
+  </div>
+
+  <form class="mt-8 space-y-6" [formGroup]="form">
+
+    <div class="card shadow ax-w-full border-b border-l border-slate-300 pb-5">
+      <div class="mb-11 pt-8 pl-12">
+        <h1>Imprimir un título</h1>
+      </div>
+
+
+
+      <div class="grid p-fluid">
+
+        <div class="flex flex-wrap gap-3 mb-5 px-8">
+
+          <div class="flex-auto px-8 pr-0 ml-0 select-container">
+
+            <p-dropdown
+              [class.ng-dirty]="this.form.get('nombreAccionista').touched && this.form.get('nombreAccionista').invalid"
+              formControlName="nombreAccionista" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+              [options]="(accionistas$ | async)!" defaultLabel="Seleccione una opción" appendTo="body"
+              [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="FULL_NAME" optionValue="ID_REGISTRO"
+              placeholder="Seleccione el accionista"  (onChange)="onOptionShareholder()"/>
+            <div
+              *ngIf="form.get('nombreAccionista').invalid && (form.get('nombreAccionista').dirty || form.get('nombreAccionista').touched)">
+              <div *ngIf="form.get('nombreAccionista').errors.required"
+                style="color: #0c82c5; height: 1px; width: 100%;" class="animate-fadeInDown">
+                <p>Este
+                  campo es obligatorio.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-auto px-8 pr-0 ml-0 select-container">
+
+            <p-dropdown
+              [class.ng-dirty]="this.form.get('titulo').touched && this.form.get('titulo').invalid"
+              formControlName="titulo" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+              [options]="(titulos$ | async)!" defaultLabel="Seleccione una opción" appendTo="body"
+              [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="FULL_NAME" optionValue="TITULO_UUID"
+              placeholder="Seleccione el título" />
+            <div
+              *ngIf="form.get('titulo').invalid && (form.get('titulo').dirty || form.get('titulo').touched)">
+              <div *ngIf="form.get('titulo').errors.required"
+                style="color: #0c82c5; height: 1px; width: 100%;" class="animate-fadeInDown">
+                <p>Este
+                  campo es obligatorio.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+
+      <p-divider class="flex px-8 "></p-divider>
+
+      <div class="flex justify-end pt-3 px-8">
+        <button [disabled]="isButtonDisabled" pButton (click)="generatePdf()" label="Generar título"
+          class="p-button-rounded botonesPadding p-button-sm"></button>
+      </div>
+
+
+
+      <div class="contentImg animate-fadeIn" *ngIf="loadings">
+        <div class="imgContainer animate-pulse">
+          <img class="imgCarga" src="../../../../assets/img/icons/reportes/titulos.svg" />
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </form>
+
+</div>

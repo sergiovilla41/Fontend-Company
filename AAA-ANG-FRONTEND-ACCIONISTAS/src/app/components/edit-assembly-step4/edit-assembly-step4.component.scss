@@ -1,0 +1,48 @@
+.component {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .generar-acta {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    border-radius: 8px;
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      justify-content: center;
+      align-items: center;
+      row-gap: 20px;
+      column-gap: 40px;
+      margin-top: 20px;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+      }
+
+      div:has(button){
+        display: flex;
+        justify-content: center;
+      }
+
+      .generar{
+        padding: 10px 24px;
+        background: #0C82C5;
+        border-radius: 100px;
+        color: white;
+      }
+
+      .definir{
+        padding: 10px 24px;
+        border:1px solid #0C82C5;
+        border-radius: 100px;
+        color: #0C82C5;
+      }
+    }
+
+  }
+}

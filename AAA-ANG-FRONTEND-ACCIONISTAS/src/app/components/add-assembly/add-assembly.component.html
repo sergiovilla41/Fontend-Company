@@ -1,0 +1,54 @@
+<button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Cerrar"
+  class="volver animate-fadeInDown"></button>
+<div class="px-5 pl-12 ml-1 animate-fadeInDown component">
+  <h1>Creación de nueva asamblea</h1>
+  <form [formGroup]="form">
+    <div>
+      <span style="width: 100%; display: block;" class="p-float-label">
+        <p-dropdown [class.ng-dirty]="this.form.get('tipoAsamblea').touched && this.form.get('tipoAsamblea').invalid"
+          formControlName="tipoAsamblea" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+          [options]="assemblyTypes" optionLabel="DESCRIPCION" optionValue="ID_REGISTRO" placeholder="Seleccione una opción" appendTo="body" />
+        <label>Tipo de asamblea</label>
+      </span>
+      <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+        style="color: #0c82c5;"></em>
+    </div>
+    <div>
+      <span style="width: 100%; display: block;" class="p-float-label">
+        <p-calendar [class.ng-dirty]="this.form.get('fechaAsamblea').touched && this.form.get('fechaAsamblea').invalid"
+          formControlName="fechaAsamblea" [style]="{'width':'100%'}" appendTo="body"
+          placeholder="Seleccione una fecha" />
+        <label>Fecha de la asamblea</label>
+      </span>
+      <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+        style="color: #0c82c5; display: block;"></em>
+    </div>
+    <div>
+      <span style="width: 100%; display: block;" class="p-float-label">
+        <p-dropdown [class.ng-dirty]="this.form.get('notificacion').touched && this.form.get('notificacion').invalid"
+          formControlName="notificacion" placeholder="Seleccione una opción" [filter]="true" [style]="{'width':'100%'}"
+          [options]="['Si', 'No']" appendTo="body" />
+        <label>¿Desea enviar notificación por correo electronico?</label>
+      </span>
+      <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+        style="color: #0c82c5; display: block;"></i>
+    </div>
+    <div class="descripcion">
+      <span style="width: 100%;" class="p-float-label">
+        <input [class.ng-dirty]="this.form.get('detalle').touched && this.form.get('detalle').invalid" formControlName="detalle" type="text"
+          [style]="{'width': '100%'}" placeholder="Detalle del objetivo" pInputText />
+        <label>Descripción/Objetivo</label>
+      </span>
+
+      <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+        style="color: #0c82c5; display: block;"></i>
+    </div>
+    <div class="actions">
+      <button>Eliminar</button>
+      <button>Guardar y nuevo</button>
+      <button (click)="guardar()">Guardar</button>
+    </div>
+  </form>
+
+</div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

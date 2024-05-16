@@ -1,0 +1,27 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loadings" class="animate-fadeIn"></mat-progress-bar>
+
+<button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Volver"
+    class="volver animate-fadeInDown"></button>
+
+<div class="pl-8 pb-3 animate-fadeInDown">
+    <h1>Libro Accionistas</h1>
+</div>
+
+<div class="p-d-flex botones contenedor animate-fadeInDown">
+
+    <div class="centered">
+        <button [disabled]="isButtonDisabled" pButton pTooltip="Generar Reporte" tooltipPosition="top" type="button"
+            class="p-button-rounded botonesPadding p-button-l botonesAncho"
+            (click)="generatePdf()">
+            <span class="pl-2 responsiveButton">Generar Reporte</span>
+        </button>
+    </div>
+
+</div>
+
+
+<div class="contentImg animate-fadeIn" *ngIf="loadings">
+    <div class="imgContainer animate-pulse">
+        <img class="imgCarga" src="../../../../assets/img/icons/reportes/libroAccionistas.svg" />
+    </div>
+</div>

@@ -1,0 +1,244 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+<div class="px-5 text-center-test animate-fadeIn pt-20" *ngIf="!loadings">
+  <div class="field col-12 md:col-6">
+    <p-skeleton width="15rem" styleClass="mb-9" class="px-5" height="2rem" borderRadius="16px"></p-skeleton>
+    <div class="grid gap-4 p-fluid px-8">
+      <div class="w-full px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="px-5 text-center-test animate-fadeIn zindex" *ngIf="loadings">
+  <div>
+    <button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Cerrar" class="volver"></button>
+  </div>
+  <form class="mt-8 space-y-6 my-custom-class" [formGroup]="form">
+    <div class="card shadow border-round border-gray-300 pb-5">
+      <div class="mb-11 pt-8 pl-12">
+        <h1 class="titulo">{{task}} de usuario</h1>
+      </div>
+
+      <div class="grid gap-4 p-fluid px-8">
+        <div class="w-full px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="primer_nombre" name="primer_nombre" ftype="text" pInputText>
+                  <label for="primer_nombre">Primer nombre</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('primer_nombre').invalid && (form.get('primer_nombre').dirty || form.get('primer_nombre').touched)">
+                <div *ngIf="form.get('primer_nombre').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este
+                    campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="segundo_nombre" name="segundo_nombre" type="text" pInputText>
+                  <label for="segundo_nombre">Segundo nombre</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Segundo nombre, si aplica" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="primer_apellido" name="primer_apellido" ftype="text" pInputText>
+                  <label for="primer_apellido">Primer apellido</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('primer_apellido').invalid && (form.get('primer_apellido').dirty || form.get('primer_apellido').touched)">
+                <div *ngIf="form.get('primer_apellido').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este
+                    campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="segundo_apellido" name="segundo_apellido" type="text" pInputText>
+                  <label for="segundo_apellido">Segundo apellido</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Segundo apellido, si aplica" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <p-inputNumber inputId="integeronly" name="documento" type="number" formControlName="documento"></p-inputNumber>
+                  <label for="documento">Documento</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('documento').invalid && (form.get('documento').dirty || form.get('documento').touched)">
+                <div *ngIf="form.get('documento').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <p-inputNumber name="telefono" formControlName="telefono" mode="decimal" inputId="withoutgrouping" [useGrouping]="false"> </p-inputNumber>
+                  <label for="telefono">Teléfono</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Teléfono, si aplica" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="email" name="email" type="email" pInputText>
+                  <label for="email">Email</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('email').invalid && (form.get('email').dirty || form.get('email').touched)">
+                <div *ngIf="form.get('email').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <p-password [toggleMask]="true" formControlName="password" name="password" styleClass="p-password p-inputwrapper p-input-icon-right"></p-password>
+                  <label for="password">Clave</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('password').invalid && (form.get('password').dirty || form.get('password').touched)">
+                <div *ngIf="form.get('password').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown class="zindex" [options]="rolList"
+                    [(ngModel)]="selectedRol" formControlName="selectedRol" name="selectedRol" optionLabel="NOMBRE"
+                    [filter]="true" filterBy="NOMBRE" [showClear]="true" placeholder="Seleccione un rol">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedRol">
+                        <div>{{selectedRol.NOMBRE}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-rolList pTemplate="item">
+                      <div>
+                        <div>{{rolList.NOMBRE}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedRol').invalid && (form.get('selectedRol').dirty || form.get('selectedRol').touched)">
+                <div *ngIf="form.get('selectedRol').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p-divider class="flex px-8"></p-divider>
+
+      <div class="card flex justify-content-center gap-2">
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+      </div>
+
+      <div class="flex justify-end pt-3 px-8">
+        <button pButton type="button" (click)="confirm($event)" label="Eliminar"
+          class="p-button-rounded botonesPadding p-button-sm p-button-outlined" *ngIf="this.task == 'Edición'"></button>
+        <button pButton (click)="addUser($event)" label="Guardar"
+          class="p-button-rounded botonesPadding p-button-sm"></button>
+      </div>
+    </div>
+  </form>
+</div>

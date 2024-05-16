@@ -1,0 +1,183 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt
+    [value]="comptrollerReportingListState" exportFilename="browsers" csvSeparator=";"
+    [exportHeader]="'customExportHeader'" [rows]="5" [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+
+<div class="animate-fadeInDown pl-8 pb-3">
+
+  <button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Volver"
+    class="volver animate-fadeInDown"></button>
+
+  <div>
+    <h1>Composición accionaria (contraloría distrital)</h1>
+  </div>
+  
+  <div class="p-d-flex botones contenedor">
+
+    <button [disabled]="isButtonDisabled" pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button [disabled]="isButtonDisabled" pButton type="button" class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-file-csv"
+      iconPos="left" pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"><span
+        class="pl-2 responsiveButton">CSV</span></button>
+
+    <button [disabled]="isButtonDisabled" pButton pRipple type="button" class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-pdf"
+      iconPos="left" pTooltip="Descargar Pdf" tooltipPosition="top" (click)="exportPdf()"><span
+        class="pl-2 responsiveButton">PDF</span></button>
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+
+  </div>
+
+</div>
+
+
+<div class="px-5 pl-12 ml-1 pb-7 text-center-test animate-fadeIn drop">
+  <strong class="pr-3 textoDrop">Selecciona el año del reporte: </strong>
+  <p-dropdown class="w-10" [options]="yearOptions" [(ngModel)]="selectedYear" placeholder="Selecciona un año" (onChange)="loadCustomers($event)"></p-dropdown>
+</div>
+
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;">
+
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="comptrollerReportingListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="50"
+      [rowsPerPageOptions]="[5, 20, 50, 100]" [globalFilterFields]="globalFilters"
+      selectionMode="single" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onLazyLoad)="loadCustomers($event)" [totalRecords]="totRegistros" [loading]="loadingsTable">
+
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th scope="col" pSortableColumn="NIT_ACCIONISTA" style="min-width:250px">Nit Accionista<p-sortIcon
+              field="NIT_ACCIONISTA"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="NOMBRE_ACCIONISTA" style="min-width:250px">Nombre Accionista<p-sortIcon
+              field="NOMBRE_ACCIONISTA"></p-sortIcon>
+          </th>
+
+          <th scope="col" pSortableColumn="CAPITAL_SUSCRITO" style="min-width:250px">Capital suscrito<p-sortIcon
+              field="CAPITAL_SUSCRITO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="PORCENTAJE_PARTICIPACION" style="min-width:250px">Porcentaje
+            Participacion<p-sortIcon field="PORCENTAJE_PARTICIPACION"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="CAPITAL_PAGADO" style="min-width:250px">Capital pagado<p-sortIcon
+              field="CAPITAL_PAGADO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="PARTICIPACION_PAGADO" style="min-width:250px">Participacion pagado<p-sortIcon
+              field="PARTICIPACION_PAGADO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="TOTAL_ACCIONES" style="min-width:250px">Total acciones<p-sortIcon
+              field="TOTAL_ACCIONES"></p-sortIcon></th>
+
+        </tr>
+
+        <tr>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NIT_ACCIONISTA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NOMBRE_ACCIONISTA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="CAPITAL_SUSCRITO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="PORCENTAJE_PARTICIPACION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="CAPITAL_PAGADO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="PARTICIPACION_PAGADO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TOTAL_ACCIONES" [showMenu]="false"></p-columnFilter>
+          </th>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-comptrollerReportingListState>
+        <tr>
+
+          <td style="min-width:250px; min-height: 55px;">{{comptrollerReportingListState.NIT_ACCIONISTA | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">
+            <abbr title="{{ comptrollerReportingListState.NOMBRE_ACCIONISTA }}"
+              style="text-decoration: none; cursor: pointer;">
+              {{ (comptrollerReportingListState.NOMBRE_ACCIONISTA || '').slice(0, 20) }}{{
+              comptrollerReportingListState.NOMBRE_ACCIONISTA &&
+              comptrollerReportingListState.NOMBRE_ACCIONISTA.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{comptrollerReportingListState.CAPITAL_SUSCRITO | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{comptrollerReportingListState.PORCENTAJE_PARTICIPACION |
+            number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{comptrollerReportingListState.CAPITAL_PAGADO | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{comptrollerReportingListState.PARTICIPACION_PAGADO | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{comptrollerReportingListState.TOTAL_ACCIONES | number:
+            '1.0-9'}}</td>
+
+      </ng-template>
+    </p-table>
+
+
+  </div>
+
+</div>

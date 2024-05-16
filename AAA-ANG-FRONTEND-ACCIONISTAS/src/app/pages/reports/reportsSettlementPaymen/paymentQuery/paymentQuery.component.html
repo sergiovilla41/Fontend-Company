@@ -1,0 +1,190 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt
+    [value]="paymentListState" exportFilename="browsers" csvSeparator=";"
+    [exportHeader]="'customExportHeader'" [rows]="10" [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+
+<div class="animate-fadeInDown pl-8 pb-3">
+
+  <button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Volver"
+    class="volver animate-fadeInDown"></button>
+
+  <div>
+    <h1>Consulta de pagos</h1>
+  </div>
+  
+  <div class="p-d-flex botones contenedor">
+
+    <button [disabled]="isButtonDisabled" pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button [disabled]="isButtonDisabled" pButton type="button" class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-file-csv"
+      iconPos="left" pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"><span
+        class="pl-2 responsiveButton">CSV</span></button>
+
+    <button [disabled]="isButtonDisabled" pButton pRipple type="button" class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-pdf"
+      iconPos="left" pTooltip="Descargar Pdf" tooltipPosition="top" (click)="exportPdf()"><span
+        class="pl-2 responsiveButton">PDF</span></button>
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+
+  </div>
+
+</div>
+
+
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;">
+
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="paymentListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="100"
+      [rowsPerPageOptions]="[100, 200, 300, 400]"
+      [globalFilterFields]="['NIT','ACCIONISTA','BENEFICIARIO','CONCEPTO','IMPORTE', 'ORDEN_PAGO', 'FACTURA']"
+      selectionMode="single" [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+      [totalRecords]="totRegistros" [loading]="loadingsTable">
+
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th scope="col" pSortableColumn="NIT" style="min-width:250px">Nit<p-sortIcon
+              field="NIT"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="ACCIONISTA" style="min-width:250px">Accionista<p-sortIcon
+              field="ACCIONISTA"></p-sortIcon>
+          </th>
+
+          <th scope="col" pSortableColumn="BENEFICIARIO" style="min-width:250px">Beneficiario<p-sortIcon
+              field="BENEFICIARIO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="CONCEPTO" style="min-width:250px">Concepto<p-sortIcon field="CONCEPTO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="IMPORTE" style="min-width:250px">Importe<p-sortIcon
+              field="IMPORTE"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="ORDEN_PAGO" style="min-width:250px">Orden de pago<p-sortIcon
+              field="ORDEN_PAGO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="FACTURA" style="min-width:250px">Factura<p-sortIcon
+              field="FACTURA"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="FECHA_PAGO" style="min-width:250px">Fecha de pago<p-sortIcon
+              field="FECHA_PAGO"></p-sortIcon></th>
+
+        </tr>
+
+        <tr>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NIT" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="ACCIONISTA" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="BENEFICIARIO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="CONCEPTO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="IMPORTE" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="ORDEN_PAGO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FACTURA" [showMenu]="false"></p-columnFilter>
+          </th>
+
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_PAGO" [showMenu]="false"></p-columnFilter>
+          </th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-paymentListState>
+        <tr>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.NIT | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">
+            <abbr title="{{ paymentListState.ACCIONISTA }}"
+              style="text-decoration: none; cursor: pointer;">
+              {{ (paymentListState.ACCIONISTA || '').slice(0, 20) }}{{
+              paymentListState.ACCIONISTA &&
+              paymentListState.ACCIONISTA.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.BENEFICIARIO}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.CONCEPTO}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.IMPORTE | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.ORDEN_PAGO}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.FACTURA}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.FECHA_PAGO | date:'yyyy-MM-dd'}}</td>
+
+      </ng-template>
+    </p-table>
+
+
+  </div>
+
+</div>

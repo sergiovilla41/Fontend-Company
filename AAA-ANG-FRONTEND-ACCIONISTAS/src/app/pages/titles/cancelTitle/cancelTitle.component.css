@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .left {
+    flex: 1;
+  }
+  
+  .right {
+    flex: 1;
+  }
+
+.span{
+font-weight: bold;
+}
+
+.botonesPadding {
+    margin: 0.5%;
+  }
+
+  .tamano-input {
+    width: 20rem;
+  }
+
+  button{
+    background-color: #0c82c5;
+  }

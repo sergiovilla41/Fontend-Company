@@ -1,0 +1,73 @@
+[
+
+    {
+        "id": "1",
+        "accionista": "Roberto Muñoz",
+        "estado": "Activo",
+        "observacion": "Sin observaciones",
+        "fecha": "2019"
+    },
+    {
+        "id": "2",
+        "accionista": "Gerardo Buenavida",
+        "estado": "Inactivo",
+        "observacion": "Sin observaciones",
+        "fecha": "2007"
+    },
+    {
+        "id": "3",
+        "accionista": "Fernando Montoya",
+        "estado": "Activo",
+        "observacion": "Sin observaciones",
+        "fecha": "2002"
+    },
+    {
+        "id": "4",
+        "accionista": "Rodrigo Arias",
+        "estado": "Activo",
+        "observacion": "Sin observaciones",
+        "fecha": "2023"
+    },
+    {
+        "id": "5",
+        "accionista": "Fernando Gomez",
+        "estado": "Inactivo",
+        "observacion": "Sin observaciones",
+        "fecha": "2001"
+    },
+    {
+        "id": "6",
+        "accionista": "Fernanda Perez",
+        "estado": "Activo",
+        "observacion": "Sin observaciones",
+        "fecha": "1800"
+    },
+    {
+        "id": "7",
+        "accionista": "Patricia Rodriguez",
+        "estado": "Inactivo",
+        "observacion": "Una observación",
+        "fecha": "2001"
+    },
+    {
+        "id": "8",
+        "accionista": "Adriana Navarrete",
+        "estado": "Inactivo",
+        "observacion": "Sin observaciones",
+        "fecha": "1999"
+    },
+    {
+        "id": "9",
+        "accionista": "Valentina Puerta",
+        "estado": "Inactivo",
+        "observacion": "Sin observaciones",
+        "fecha": "2001"
+    },
+    {
+        "id": "10",
+        "accionista": "Elizabeth Aguirre",
+        "estado": "Inactivo",
+        "observacion": "Sin observaciones",
+        "fecha": "2001"
+    }
+]

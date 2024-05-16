@@ -1,0 +1,112 @@
+<div class="component" *ngIf="tipoVotacion !== 'Planchas para la junta directiva'">
+  <div class="header">
+    <div class="pregunta">
+      <h1>Pregunta formulada</h1>
+      <p>¿Se postula usted como candidato para la presidencia de la actual asamblea en curso?</p>
+    </div>
+
+    <div class="content">
+      <p class="titulo">Opciones de respuesta</p>
+      <form>
+        <div class="mat-form-field-parent">
+          <mat-form-field appearance="outline">
+            <mat-label>Agregar respuesta</mat-label>
+            <input [(ngModel)]="nuevaRespuesta" name="respuesta" matInput placeholder="Escribe la respuestas">
+          </mat-form-field>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+        <button (click)="agregarRespuesta()">Agregar respuesta</button>
+      </form>
+    </div>
+  </div>
+  <p-table class="body" [value]="($respuestas | async)!" [(selection)]="selectedRespuestas"
+    [style]="{'border-top': '1px solid #dee2e6'}">
+    <ng-template pTemplate="body" let-respuesta>
+      <tr>
+        <td><p-tableCheckbox [value]="respuesta"></p-tableCheckbox></td>
+        <td>{{respuesta.NOMBRE_COMPLETO}}</td>
+        <td>
+          <button (click)="changeComentario(respuesta.ID_REGISTRO)"
+            [class.outline]="comentarios.get(respuesta.ID_REGISTRO)">
+            {{comentarios.get(respuesta.ID_REGISTRO)?'Quitar opción de comentario':'Agregar opción de comentario'}}
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+<div class="component" *ngIf="tipoVotacion === 'Planchas para la junta directiva'">
+  <div class="header">
+    <div class="pregunta">
+      <h1>Pregunta formulada</h1>
+      <p>¿Por cuál plancha desea votar?</p>
+    </div>
+
+    <div class="content">
+      <p class="titulo">Opciones de respuesta</p>
+      <form>
+        <div class="mat-form-field-parent">
+          <mat-form-field appearance="outline">
+            <mat-label>Agregar plancha</mat-label>
+            <input matInput [(ngModel)]="asambleaNombre" name="planchaName" placeholder="Escribe la respuestas">
+          </mat-form-field>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+        <button (click)="addAsamblea()">Agregar respuesta</button>
+      </form>
+    </div>
+  </div>
+  <p-table class="body" [value]="planchas" [style]="{'border-top': '1px solid #dee2e6'}">
+    <ng-template pTemplate="body" let-plancha let-i="rowIndex">
+      <tr *ngIf="!plancha.tipo">
+        <td><p-tableCheckbox [value]="plancha"></p-tableCheckbox></td>
+        <td>{{plancha.respuesta}}</td>
+        <td>
+          <button>
+            Agregar opcion de comentario
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="plancha.tipo === 'plancha'">
+        <td><i class="fa-solid fa-trash trash" style="color: red;" (click)="deletePlancha(i)"></i></td>
+        <td>{{plancha.respuesta}}</td>
+        <td>
+          <button style="margin-right: 10px;" (click)="visible = true; indexPlancha = i">
+            Agregar persona
+          </button>
+          <button>
+            Agregar opcion de comentario
+          </button>
+        </td>
+      </tr>
+      <tr *ngFor="let persona of plancha.personas; let index = index">
+        <td></td>
+        <td><i class="fa-solid fa-trash trash" style="color: red; margin-right: 10px;"
+            (click)="deletePersona(i, index)"></i>{{persona.name}}</td>
+        <td></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-dialog header="Agregar persona a la plancha {{planchas[indexPlancha]?.respuesta}}" [(visible)]="visible" [style]="{width: '50vw'}">
+  <div [style]="{'display': 'flex', 'flex-direction':'row', 'gap':'5px', 'align-items':'center', 'padding':'15px'}">
+    <div class="p-float-label" [style]="{'width': '100%'}">
+      <input pInputText name="nombrePersona" [(ngModel)]="nombrePersona" [style]="{'width': '100%'}" placeholder="Escribe el nombre de la persona">
+      <label>Persona a agregar</label>
+    </div>
+    <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+      style="color: #0c82c5;"></i>
+  </div>
+  <div [style]="{'display':'flex', 'flex-direction':'row', 'justify-content':'flex-end', 'gap': '5px'}">
+    <button (click)="visible = false" [style]="{'border-radius': '100px',
+    'border': '1px solid #0C82C5', 'padding': '10px 24px', 'color':'#0C82C5'}
+    ">Volver</button>
+    <button (click)="visible = false;agregarPersona()" [style]="{'border-radius': '100px',
+      'background': '#0C82C5','padding': '10px 24px', 'color':'white'}">Agregar</button>
+  </div>
+
+</p-dialog>

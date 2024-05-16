@@ -1,0 +1,367 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt [value]="paymentListState"
+    exportFilename="browsers" csvSeparator=";" [exportHeader]="'customExportHeader'" [rows]="5"
+    [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+
+<div class="animate-fadeInDown pl-8 pb-14" *ngIf="loadings && !isEditPaymentOpen">
+
+  <div class="">
+    <h1>Pagos</h1>
+  </div>
+  <div class="p-d-flex botones contenedor">
+
+
+    <button [disabled]="isAddPaymentOpen" pButton pTooltip="Editar pago" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-cog" iconPos="left"
+      (click)="handlePayment()"><span class="pl-2 responsiveButton">Edición</span></button>
+
+
+    <button pButton [disabled]="isAddPaymentOpen" pButton pTooltip="Carga masiva de pagos" tooltipPosition="top"
+      type="button" *appRol class="p-button-rounded botonesPadding p-button-sm"
+      iconPos="left" (click)="newPayment()">
+      <span class="svg-icon">
+        <img src="../../../assets/img/icons/fontawesome/pagosmasivos.svg">
+      </span>
+      <span class="pl-2 responsiveButton">Carga masiva de pagos</span>
+    </button>
+
+    <button pButton pTooltip="Eliminar comprobante" style="border: none;" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-trash"
+      iconPos="left" (click)="handleDeletePayment()"><span class="pl-2 responsiveButton">Eliminar comprobante</span></button>
+
+
+<!--     <button [disabled]="isAddPaymentOpen" pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button [disabled]="isAddPaymentOpen" pButton type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-file-csv" iconPos="left"
+      pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"><span class="pl-2 responsiveButton">CSV</span></button>
+
+    <button [disabled]="isAddPaymentOpen" pButton pRipple type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-pdf" iconPos="left" pTooltip="Descargar Pdf"
+      tooltipPosition="top" (click)="exportPdf()"><span class="pl-2 responsiveButton">PDF</span></button> -->
+      
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+  </div>
+
+
+  <div *ngIf="viewForm" class="pt-8 pb-20">
+    <app-paymentForm></app-paymentForm>
+  </div>
+
+
+</div>
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;"
+  *ngIf="loadings && !isEditPaymentOpen">
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="paymentListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="50"
+      [rowsPerPageOptions]="[5, 20, 50, 100]"
+      [globalFilterFields]="['BENEFICIA','CONCEPTO','IMPORTE','NOPRIDOCU','FECHAENTRE', 'FECHAENVIO', 'NOCOMPRO', 'FECHASISTE', 'NOPAGO','COMPROBANTE','SOCIEDAD', 'FECHAPAGO', 'SALDO_FAVOR', 'RETENCION']"
+      selectionMode="single" [(selection)]="paymentSeleccionado" (onRowSelect)="onRowSelect($event)"
+      [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+      [totalRecords]="totRegistros" [loading]="loadingsTable">
+
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th scope="col" style="min-width:100px"></th>
+
+          <th scope="col" pSortableColumn="NIT" style="min-width:250px">Nit<p-sortIcon field="NIT"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="BENEFICIA" style="min-width:250px">Beneficiario<p-sortIcon
+              field="BENEFICIA"></p-sortIcon>
+          </th>
+
+          <th scope="col" pSortableColumn="CONCEPTO" style="min-width:250px">Concepto<p-sortIcon
+              field="CONCEPTO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="IMPORTE" style="min-width:250px">Importe<p-sortIcon
+              field="IMPORTE"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="NOPRIDOCU" style="min-width:250px">Numero de documento<p-sortIcon
+              field="NOPRIDOCU"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="FECHAENTRE" style="min-width:250px">Fecha entrega<p-sortIcon
+              field="FECHAENTRE"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="FECHAENVIO" style="min-width:250px">Fecha envio<p-sortIcon
+              field="FECHAENVIO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="NOCOMPRO" style="min-width:250px">Numero comprobante<p-sortIcon
+              field="NOCOMPRO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="COMPROBANTE" style="min-width:250px">Comprobante<p-sortIcon
+              field="COMPROBANTE"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="FECHASISTE" style="min-width:250px">Fecha asistencia<p-sortIcon
+              field="FECHASISTE"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="NOPAGO" style="min-width:250px">Numero pago<p-sortIcon
+              field="NOPAGO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="SOCIEDAD" style="min-width:250px">Sociedad<p-sortIcon
+              field="SOCIEDAD"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="FECHAPAGO" style="min-width:250px">Fecha pago<p-sortIcon
+              field="FECHAPAGO"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="SALDO_FAVOR" style="min-width:250px">Saldo a favor<p-sortIcon
+              field="SALDO_FAVOR"></p-sortIcon></th>
+
+          <th scope="col" pSortableColumn="RETENCION" style="min-width:250px">Retencion<p-sortIcon
+              field="RETENCION"></p-sortIcon></th>
+
+
+        </tr>
+
+        <tr>
+
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NIT" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="BENEFICIA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="CONCEPTO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="IMPORTE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NOPRIDOCU" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHAENTRE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHAENVIO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NOCOMPRO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="COMPROBANTE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHASISTE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NOPAGO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="SOCIEDAD" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHAPAGO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="SALDO_FAVOR" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="RETENCION" [showMenu]="false"></p-columnFilter>
+          </th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-paymentListState>
+        <tr>
+          <td>
+            <p-tableRadioButton [value]="paymentListState"></p-tableRadioButton>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.NIT | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(1)" [pSelectableRow]="paymentListState">
+            <abbr title="{{ paymentListState.BENEFICIA }}" style="text-decoration: none; cursor: pointer;">
+              {{ (paymentListState.BENEFICIA || '').slice(0, 20) }}{{ paymentListState.BENEFICIA &&
+              paymentListState.BENEFICIA.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(2)" [pSelectableRow]="paymentListState">
+            <abbr title="{{ paymentListState.CONCEPTO }}" style="text-decoration: none; cursor: pointer;">
+              {{ (paymentListState.CONCEPTO || '').slice(0, 20) }}{{ paymentListState.CONCEPTO &&
+              paymentListState.CONCEPTO.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.IMPORTE | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.NOPRIDOCU | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.FECHAENTRE}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.FECHAENVIO}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.NOCOMPRO | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.COMPROBANTE}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.FECHASISTE}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.NOPAGO | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.SOCIEDAD | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.FECHAPAGO | date:'yyyy-MM-dd'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.SALDO_FAVOR | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{paymentListState.RETENCION | number:
+            '1.0-9'}}</td>
+
+      </ng-template>
+    </p-table>
+
+
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="DataTable" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="EliminarPago" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="pago" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+
+
+  <p-dialog header="Header" [(visible)]="visible" (onHide)="onHideDialog()" [style]="{ width: '40vw' }">
+    <ng-template pTemplate="header">
+      <span class="text-xl font-bold">Carga masiva de pagos</span>
+    </ng-template>
+
+    <div class="pb-4">
+      <span class="text-m font-bold animate-fadeIn" style="color: #0c82c5;" *ngIf="!noFile">Seleccione un
+        archivo.</span>
+    </div>
+
+    <p-progressBar mode="indeterminate" [style]="{ height: '6px' }" *ngIf="progress"></p-progressBar>
+
+    <p-fileUpload #fileUpload name="demo[]" [multiple]="false" accept="https://www.primefaces.org/cdn/api/upload.php"
+      accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" [maxFileSize]="1000000"
+      [showUploadButton]="false" [showCancelButton]="false" chooseLabel="Seleccionar archivo"
+      chooseStyleClass="h-11 custom-button" invalidFileTypeMessageSummary="Archivo no válido"
+      invalidFileTypeMessageDetail="El tipos de archivo permitidos: XLSX (formato de Excel.)">
+    </p-fileUpload>
+
+    <div class="pt-8 animate-fadeIn" *ngIf="uploadedErrorData.length">
+      <p-inplace>
+        <ng-template pTemplate="display">
+          <span class="text-s dataFail">Click para ver pagos no cargados</span>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <span class="text-s dataFail">Pagos no cargados:</span>
+          <p-scrollPanel [style]="{ width: '100%', height: '100px' }">
+            <div class="pt-1 pl-6" *ngFor="let file of uploadedErrorData">
+              <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="w-2 h-2" style="display: inline;"
+                viewBox="0 0 512 512">
+                <style>
+                  svg {
+                    fill: #0c82c5
+                  }
+                </style>
+                <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
+              </svg>
+              <span class="pl-2" style="display: inline;">{{ file }}</span>
+            </div>
+          </p-scrollPanel>
+        </ng-template>
+      </p-inplace>
+    </div>
+
+    <div class="pt-8 animate-fadeIn" *ngIf="uploadedSuccessData.length">
+      <p-inplace>
+        <ng-template pTemplate="display">
+          <span class="text-s dataSuccess">Click para ver pagos cargados</span>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <span class="text-s dataSuccess">Pagos cargados:</span>
+          <p-scrollPanel [style]="{ width: '100%', height: '100px' }">
+            <div class="pt-1 pl-6" *ngFor="let file of uploadedSuccessData">
+              <svg xmlns="http://www.w3.org/2000/svg" height="1em" class="w-2 h-2" style="display: inline;"
+                viewBox="0 0 512 512">
+                <style>
+                  svg {
+                    fill: #0c82c5
+                  }
+                </style>
+                <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" />
+              </svg>
+              <span class="pl-2" style="display: inline;">{{ file }}</span>
+            </div>
+          </p-scrollPanel>
+        </ng-template>
+      </p-inplace>
+    </div>
+
+
+
+
+    <ng-template pTemplate="footer">
+      <button type="button" pButton label="Cargar" (click)="onUpload(fileUpload)"
+        class="p-button-rounded p-button-sm button" style="width: 30%;"></button>
+    </ng-template>
+  </p-dialog>
+
+</div>

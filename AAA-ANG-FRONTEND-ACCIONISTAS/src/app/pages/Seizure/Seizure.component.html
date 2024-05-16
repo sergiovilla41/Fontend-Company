@@ -1,0 +1,308 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt [value]="seizureListState"
+    exportFilename="browsers" csvSeparator=";" [exportHeader]="'customExportHeader'" [rows]="5"
+    [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+
+<div class="animate-fadeInDown pl-8 pb-14" *ngIf="loadings && !isEditSeizureOpen">
+
+  <div class="">
+    <h1>Embargos</h1>
+  </div>
+  <div class="p-d-flex botones contenedor">
+
+    <button [disabled]="isAddSeizureOpen" pButton pTooltip="Crear nuevo embargo" tooltipPosition="top" type="button"
+      *appRol class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-plus" iconPos="left"
+      (click)="newSeizure()"><span class="pl-2 responsiveButton">Nuevo</span></button>
+
+    <button [disabled]="isAddSeizureOpen" pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button [disabled]="isAddSeizureOpen" pButton type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-file-csv" iconPos="left"
+      pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"><span class="pl-2 responsiveButton">CSV</span></button>
+
+      
+<!--     <button [disabled]="isAddSeizureOpen" pButton pRipple type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-pdf" iconPos="left" pTooltip="Descargar Pdf"
+      tooltipPosition="top" (click)="exportPdf()"><span class="pl-2 responsiveButton">PDF</span></button> -->
+
+    <button [disabled]="isAddSeizureOpen" pButton pTooltip="Editar embargo" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-cog" iconPos="left"
+      (click)="handleSeizure()"><span class="pl-2 responsiveButton">Edición</span></button>
+
+    <button pButton pTooltip="Inactivar embargo" style="background-color: red; border: none;" tooltipPosition="top"
+      type="button" *appRol class="p-button-rounded botonesPadding p-button-sm"
+      icon="fa-solid fa-trash" iconPos="left" (click)="handleDeleteSeizure()"><span class="pl-2 responsiveButton">Inactivar</span></button>
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+  </div>
+
+
+  <div *ngIf="viewForm" class="pt-8 pb-20">
+    <app-seizureForm></app-seizureForm>
+  </div>
+
+
+</div>
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;"
+  *ngIf="loadings && !isEditSeizureOpen">
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="seizureListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="50"
+      [rowsPerPageOptions]="[5, 20, 50, 100]"
+      [globalFilterFields]="['ESTADO_EMBARGO','BIEN_EMBARGADO','IDENTIFICACION_BENEFICIARIO','TITULO','NOMBRE_ACCIONISTA', 'TIPO_PROCEDENCIA', 'FECHA_INICIO', 'FECHA_VENCIMIENTO', 'JUZGADO', 'TIPO_AUTO', 'IDENTIFICACION_DEMANDANTE', 'NOMBRE_DEMANDANTE', 'VALOR_EMBARGO', 'VALOR_DIVIDENDO', 'OTRO_VALOR', 'OBSERVACION']"
+      selectionMode="single" [(selection)]="seizureSeleccionado" (onRowSelect)="onRowSelect($event)"
+      [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+      [totalRecords]="totRegistros" [loading]="loadingsTable">
+
+      <ng-template pTemplate="header">
+        <tr>
+
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" pSortableColumn="ESTADO_EMBARGO" style="min-width:250px">Estado embargo<p-sortIcon
+              field="ESTADO_EMBARGO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="BIEN_EMBARGADO" style="min-width:250px">Bien embargado<p-sortIcon
+              field="ESTADO"></p-sortIcon>
+          </th>
+          <th scope="col" pSortableColumn="IDENTIFICACION_BENEFICIARIO" style="min-width:250px">Identificación
+            beneficiario<p-sortIcon field="IDENTIFICACION_BENEFICIARIO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="TITULO" style="min-width:250px">Titulos<p-sortIcon
+              field="TITULO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="NOMBRE_ACCIONISTA" style="min-width:250px">Nombre accionista<p-sortIcon
+              field="NOMBRE_ACCIONISTA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="TIPO_PROCEDENCIA" style="min-width:250px">Tipo procedencia<p-sortIcon
+              field="TIPO_PROCEDENCIA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="FECHA_INICIO" style="min-width:250px">Fecha inicio<p-sortIcon
+              field="FECHA_INICIO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="FECHA_VENCIMIENTO" style="min-width:250px">Fecha vencimiento<p-sortIcon
+              field="FECHA_VENCIMIENTO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="JUZGADO" style="min-width:250px">Juzgado<p-sortIcon
+              field="JUZGADO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="TIPO_AUTO" style="min-width:250px">Tipo auto<p-sortIcon
+              field="TIPO_AUTO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="IDENTIFICACION_DEMANDANTE" style="min-width:250px">Identificación
+            demandante<p-sortIcon field="IDENTIFICACION_DEMANDANTE"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="NOMBRE_DEMANDANTE" style="min-width:250px">Nombre demandante<p-sortIcon
+              field="NOMBRE_DEMANDANTE"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="VALOR_EMBARGO" style="min-width:250px">Valor embargo<p-sortIcon
+              field="VALOR_EMBARGO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="VALOR_DIVIDENDO" style="min-width:250px">Valor dividendo<p-sortIcon
+              field="VALOR_DIVIDENDO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="OTRO_VALOR" style="min-width:250px">Otro valor<p-sortIcon
+              field="OTRO_VALOR"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="OBSERVACION" style="min-width:250px">Observaciones<p-sortIcon
+              field="OBSERVACION"></p-sortIcon></th>
+
+        </tr>
+
+        <tr>
+
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="ESTADO_EMBARGO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="BIEN_EMBARGADO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="IDENTIFICACION_BENEFICIARIO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TITULO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NOMBRE_ACCIONISTA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TIPO_PROCEDENCIA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_INICIO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_VENCIMIENTO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="JUZGADO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TIPO_AUTO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="IDENTIFICACION_DEMANDANTE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NOMBRE_DEMANDANTE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="VALOR_EMBARGO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="VALOR_DIVIDENDO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="OTRO_VALOR" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="OBSERVACION" [showMenu]="false"></p-columnFilter>
+          </th>
+
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-seizureListState>
+        <tr>
+          <td>
+            <p-tableRadioButton [value]="seizureListState"></p-tableRadioButton>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{seizureListState.ESTADO_EMBARGO}}</td>
+
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(1)"
+            [pSelectableRow]="seizureListState">
+            <abbr title="{{ seizureListState.BIEN_EMBARGADO }}" style="text-decoration: none; cursor: pointer;">
+              {{ (seizureListState.BIEN_EMBARGADO || '').slice(0, 20) }}{{ seizureListState.BIEN_EMBARGADO &&
+              seizureListState.BIEN_EMBARGADO.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{seizureListState.IDENTIFICACION_BENEFICIARIO | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{seizureListState.TITULO}}</td>
+
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(2)"
+            [pSelectableRow]="seizureListState">
+            <abbr title="{{ seizureListState.NOMBRE_ACCIONISTA }}" style="text-decoration: none; cursor: pointer;">
+              {{ (seizureListState.NOMBRE_ACCIONISTA || '').slice(0, 20) }}{{ seizureListState.NOMBRE_ACCIONISTA &&
+              seizureListState.NOMBRE_ACCIONISTA.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(3)"
+            [pSelectableRow]="seizureListState">
+            <abbr title="{{ seizureListState.TIPO_PROCEDENCIA }}" style="text-decoration: none; cursor: pointer;">
+              {{ (seizureListState.TIPO_PROCEDENCIA || '').slice(0, 20) }}{{ seizureListState.TIPO_PROCEDENCIA &&
+              seizureListState.TIPO_PROCEDENCIA.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{seizureListState.FECHA_INICIO | date:'yyyy-MM-dd'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;">{{seizureListState.FECHA_VENCIMIENTO | date:'yyyy-MM-dd'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(4)"
+            [pSelectableRow]="seizureListState">
+            <abbr title="{{ seizureListState.JUZGADO }}" style="text-decoration: none; cursor: pointer;">
+              {{ (seizureListState.JUZGADO || '').slice(0, 20) }}{{ seizureListState.JUZGADO &&
+              seizureListState.JUZGADO.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(5)"
+            [pSelectableRow]="seizureListState">
+            <abbr title="{{ seizureListState.TIPO_AUTO }}" style="text-decoration: none; cursor: pointer;">
+              {{ (seizureListState.TIPO_AUTO || '').slice(0, 20) }}{{ seizureListState.TIPO_AUTO &&
+              seizureListState.TIPO_AUTO.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width:250px; min-height: 55px;">{{seizureListState.IDENTIFICACION_DEMANDANTE | number:
+            '1.0-9'}}</td>
+
+          <td style="min-width:250px; min-height: 55px;" (click)="showModalData(6)"
+            [pSelectableRow]="seizureListState">
+            <abbr title="{{ seizureListState.NOMBRE_DEMANDANTE }}" style="text-decoration: none; cursor: pointer;">
+              {{ (seizureListState.NOMBRE_DEMANDANTE || '').slice(0, 20) }}{{ seizureListState.NOMBRE_DEMANDANTE &&
+              seizureListState.NOMBRE_DEMANDANTE.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+          <td style="min-width: 250px; min-height: 55px;">
+            {{ seizureListState.VALOR_EMBARGO | number: '1.0-9' }}
+          </td>
+
+          <td style="min-width: 250px; min-height: 55px;">
+            {{ seizureListState.VALOR_DIVIDENDO | number: '1.0-9' }}
+          </td>
+
+          <td style="min-width: 250px; min-height: 55px;">
+            {{ seizureListState.OTRO_VALOR | number: '1.0-9' }}
+          </td>
+
+
+          <td style="min-width: 250px; min-height: 55px;" class="centrar-imagen" [pSelectableRow]="seizureListState"
+            (click)="showModalData(7)" [pSelectableRow]="seizureListState">
+            <abbr title="{{ seizureListState.OBSERVACION }}" style="text-decoration: none; cursor: pointer;"
+              *ngIf="seizureListState.OBSERVACION">
+              {{ (seizureListState.OBSERVACION || '').slice(0, 20) }}{{ seizureListState.OBSERVACION &&
+              seizureListState.OBSERVACION.length > 20 ? '...' : '' }}
+            </abbr>
+          </td>
+
+
+      </ng-template>
+    </p-table>
+
+
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="DataTable" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="Eliminarembargo" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="embargo" [style]="{width: '50vw'}"></p-confirmDialog>
+  </div>
+</div>

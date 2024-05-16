@@ -1,0 +1,53 @@
+<button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Volver"
+  class="volver animate-fadeInDown"></button>
+
+<div class="pl-8 pb-3 animate-fadeInDown">
+  <h1>Reportes de accionistas</h1>
+</div>
+
+<div class="grid p-fluid animate-fadeInDown">
+  <div class="flex flex-wrap mb-11 pl-8"
+    style="width: 100%; height: 100%; justify-content: flex-start; align-items: flex-start; gap: 24px; display: inline-flex">
+
+    <div class="cards flex-auto select-container" pTooltip="Libro Accionistas" tooltipPosition="top"
+      (click)="goShareholderBook()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/libroAccionistas.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Libro Accionistas</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Listado de accionistas informe Super sociedades"
+      tooltipPosition="top" (click)="goSuperSocieties()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/superSociedades.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Informe Super sociedades</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Composición accionaria (contraloría distrital)"
+      tooltipPosition="top" (click)="goComptrollerReporting()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/composisiconAccionaria.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Composición accionaria</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Resumen de acciones (Dian)"
+      tooltipPosition="top" (click)="goreportDian()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/dian.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Resumen de acciones (Dian)</span>
+      </div>
+    </div>
+
+  </div>
+</div>

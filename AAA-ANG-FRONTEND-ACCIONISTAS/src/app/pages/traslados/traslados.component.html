@@ -1,0 +1,163 @@
+<div class="component animate-fadeInDown">
+  <button class="back" (click)="volver()">
+    <i class="pi pi-arrow-left"></i> Volver
+  </button>
+  <h1>Traslado de acciones</h1>
+  <div class="options">
+    <button (click)="onEditar()" [disabled]="disabled" pButton pTooltip="Editar traslado" tooltipPosition="top"><i class="pi pi-plus"></i><span class="pl-2 responsiveButton">Editar</span></button>
+    <button (click)="onEliminar()" [disabled]="disabled" pButton pTooltip="Eliminar traslado" tooltipPosition="top"><i class="pi pi-trash"></i><span class="pl-2 responsiveButton">Eliminar</span></button>
+    <button (click)="exportExcel()"[disabled]="disabled" pButton pTooltip="Descargar Excel" tooltipPosition="top"><i class="pi pi-file-excel"></i><span class="pl-2 responsiveButton">Excel</span></button>
+    <button (click)="exportCsv()"[disabled]="disabled" pButton pTooltip="Descargar Csv" tooltipPosition="top"><i class="fa-solid fa-file-csv"></i><span class="pl-2 responsiveButton">CSV</span></button>
+    
+<!--     <button (click)="exportPdf()"[disabled]="disabled" pButton pTooltip="Descargar Pdf" tooltipPosition="top"><i class="pi pi-file-pdf"></i><span class="pl-2 responsiveButton">PDF</span></button>
+ -->    <p>Total registros: {{totalRecords}}</p>
+  </div>
+
+  <div class="seleccion-titulos">
+    <h2>Selección de títulos anulados</h2>
+    <div class="seleccion-actions">
+      <div style="display: block; width: 100%;">
+        <p-multiSelect [style]="{'width':'100%'}" [disabled]="!crudAction" [(ngModel)]="cancelTitles"
+          (onChange)="onIncompleteTitlesChange()" [virtualScroll]="true" [virtualScrollItemSize]="43"
+          defaultLabel="Selecciona los titulos" [options]="incompleteTitles" optionLabel="CONSECUTIVO"></p-multiSelect>
+      </div>
+      <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+        style="color: #0c82c5; margin-left:5px;"></i>
+    </div>
+  </div>
+
+  <div class="titulos-anulados" *ngIf="action === 'trasladar' && cancelTitles.length > 0">
+    <h2>Títulos anulados con acciones a trasladar</h2>
+    <div *ngFor="let titulo of cancelTitles; let i = index" class="titulo">
+      <div class="info">
+        <h3>Título: {{titulo.CONSECUTIVO}}</h3>
+        <p>Total acciones: {{(titulo.ACCIONES_RESTANTES)?titulo.ACCIONES_RESTANTES:titulo.ACCIONES}}</p>
+      </div>
+      <div>
+        <mat-form-field style="width: 100%;" appearance="outline">
+          <mat-label>Acciones a trasladar</mat-label>
+          <input matInput disabled [value]="(titulo.ACCIONES_RESTANTES)?titulo.ACCIONES_RESTANTES:titulo.ACCIONES">
+        </mat-form-field>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5; margin-left:5px;"></i>
+      </div>
+
+      <div>
+        <div style="display: block; width: 100%;">
+          <p-multiSelect [style]="{'width':'100%'}" defaultLabel="Selecciona los titulos"
+            [(ngModel)]="selectedTitlesToTranslate[i]" [virtualScroll]="true" [virtualScrollItemSize]="43"
+            [options]="titlesSelector" [optionLabel]="'value'" (onChange)="onSelectChange()"></p-multiSelect>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5; margin-left:5px;"></i>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button (click)="cancelarTitulo()">Cancelar</button>
+      <button (click)="continuar()">Continuar</button>
+    </div>
+
+  </div>
+
+  <div *ngIf="action === 'resumen'" class="resumen-traslados-group">
+    <div *ngFor="let titulo of cancelTitles; let i = index" class="resumen-traslados">
+      <div class="titulo">
+        <div class="info">
+          <h3>Título: {{titulo.CONSECUTIVO}}</h3>
+          <p>Total acciones: {{(titulo.ACCIONES_RESTANTES)?titulo.ACCIONES_RESTANTES:titulo.ACCIONES}}</p>
+        </div>
+        <div>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-label>Acciones a trasladar</mat-label>
+            <input matInput disabled [value]="(titulo.ACCIONES_RESTANTES)?titulo.ACCIONES_RESTANTES:titulo.ACCIONES">
+          </mat-form-field>
+          <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+            style="color: #0c82c5; margin-left:5px;"></i>
+        </div>
+
+        <div>
+          <div style="display: block; width: 100%;">
+            <p-multiSelect [style]="{'width':'100%'}" defaultLabel="Selecciona los titulos"
+              [(ngModel)]="selectedTitlesToTranslate[i]" [virtualScroll]="true" [virtualScrollItemSize]="43"
+              [options]="titlesSelector" [optionLabel]="'value'" [filter]="true"
+              (onChange)="onSelectChange()"></p-multiSelect>
+          </div>
+          <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+            style="color: #0c82c5; margin-left:5px;"></i>
+        </div>
+      </div>
+      <div *ngFor="let traslado of selectedTitlesToTranslate[i]; let j = index" class="traslado">
+        <h2>Traslado {{j+1}}</h2>
+        <div style="display: grid; grid-template-columns:1fr 1fr 1fr; column-gap: 20px;">
+          <span class="p-float-label">
+            <input disabled pInputText [(ngModel)]="dataPerCancelTitle[i][j].nuevoConsecutivo" style="width: 100%;">
+            <label>Número del titulo</label>
+          </span>
+          <span class="p-float-label">
+            <input pInputText [(ngModel)]="dataPerCancelTitle[i][j].ACCIONES" type="number" style="width: 100%;">
+            <label>Número de acciones a asignar</label>
+          </span>
+          <span class="p-float-label">
+            <p-dropdown [style]="{'width':'100%'}" [(ngModel)]="dataPerCancelTitle[i][j].TRASLADO_DIVIDENDO"
+              [options]="['Si', 'No']"></p-dropdown>
+            <label>¿Autoriza traslado de dividendos?</label>
+          </span>
+        </div>
+        <span class="p-float-label">
+          <input pInputText [(ngModel)]="dataPerCancelTitle[i][j].OBSERVACION" style="width: 100%;">
+          <label>Observación</label>
+        </span>
+      </div>
+      <div class="translate">
+        <button (click)="cancelar(i)">Cancelar</button>
+        <button (click)="asignarAcciones(dataPerCancelTitle[i])">Asignar acciones</button>
+      </div>
+    </div>
+  </div>
+
+
+  <p-table [value]="traslados" [lazy]="true" (onPage)="loadTraslados($event)" [totalRecords]="totalRecords" [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [(selection)]="selectedTranslates"
+    (onLazyLoad)="loadTraslados($event)">
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem;"></th>
+        <th>Titulo anterior</th>
+        <th>Accionista anterior</th>
+        <th>Titulo nuevo</th>
+        <th>Accionista nuevo</th>
+        <th>Acciones</th>
+        <th>Traslado de dividendos</th>
+        <th>Observación</th>
+        <th>Fecha de creación</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th><p-columnFilter field="TIPO_ACCIONISTA_ANTERIOR" [showMenu]="false"></p-columnFilter></th>
+        <th><p-columnFilter field="NOMBRE_ACCIONISTA_TITU_ANTERIOR" [showMenu]="false"></p-columnFilter></th>
+        <th><p-columnFilter field="TIPO_ACCIONISTA_NUEVO" [showMenu]="false"></p-columnFilter></th>
+        <th><p-columnFilter field="NOMBRE_ACCIONISTA_TITU_NUEVO" [showMenu]="false"></p-columnFilter></th>
+        <th><p-columnFilter field="ACCIONES" [showMenu]="false"></p-columnFilter></th>
+        <th><p-columnFilter field="TRASLADO_DIVIDENDOS" [showMenu]="false"></p-columnFilter></th>
+        <th><p-columnFilter field="OBSERVACION" [showMenu]="false"></p-columnFilter></th>
+        <th><p-columnFilter field="FECHA_CREACION" [showMenu]="false"></p-columnFilter></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-traslado>
+      <tr>
+        <td><p-tableCheckbox [value]="traslado"></p-tableCheckbox></td>
+        <td>{{traslado.TIPO_ACCIONISTA_ANTERIOR + ' - ' + traslado.CONSECUTIVO_TITULO_ANTERIOR}}</td>
+        <td>{{traslado.IDENTI_ACCIONIS_TITU_ANTERIOR + ' - ' + traslado.NOM_ACCIONIS_TITU_ANTERIOR}}</td>
+        <td>{{traslado.TIPO_ACCIONISTA_NUEVO + ' - ' + traslado.CONSECUTIVO_TITULO_NUEVO}}</td>
+        <td>{{traslado.IDENTI_ACCIONIS_TITU_NUEVO + ' - ' + traslado.NOMBRE_ACCIONISTA_TITU_NUEVO}}</td>
+        <td>{{traslado.ACCIONES}}</td>
+        <td>{{(traslado.TRASLADO_DIVIDENDO === 1)?'Si':'No'}}</td>
+        <td>{{traslado.OBSERVACION}}</td>
+        <td>{{ traslado.FECHA_CREACION | date:'yyyy-MM-dd' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

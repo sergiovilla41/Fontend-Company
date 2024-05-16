@@ -1,0 +1,158 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt
+    [value]="traceabilityListState" exportFilename="browsers" csvSeparator=";" [exportHeader]="'customExportHeader'"
+    [rows]="5" [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+<div class="animate-fadeInDown pl-8 pb-14" *ngIf="loadings">
+
+  <div class="pb-10">
+    <h1 class="pb-0 mb-0">Trazabilidad</h1>
+    <small class="pt-0 mt-0 ml-1">v 1.1.1</small>
+  </div>
+
+  <!--<div class="p-d-flex botones contenedor pb-12">
+
+     <button pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button" label="Excel"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"></button>
+
+    <button pButton type="button" label="CSV" class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file"
+      iconPos="left" pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"></button>
+
+    <button pButton pRipple type="button" label="PDF" class="p-button-rounded botonesPadding p-button-sm"
+      icon="pi pi-file-pdf" iconPos="left" pTooltip="Descargar Pdf" tooltipPosition="top"
+      (click)="exportPdf()"></button> 
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+  </div>-->
+
+
+  <div class="px-5 pt-6ng serve --o pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;" *ngIf="loadings">
+
+    <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+  
+      <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="traceabilityListState" scrollHeight="60vh"
+        exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="50"
+        [rowsPerPageOptions]="[5, 20, 50, 100]"
+        [globalFilterFields]="['USUARIO','FECHA','OBJETO_NUEVO','OBJETO_IMPACTADO','EVENTO',]"
+        selectionMode="single" [(selection)]="traceabilitySeleccionado" (onRowSelect)="onRowSelect($event)"
+        [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+        [totalRecords]="totRegistros" [loading]="loadingsTable">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="min-width:100px"></th>
+                <th pSortableColumn="USUARIO" style="min-width:250px">Usuario<p-sortIcon
+                    field="USUARIO"></p-sortIcon></th>
+                <th pSortableColumn="FECHA" style="min-width:250px">Fecha<p-sortIcon
+                        field="FECHA"></p-sortIcon></th>
+                <th pSortableColumn="OBJETO_NUEVO" style="min-width:250px">Obejto nuevo<p-sortIcon
+                        field="OBJETO_NUEVO"></p-sortIcon></th>
+                <th pSortableColumn="OBJETO_IMPACTADO" style="min-width:250px">Objeto impactado<p-sortIcon
+                        field="OBJETO_IMPACTADO"></p-sortIcon></th>
+                <th pSortableColumn="EVENTO" style="min-width:250px">Evento<p-sortIcon
+                        field="EVENTO"></p-sortIcon></th>
+                
+            </tr>
+            <tr>
+              <th style="min-width:100px"></th>
+              <th style="min-width:250px">
+                <p-columnFilter type="text" field="USUARIO" [showMenu]="false"></p-columnFilter>
+              </th>
+              <th style="min-width:250px">
+                <p-columnFilter type="text" field="FECHA" [showMenu]="false"></p-columnFilter>
+              </th>
+              <th style="min-width:250px">
+                <p-columnFilter type="text" field="OBJETO_NUEVO" [showMenu]="false"></p-columnFilter>
+              </th>
+              <th style="min-width:250px">
+                <p-columnFilter type="text" field="OBJETO_IMPACTADO" [showMenu]="false"></p-columnFilter>
+              </th>
+              <th style="min-width:250px">
+                <p-columnFilter type="text" field="EVENTO" [showMenu]="false"></p-columnFilter>
+              </th>
+            </tr>
+            <tr>
+        </ng-template>
+        
+      <ng-template pTemplate="body" let-traceabilityListState>
+        <tr>
+            <tr [pSelectableRow]="traceabilityListState">
+                <td style="min-width:100px" class="centrar-imagen"><img *appRol src="../../../assets/img/icons/ver.png"
+                    [pSelectableRow]="traceabilityListState" (click)="mostrarModalEdit()"></td>
+                <td style="min-width:250px">{{traceabilityListState.USUARIO}}</td>
+                <td style="min-width:250px">{{traceabilityListState.FECHA | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td style="min-width:250px"><abbr title="{{traceabilityListState.OBJETO_NUEVO}}" style="text-decoration: none;">{{traceabilityListState.OBJETO_NUEVO | slice:0:20}}{{traceabilityListState.length > 20 ? '...' : '...'}}</abbr></td>
+                <td style="min-width:250px"><abbr title="{{traceabilityListState.OBJETO_IMPACTADO}}" style="text-decoration: none;">{{(traceabilityListState.OBJETO_IMPACTADO || '').slice(0, 20) }}{{ traceabilityListState.OBJETO_IMPACTADO && traceabilityListState.OBJETO_IMPACTADO.length > 20 ? '...' : '' }}</abbr></td>
+                <td style="min-width:250px">{{traceabilityListState.EVENTO}}</td>
+                
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <!--Modal Edit-->
+    <p-dialog class="my-dialog" [(visible)]="displayResponsive" [breakpoints]="{'960px': '75vw'}" [style]="{width: '50vw'}"
+    [draggable]="false" [resizable]="false" header="Detalle de información.">
+  <div class="my-content" style="white-space: pre-line;">
+    <p-accordion>
+      <p-accordionTab header="Usuario y fecha">
+        <h4><b>Usuario:</b></h4>
+        <p>{{valoresSeleccion.usuario}}</p>
+        <h4><b>Fecha:</b></h4>
+        <p>{{valoresSeleccion.fecha | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+      </p-accordionTab>
+      <p-accordionTab header="Objetos">
+        <h4><b>Objeto Nuevo:</b></h4>
+        <p [innerHTML]="valoresSeleccion.objeto_nuevo"></p>
+        <h4><b>Objeto Impactado:</b></h4>
+        <p [innerHTML]="valoresSeleccion.objeto_impactado"></p>
+      </p-accordionTab>
+      <p-accordionTab header="Evento">
+        <h4><b>Evento:</b></h4>
+        <p>{{valoresSeleccion.evento}}</p>
+      </p-accordionTab>
+    </p-accordion>
+    <ng-template pTemplate="footer">
+    </ng-template>
+  </div>
+</p-dialog>

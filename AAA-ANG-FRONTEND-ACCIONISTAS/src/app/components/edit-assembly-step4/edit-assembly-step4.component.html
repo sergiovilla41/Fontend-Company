@@ -1,0 +1,71 @@
+<div class="component">
+  <div class="generar-acta">
+    <h1>Generación de acta</h1>
+    <form>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}" [options]="tipoAsambleas"
+            defaultLabel="Seleccione una opción" appendTo="body" />
+          <label>Tipo de asamblea</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-calendar [style]="{'min-width':'100%'}" [timeOnly]="true"></p-calendar>
+          <label>Hora</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <button class="generar">Generar</button>
+      </div>
+    </form>
+  </div>
+
+  <p-table class="table" [value]="votacionResults" [paginator]="true" [rows]="5">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Tipo</th>
+        <th>Accionista</th>
+        <th>Asistente</th>
+        <th>Porcentaje de participación</th>
+        <th>Cantidad de acciones</th>
+      </tr>
+      <tr>
+        <th>
+          <p-columnFilter type="text" field="name" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="name" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="name" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="name" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="name" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="name" [showMenu]="false"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template class="tableBody" pTemplate="body" let-votacion>
+      <tr>
+        <td>{{votacion.ID}}</td>
+        <td>{{votacion.tipo}}</td>
+        <td>{{votacion.accionista}}</td>
+        <td>{{votacion.asistente}}</td>
+        <td>{{votacion.porcentajeParticipacion}}</td>
+        <td>{{votacion.acciones}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

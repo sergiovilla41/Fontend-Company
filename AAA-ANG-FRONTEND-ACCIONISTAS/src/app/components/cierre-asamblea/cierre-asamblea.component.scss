@@ -1,0 +1,74 @@
+.component {
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h1 {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 20px;
+    color: #8E8E8D;
+  }
+
+  button {
+    padding: 10px 24px;
+    background: #0C82C5;
+    border-radius: 100px;
+    color: white;
+  }
+
+  h3 {
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #1F140F;
+  }
+
+  h2 {
+    color: #1F140F;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  p {
+    color: #0C82C5;
+    font-family: 'Arial';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 40px;
+  }
+
+  .content {
+    div {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+    }
+
+    span{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    div:has(h2) {
+      span {
+        justify-self: center;
+        color: green;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,98 @@
+<button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Cerrar"
+  class="volver animate-fadeInDown"></button>
+<div class="component animate-fadeInDown">
+  <p-tabMenu [model]="menuItems" [activeItem]="activeItem" [scrollable]="true"
+    (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+
+  <div *ngIf="activeItem === menuItems[0]">
+    <button class="quorum"><i class="pi pi-list"></i>Verificar el Quorum</button>
+    <div class="detalle">
+      <h1>Detalle de la asamblea</h1>
+      <form [formGroup]="form">
+        <div>
+          <div class="p-float-label" style="width: 100%; display: block;">
+            <p-dropdown formControlName="assemblyType" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+              [options]="assemblyTypes" optionLabel="DESCRIPCION" optionValue="ID_REGISTRO" defaultLabel="Seleccione una opción" appendTo="body" />
+            <label>Tipo de asamblea</label>
+          </div>
+          <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+            style="color: #0c82c5;"></em>
+        </div>
+        <div>
+          <div class="p-float-label" style="width: 100%; display: block;">
+            <p-calendar formControlName="assemblyDate" [style]="{'width':'100%'}" appendTo="body" />
+            <label>Fecha de la asamblea</label>
+          </div>
+          <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+            style="color: #0c82c5; display: block;"></em>
+        </div>
+        <div>
+          <div class="p-float-label" style="width: 100%; display: block;">
+            <p-dropdown formControlName="sendConfirmation" [filter]="true" [style]="{'width':'100%'}"
+              [options]="['Si', 'No']" defaultLabel="Seleccione una opción" appendTo="body" />
+            <label>¿Desea enviar notificación por correo electronico?</label>
+          </div>
+          <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+            style="color: #0c82c5;"></i>
+        </div>
+        <div class="descripcion">
+          <span class="p-float-label" [style]="{'width': '100%'}">
+            <input formControlName="descripcion" type="text" [style]="{'width': '100%'}"
+              placeholder="Detalle del objetivo" pInputText />
+            <label>Descripción/Objetivo</label>
+          </span>
+
+          <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+            style="color: #0c82c5;"></i>
+
+        </div>
+        <div class="actions">
+          <button>Eliminar</button>
+          <button (click)="guardarAndNuevo()">Guardar y nuevo</button>
+          <button (click)="onActiveItemChange(menuItems[1])">Siguiente</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="options" *ngIf="activeItem === menuItems[2] && activeStep === 0">
+    <button (click)="onNuevo()" [disabled]="disabled"><i class="pi pi-plus"></i> Nuevo</button>
+    <button (click)="onEditar()" [disabled]="disabled"><i class="pi pi-cog"></i> Editar</button>
+    <button [disabled]="disabled"><i class="pi pi-list"></i> Verificar el quorum</button>
+    <button (click)="exportExcel()" [disabled]="disabled"><i class="pi pi-file-excel"></i></button>
+    <button (click)="exportCsv()" [disabled]="disabled"><i class="fa-solid fa-file-csv"></i></button>
+    <button (click)="exportPdf()" [disabled]="disabled"><i class="pi pi-file-pdf"></i></button>
+    <p>Total registros: {{votacionCount$ | async}}</p>
+  </div>
+
+  <div class="options" *ngIf="activeItem === menuItems[2] && activeStep === 1">
+    <button [disabled]="disabled"><i class="pi pi-list"></i> Verificar el quorum</button>
+  </div>
+  <div class="options" *ngIf="activeItem === menuItems[2] && activeStep === 2">
+    <button [disabled]="disabled"><i class="pi pi-list"></i> Verificar el quorum</button>
+    <button (click)="exportExcel()" [disabled]="disabled"><i class="pi pi-file-excel"></i></button>
+    <button (click)="exportCsv()" [disabled]="disabled"><i class="fa-solid fa-file-csv"></i></button>
+    <button (click)="exportPdf()" [disabled]="disabled"><i class="pi pi-file-pdf"></i></button>
+    <p>Total registros: {{asistenciasCount$ | async}}</p>
+  </div>
+
+  <registro-asistencias *ngIf="activeItem === menuItems[1]"></registro-asistencias>
+
+  <div *ngIf="activeItem === menuItems[2]" class="stepper">
+
+    <div class="stepperHeader">
+      <p-steps [model]="steps" [activeIndex]="activeStep" [readonly]="false"
+        (activeIndexChange)="onActiveStepChange($event)" styleClass="p-steps"></p-steps>
+    </div>
+    <edit-assembly-step1 *ngIf="activeStep === 0"></edit-assembly-step1>
+    <edit-assembly-step2 *ngIf="activeStep === 1"></edit-assembly-step2>
+    <edit-assembly-step3 *ngIf="activeStep === 2"></edit-assembly-step3>
+  </div>
+
+  <dividendos *ngIf="activeItem === menuItems[3]"></dividendos>
+  <liquidacion *ngIf="activeItem === menuItems[4]"></liquidacion>
+  <cierre-asamblea *ngIf="activeItem === menuItems[5]"></cierre-asamblea>
+</div>
+<div class="card flex justify-content-center gap-2">
+  <p-confirmDialog key="editModal"></p-confirmDialog>
+</div>

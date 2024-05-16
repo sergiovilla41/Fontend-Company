@@ -1,0 +1,185 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table>
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+<div class="card flex justify-content-center gap-2">
+  <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+</div>
+
+<div class="animate-fadeInDown pl-8 pb-14" *ngIf="loadings">
+  <div class="">
+    <h1>Administración de títulos</h1>
+  </div>
+  <div class="p-d-flex botones contenedor">
+    <button pButton pTooltip="Crear nuevo titulo" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-plus" iconPos="left"
+      (click)="newShareholder()"><span class="pl-2 responsiveButton">Nuevo</span></button>
+
+    <button pButton pTooltip="Editar titulo" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-cog" iconPos="left"
+      (click)="EditTitle()"><span class="pl-2 responsiveButton">Edición</span></button>
+
+    <button pButton pTooltip="Anular un titulo" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-ban" iconPos="left"
+      (click)="showDialog()"><span class="pl-2 responsiveButton">Anular</span></button>
+
+    <button pButton pTooltip="Trasladar un titulo" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" iconPos="left" (click)="goTranslate()">
+      <span class="svg-icon" style="margin-right: 4%;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+          <path fill="currentColor"
+            d="M13.09 20c.12.72.37 1.39.72 2H6c-1.11 0-2-.89-2-2V4a2 2 0 0 1 2-2h8l6 6v5.09c-.33-.05-.66-.09-1-.09c-.34 0-.67.04-1 .09V9h-5V4H6v16h7.09M23 17l-3-2.5V16h-4v2h4v1.5l3-2.5m-5 1.5L15 21l3 2.5V22h4v-2h-4v-1.5Z" />
+        </svg>
+      </span>
+      <span class="pl-2 responsiveButton">Trasladar</span>
+    </button>
+
+    <button pButton pTooltip="Eliminar titulo" style="background-color: red; border: none;" tooltipPosition="top"
+      type="button" *appRol class="p-button-rounded botonesPadding p-button-sm"
+      icon="fa-solid fa-trash" iconPos="left" (click)="deleteTitle()"><span class="pl-2 responsiveButton">Eliminar</span></button>
+
+    <button pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button pButton type="button" class="p-button-rounded botonesPadding p-button-sm"
+      icon="fa-solid fa-file-csv" iconPos="left" pTooltip="Descargar Csv" tooltipPosition="top"
+      (click)="exportCsv()"><span class="pl-2 responsiveButton">CSV</span></button>
+      
+<!-- 
+    <button pButton pRipple type="button" class="p-button-rounded botonesPadding p-button-sm"
+      icon="pi pi-file-pdf" iconPos="left" pTooltip="Descargar Pdf" tooltipPosition="top"
+      (click)="exportPdf()"><span class="pl-2 responsiveButton">PDF</span></button> -->
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+  </div>
+
+  <div *ngIf="viewForm" class="pt-8 pb-20">
+    <app-titlesForm></app-titlesForm>
+  </div>
+</div>
+
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;" *ngIf="loadings">
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="titlesListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="50"
+      [rowsPerPageOptions]="[20, 50, 100, 200, 300]"
+      [globalFilterFields]="['TIPO_ACCIONISTA','NOMBRE_ACCIONISTA','ESTADO','ACCIONES','FECHA_SUSCRIPCION','FECHA_EXPEDICION','FECHA_ENTREGA','OBSERVACION']"
+      selectionMode="single" [(selection)]="titleSeleccionado" [tableStyle]="{'min-width': '50rem'}" [lazy]="true"
+      (onLazyLoad)="loadCustomers($event)" [totalRecords]="totRegistros" [loading]="loadingsTable">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" pSortableColumn="TIPO_ACCIONISTA" style="min-width:200px">Tipo accionista<p-sortIcon
+              field="TIPO_ACCIONISTA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="NOMBRE_ACCIONISTA" style="min-width:300px">Nombre<p-sortIcon
+              field="NOMBRE_ACCIONISTA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="ESTADO" style="min-width:250px">Estado título<p-sortIcon
+              field="ESTADO"></p-sortIcon>
+          </th>
+          <th scope="col" pSortableColumn="ACCIONES" style="min-width:180px">Acciones<p-sortIcon
+              field="ACCIONES"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="FECHA_SUSCRIPCION" style="min-width:250px">Fecha de suscripcion<p-sortIcon
+              field="FECHA_SUSCRIPCION"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="FECHA_EXPEDICION" style="min-width:250px">Fecha expedición<p-sortIcon
+              field="FECHA_EXPEDICION"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="FECHA_ENTREGA" style="min-width:250px">Fecha entrega<p-sortIcon
+              field="FECHA_ENTREGA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="OBSERVACION" style="min-width:250px">Observaciones<p-sortIcon
+              field="OBSERVACION"></p-sortIcon></th>
+
+        <tr>
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" style="min-width:200px">
+            <p-columnFilter type="text" field="TIPO_ACCIONISTA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:300px">
+            <p-columnFilter type="text" field="NOMBRE_ACCIONISTA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="ESTADO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:180px">
+            <p-columnFilter type="text" field="ACCIONES" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_SUSCRIPCION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_EXPEDICION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_ENTREGA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="OBSERVACION" [showMenu]="false"></p-columnFilter>
+          </th>
+
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-titlesListState>
+        <tr>
+          <td>
+            <p-checkbox [(ngModel)]="titlesListState.CHECKED" [binary]="true" inputId="binary"
+              (onChange)="onRowSelect($event, titlesListState)"></p-checkbox>
+          </td>
+          <td style="min-width:200px">{{titlesListState.TIPO_ACCIONISTA + ' - ' + titlesListState.CONSECUTIVO }}</td>
+          <td style="min-width:300px">{{titlesListState.IDENTIFICACION_ACCIONISTA | number: '1.0-9' }} {{ ' - ' +
+            titlesListState.NOMBRE_ACCIONISTA}}</td>
+          <td style="min-width:250px">{{titlesListState.ESTADO}}</td>
+          <td style="min-width:180px">{{titlesListState.ACCIONES }}</td>
+          <td style="min-width:250px">{{titlesListState.FECHA_SUSCRIPCION | date:'yyyy-MM-dd' }}</td>
+          <td style="min-width:250px">{{titlesListState.FECHA_EXPEDICION | date:'yyyy-MM-dd' }}</td>
+          <td style="min-width:250px">{{titlesListState.FECHA_ENTREGA | date:'yyyy-MM-dd' }}</td>
+          <td style="min-width:250px">{{titlesListState.OBSERVACION}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+</div>

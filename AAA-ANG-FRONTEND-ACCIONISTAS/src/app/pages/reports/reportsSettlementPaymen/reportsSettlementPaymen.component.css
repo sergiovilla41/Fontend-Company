@@ -1,0 +1,90 @@
+.volver {
+  background-color: #fff;
+  color: #30c2e0;
+  border: none;
+  margin-bottom: 20px;
+  ;
+}
+
+.volver:hover {
+  background-color: rgba(235, 234, 234, 0.61);
+  color: #30c2e0;
+}
+
+h1 {
+  margin-top: 1%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.cardstext {
+  color: #0C82C5;
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  word-wrap: break-word;
+}
+
+.contentCards {
+  width: 80px;
+  height: 80px;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex
+}
+
+.cards {
+  width: 200px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  background: white;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+
+.select-container {
+  flex: 0 0 calc(25% - 24px); /* Ajusta el ancho base para 4 cards en línea (25% de ancho menos el espacio entre los cards) */
+  max-width: 200px; /* Opcional: Establece un ancho máximo para evitar que el contenedor se vuelva demasiado grande */
+  margin-bottom: 24px; /* Espacio entre los cards en la misma línea */
+}
+
+@media (max-width: 768px) {
+  .select-container {
+    flex-basis: 40%; /* Cambia a ancho completo para mostrar un card por línea en pantallas más pequeñas */
+    max-width: 100%;
+  }
+
+  .select-container span {
+      display: none; /* Oculta las etiquetas span en pantallas más pequeñas */
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .select-container {
+    max-width: 40%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) {
+  .select-container {
+    max-width: 45%;
+  }
+}
+
+@media (min-width: 1920px) and (max-width: 2685px) {
+  .select-container {
+    max-width: 22%;
+  }
+}
+
+
+

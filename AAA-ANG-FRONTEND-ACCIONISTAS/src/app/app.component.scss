@@ -1,0 +1,21 @@
+::ng-deep .background-red {
+  background-color: rgb(153, 50, 50);
+  color: white;
+  font-size: large !important;
+  ;
+}
+
+::ng-deep .background-red .mat-simple-snackbar-action {
+  color: white;
+}
+
+::ng-deep .background-blue {
+  background-color: #0c82c5 !important;
+  color: white;
+  font-size: large !important;
+  ;
+}
+
+::ng-deep .background-blue .mat-simple-snackbar-action {
+  color: white;
+}

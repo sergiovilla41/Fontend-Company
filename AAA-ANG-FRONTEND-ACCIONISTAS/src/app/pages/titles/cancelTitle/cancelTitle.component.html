@@ -1,0 +1,36 @@
+<div *ngFor="let calcelTitle of selectedRows">
+  <form class="mt-8 space-y-6">
+    <div class="container">
+      <div class="left">
+        <div class="px-8 pr-0 ml-0 ">
+          <label>Estás anulando el título <span class="span">#{{calcelTitle.CONSECUTIVO}}</span> perteneciente al accionista
+            <span class="span">{{calcelTitle.NOMBRE_ACCIONISTA}}</span>
+            con <span class="span">{{calcelTitle.ACCIONES}}</span> acciones.
+          </label>
+        </div>
+        <div class="px-8 pt-4 pr-0 ml-0 ">
+          <label>Para continuar con la anulación es necesario realizar una observación.</label>
+        </div>
+
+      </div>
+
+      <div class="right">
+        <div class="px-8 pr-0 ml-0 tamano-input">
+          <span class="p-float-label">
+            <textarea rows="5" cols="30" pInputTextarea [autoResize]="true" id="OBSERVACION" placeholder="Escribe la observación." name="OBSERVACION" [(ngModel)]="calcelTitle.OBSERVACION"></textarea>
+            <label for="OBSERVACION" style="font-weight: 0;">Observación</label>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <p-divider class="flex px-8 pt-8"></p-divider>
+</div>
+
+
+<div class="flex justify-end pt-3 px-8">
+  <button type="button" pButton label="Cancelar" class="p-button-text botonesPadding p-button-sm" (click)="onCancelClick()"></button>
+  <button type="button" pButton label="Anular y trasladar"
+    class="p-button-outlined p-button-rounded botonesPadding p-button-sm" (click)="cancelAndTranslateTitle()"></button>
+  <button type="button" pButton label="Anular" (click)="cancelTitle()" class="p-button-rounded botonesPadding p-button-sm"></button>
+</div>

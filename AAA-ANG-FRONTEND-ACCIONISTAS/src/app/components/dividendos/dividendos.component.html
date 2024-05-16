@@ -1,0 +1,110 @@
+<div class="component">
+  <div class="options">
+    <button [disabled]="busy" (click)="distribuirDividendos()"><i class="pi pi-plus"></i> Distribuir dividendos en
+      cuotas</button>
+  </div>
+
+  <div class="valor-dividendos" *ngIf="!showSummary">
+    <h1>Valor dividendos</h1>
+    <form [formGroup]="form">
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-inputNumber
+            [class.ng-dirty]="this.form.get('valorIntrinseco').touched && this.form.get('valorIntrinseco').invalid"
+            formControlName="valorIntrinseco" autoWidth="false" [style]="{'width':'100%'}"></p-inputNumber>
+          <label for="">Valor intrínseco</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-inputNumber
+            [class.ng-dirty]="this.form.get('valorNominal').touched && this.form.get('valorNominal').invalid"
+            formControlName="valorNominal" autoWidth="false" [style]="{'width':'100%'}"></p-inputNumber>
+          <label for="">Valor nominal</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5; display: block;"></i>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-inputNumber
+            [class.ng-dirty]="this.form.get('valorDividendo').touched && this.form.get('valorDividendo').invalid"
+            formControlName="valorDividendo" autoWidth="false" [style]="{'width':'100%'}"></p-inputNumber>
+          <label for="">Valor dividendo</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div class="descripcion">
+        <span class="p-float-label" [style]="{'width': '100%'}">
+          <input [class.ng-dirty]="this.form.get('observacion').touched && this.form.get('observacion').invalid"
+            formControlName="observacion" type="text" [style]="{'width': '100%'}" pInputText />
+          <label for="">Observación</label>
+        </span>
+
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div class="actions">
+        <button>Cancelar</button>
+        <button (click)="guardar()">Guardar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="summary" *ngIf="showSummary">
+    <h1>Asamblea extraordinaria #null</h1>
+    <div>
+      <span>
+        <h2>Valor instrínseco</h2>
+        <p>{{form.value?.valorIntrinseco}}</p>
+      </span>
+      <span>
+        <h2>Valor nominal</h2>
+        <p>{{form.value?.valorNominal}}</p>
+      </span>
+      <span>
+        <h2>Valor dividendo</h2>
+        <p>{{form.value?.valorDividendo}}</p>
+      </span>
+    </div>
+  </div>
+
+  <div class="distribucion-dividendos" *ngIf="showDistribucionDividendos">
+    <h1>Distribución de dividendos en cuotas</h1>
+    <form [formGroup]="form">
+      <div class="tipo-accionista" *ngFor="let i of (tipoAccionista|async);let a = index">
+        <p class="accionis" >Tipo accionista {{i.DESCRIPCION}}</p>
+
+        <div>
+          <span class="p-float-label" style="width: 100%; display: block;">
+            <p-inputNumber formControlName="NumeroCuotas{{a+1}}" autoWidth="false" [class.ng-dirty]="this.form.get('NumeroCuotas'+(a+1)).touched && this.form.get('NumeroCuotas'+(a+1)).invalid"
+              [style]="{'width':'100%'}"></p-inputNumber>
+            <label for="">Numero de cuotas (cantidad)</label>
+          </span>
+          <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+            style="color: #0c82c5;"></i>
+        </div>
+        <div>
+          <span class="p-float-label" style="width: 100%; display: block;">
+            <input pInputText formControlName="ObervacionAccionista{{a+1}}" autoWidth="false" [style]="{'width':'100%'}" [class.ng-dirty]="this.form.get('ObervacionAccionista'+(a+1)).touched && this.form.get('ObervacionAccionista'+(a+1)).invalid" >
+            <label for="">Observación</label>
+          </span>
+          <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+            style="color: #0c82c5;"></i>
+        </div>
+      </div>
+      <div class="actions">
+        <button>Cancelar</button>
+        <button (click)="distribuirDividendos2()">Distribuir</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card flex justify-content-center gap-2">
+
+  <p-confirmDialog key="dividendos"></p-confirmDialog>
+
+</div>

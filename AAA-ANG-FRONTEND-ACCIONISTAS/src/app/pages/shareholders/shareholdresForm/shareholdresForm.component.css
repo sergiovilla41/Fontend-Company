@@ -1,0 +1,93 @@
+.botonesPadding {
+  margin: 0.3%;
+}
+
+.tamano-input {
+  width: 13.75rem !important;
+}
+
+::ng-deep .background-red {
+  background-color: rgb(153, 50, 50);
+  color: white;
+  font-size: large !important;
+}
+
+::ng-deep .background-red .mat-simple-snackbar-action {
+  color: white;
+}
+
+::ng-deep .background-blue {
+  background-color: #0c82c5 !important;
+  color: white;
+  font-size: large !important;
+}
+
+::ng-deep .background-blue .mat-simple-snackbar-action {
+  color: white;
+}
+
+
+.volver {
+  background-color: #fff;
+  color: #30c2e0;
+  border: none;
+  margin-bottom: 20px;
+  ;
+}
+
+.volver:hover {
+  background-color: rgba(235, 234, 234, 0.61);
+  color: #30c2e0;
+}
+
+.tamano-input p {
+  bottom: 0;
+  text-align: center;
+  font-size: 12px;
+}
+
+label {
+  font-weight: normal;
+}  
+
+button{
+  background-color: #0c82c5;
+}
+
+
+
+.select-container {
+  width: 100%;
+  max-width: 200px; /* Establece un ancho máximo para evitar que el contenedor se vuelva demasiado grande */
+}
+
+@media (max-width: 768px) {
+  /* Si el ancho de la pantalla es mayor o igual a 768px */
+  .select-container {
+    width: 100%; /* Ajusta el ancho para pantallas más grandes */
+    max-width: 85%; /* Puedes ajustar el ancho máximo según tus necesidades */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Si el ancho de la pantalla es mayor o igual a 768px */
+  .select-container {
+    width: 100%; /* Ajusta el ancho para pantallas más grandes */
+    max-width: 90%; /* Puedes ajustar el ancho máximo según tus necesidades */
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) {
+  /* Si el ancho de la pantalla es mayor o igual a 1024px */
+  .select-container {
+    width: 100%; /* Ajusta el ancho para pantallas aún más grandes */
+    max-width: 45%; /* Puedes ajustar el ancho máximo según tus necesidades */
+  }
+}
+
+@media (min-width: 1920px) and (max-width: 2685px) {
+  .select-container {
+    width: 100%; /* Ajusta el ancho para ocupar todo el espacio disponible */
+    max-width: 22%; /* Elimina el ancho máximo establecido anteriormente */
+  }
+}

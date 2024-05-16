@@ -1,0 +1,265 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt
+    [value]="shareholdersListState" exportFilename="browsers" csvSeparator=";" [exportHeader]="'customExportHeader'"
+    [rows]="5" [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+
+<div class="animate-fadeInDown pl-8 pb-14" *ngIf="loadings">
+
+  <div class="">
+    <h1>Accionistas</h1>
+  </div>
+  <div class="p-d-flex botones contenedor">
+    <button [disabled]="shareholderSeleccionado && action === 'edit'" pButton pTooltip="Crear nuevo accionista"
+      tooltipPosition="top" type="button" *appRol class="p-button-rounded botonesPadding p-button-sm"
+      icon="pi pi-plus" iconPos="left" (click)="newShareholder()"><span class="pl-2 responsiveButton">Nuevo</span></button>
+
+    <button pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button pButton type="button" class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-file-csv"
+      iconPos="left" pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"><span class="pl-2 responsiveButton">CSV</span></button>
+
+      
+<!--     <button pButton pRipple type="button" class="p-button-rounded botonesPadding p-button-sm"
+      icon="pi pi-file-pdf" iconPos="left" pTooltip="Descargar Pdf" tooltipPosition="top"
+      (click)="exportPdf()"><span class="pl-2 responsiveButton">PDF</span></button> -->
+
+    <button pButton pTooltip="Editar accionista" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-cog" iconPos="left"
+      (click)="handleEditShareholder()"><span class="pl-2 responsiveButton">Editar</span></button>
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+  </div>
+
+  <div *ngIf="viewForm" class="pt-8 pb-20">
+    <app-shareholdresForm></app-shareholdresForm>
+  </div>
+
+</div>
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;" *ngIf="loadings">
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="shareholdersListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="50"
+      [rowsPerPageOptions]="[20, 50, 100, 200, 300]" [globalFilterFields]="globalFilters" selectionMode="single"
+      [(selection)]="shareholderSeleccionado" [tableStyle]="{'min-width': '50rem'}" [lazy]="true"
+      (onLazyLoad)="loadCustomers($event)" [totalRecords]="totRegistros" [loading]="loadingsTable"
+      [metaKeySelection]="false">
+
+      <span class="p-buttonset">
+        <button pButton type="button" label="Crear" icon="pi pi-plus"></button>
+        <button pButton type="button" label="Editar" icon="pi pi-file"></button>
+        <button pButton type="button" label="Eliminar" icon="pi pi-trash"></button>
+      </span>
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" pSortableColumn="TIPO_ACCIONISTA" style="min-width:250px">Tipo accionista<p-sortIcon
+              field="TIPO_ACCIONISTA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="TIPO_PERSONA" style="min-width:250px">Tipo persona<p-sortIcon
+              field="TIPO_PERSONA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="TIPO_DECLARANTE" style="min-width:250px">Tipo declarante<p-sortIcon
+              field="TIPO_DECLARANTE"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="TIPO_DOCUMENTO" style="min-width:250px">Tipo documento<p-sortIcon
+              field="TIPO_DOCUMENTO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="IDENTIFICACION" style="min-width:250px">Identificación<p-sortIcon
+              field="IDENTIFICACION"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="FECHA_EXPEDICION" style="min-width:250px">Fecha expedición<p-sortIcon
+              field="FECHA_EXPEDICION"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="LUGAR_EXPEDICION" style="min-width:250px">Lugar expedición<p-sortIcon
+              field="LUGAR_EXPEDICION"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="PRIMER_NOMBRE" style="min-width:250px">Primer nombre<p-sortIcon
+              field="PRIMER_NOMBRE"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="SEGUNDO_NOMBRE" style="min-width:250px">Segundo nombre<p-sortIcon
+              field="SEGUNDO_NOMBRE"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="PRIMER_APELLIDO" style="min-width:250px">Primer apellido<p-sortIcon
+              field="PRIMER_APELLIDO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="SEGUNDO_APELLIDO" style="min-width:250px">Segundo apellido<p-sortIcon
+              field="SEGUNDO_APELLIDO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="EMPRESA" style="min-width:250px">Empresa<p-sortIcon field="EMPRESA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="REPRESENTANTE" style="min-width:250px">Representante<p-sortIcon
+              field="REPRESENTANTE"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="DIRECCION" style="min-width:250px">Dirección<p-sortIcon field="DIRECCION"></p-sortIcon>
+          </th>
+          <th scope="col" pSortableColumn="TELEFONO_1" style="min-width:250px">Telefono 1<p-sortIcon
+              field="TELEFONO_1"></p-sortIcon>
+          </th>
+          <th scope="col" pSortableColumn="TELEFONO_2" style="min-width:250px">Telefono 2<p-sortIcon
+              field="TELEFONO_2"></p-sortIcon>
+          </th>
+          <th scope="col" pSortableColumn="EMAIL_1" style="min-width:250px">Email 1<p-sortIcon field="EMAIL_1"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="EMAIL_2" style="min-width:250px">Email 2<p-sortIcon field="EMAIL_2"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="PAIS" style="min-width:250px">Pais<p-sortIcon field="PAIS"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="DEPARTAMENTO" style="min-width:250px">Departamento<p-sortIcon
+              field="DEPARTAMENTO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="CIUDAD" style="min-width:250px">Ciudad<p-sortIcon field="CIUDAD"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="BANCO" style="min-width:250px">Banco<p-sortIcon field="BANCO"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="TIPO_CUENTA" style="min-width:250px">Tipo Cuenta<p-sortIcon
+              field="TIPO_CUENTA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="NRO_CUENTA" style="min-width:250px">Nro Cuenta<p-sortIcon
+              field="NRO_CUENTA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="NACIONALIDAD" style="min-width:250px">Nacionalidad<p-sortIcon
+              field="NACIONALIDAD"></p-sortIcon></th>
+        </tr>
+        <tr>
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TIPO_ACCIONISTA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TIPO_PERSONA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TIPO_DECLARANTE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TIPO_DOCUMENTO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="IDENTIFICACION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_EXPEDICION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="LUGAR_EXPEDICION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="PRIMER_NOMBRE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="SEGUNDO_NOMBRE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="PRIMER_APELLIDO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="SEGUNDO_APELLIDO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="EMPRESA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="REPRESENTANTE" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="DIRECCION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TELEFONO_1" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TELEFONO_2" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="EMAIL_1" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="EMAIL_2" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="PAIS" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="DEPARTAMENTO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="CIUDAD" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="BANCO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="TIPO_CUENTA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NRO_CUENTA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NACIONALIDAD" [showMenu]="false"></p-columnFilter>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-shareholdersListState>
+        <tr>
+          <td style="min-width:100px"><p-tableRadioButton class="centrar-imagen" [value]="shareholdersListState" /></td>
+          <td style="min-width:250px">{{shareholdersListState.TIPO_ACCIONISTA}}</td>
+          <td style="min-width:250px">{{shareholdersListState.TIPO_PERSONA}}</td>
+          <td style="min-width:250px">{{shareholdersListState.TIPO_DECLARANTE}}</td>
+          <td style="min-width:250px">{{shareholdersListState.TIPO_DOCUMENTO}}</td>
+          <td style="min-width:250px">{{shareholdersListState.IDENTIFICACION | number: '1.0-9'}}</td>
+          <td style="min-width:250px">{{shareholdersListState.FECHA_EXPEDICION | date:'yyyy-MM-dd' }}</td>
+          <td style="min-width:250px">{{shareholdersListState.LUGAR_EXPEDICION}}</td>
+          <td style="min-width:250px">{{shareholdersListState.PRIMER_NOMBRE}}</td>
+          <td style="min-width:250px">{{shareholdersListState.SEGUNDO_NOMBRE}}</td>
+          <td style="min-width:250px">{{shareholdersListState.PRIMER_APELLIDO}}</td>
+          <td style="min-width:250px">{{shareholdersListState.SEGUNDO_APELLIDO}}</td>
+          <td style="min-width:250px">{{shareholdersListState.EMPRESA}}</td>
+          <td style="min-width:250px">{{shareholdersListState.REPRESENTANTE}}</td>
+          <td style="min-width:250px">{{shareholdersListState.DIRECCION}}</td>
+          <td style="min-width:250px">{{shareholdersListState.TELEFONO_1}}</td>
+          <td style="min-width:250px">{{shareholdersListState.TELEFONO_2}}</td>
+          <td style="min-width:250px">{{shareholdersListState.EMAIL_1}}</td>
+          <td style="min-width:250px">{{shareholdersListState.EMAIL_2}}</td>
+          <td style="min-width:250px">{{shareholdersListState.PAIS}}</td>
+          <td style="min-width:250px">{{shareholdersListState.DEPARTAMENTO}}</td>
+          <td style="min-width:250px">{{shareholdersListState.CIUDAD}}</td>
+          <td style="min-width:250px">{{shareholdersListState.BANCO}}</td>
+          <td style="min-width:250px">{{shareholdersListState.TIPO_CUENTA}}</td>
+          <td style="min-width:250px">{{shareholdersListState.NRO_CUENTA}}</td>
+          <td style="min-width:250px">{{shareholdersListState.NACIONALIDAD}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="accionista"></p-confirmDialog>
+  </div>
+</div>

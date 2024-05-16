@@ -1,0 +1,46 @@
+h1 {
+    margin-top: 1%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.botones {
+    margin-top: 2%;
+}
+
+.botonesPadding {
+    margin: 0.3%;
+}
+
+.p-datatable .p-datatable-thead>tr>th {
+    width: inherit !important;
+}
+
+.contenedor {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.span {
+    font-size: x-small;
+    margin-left: 1%;
+}
+
+.my-content h4 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.my-content p {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+.my-content p {
+    word-wrap: break-word;
+}
+
+button {
+    background-color: #0c82c5;
+}

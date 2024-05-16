@@ -1,0 +1,62 @@
+<body id="tren" class="animate-fadeInDown">
+  <div class="contenedor">
+    <div class="imagen-fondo"></div>
+
+
+    <p-card class="card animate-fadeInLeft" [style]="{ width: '360px' }">
+      <ng-template pTemplate="header">
+        <img class="img-logo2" src="../../../assets/img/demo/Logo AAA.svg">
+        <h1 class="titulo">Portal accionistas</h1>
+      </ng-template>
+
+      <form class="" [formGroup]="myForm" (ngSubmit)="submitFormulario()">
+
+        <div class="input">
+
+          <mat-form-field appearance="outline" class="correo inputsLogin">
+            <mat-label>Ingresa tu email</mat-label>
+            <input id="email" type="text" matInput formControlName="email" [errorStateMatcher]="matcher" required>
+            <a mat-icon matSuffix>
+              <mat-icon class="icono-usuario">perm_identity</mat-icon>
+            </a>
+            <mat-error *ngIf="myForm.hasError('email') && !myForm.hasError('required')">
+              Por favor ingrese un email
+            </mat-error>
+            <mat-error *ngIf="myForm.hasError('required')">
+              Email es <strong>requerido</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="input">
+          <mat-form-field appearance="outline" class="contra inputsLogin">
+            <mat-label>Contraseña</mat-label>
+            <input id="password" type="text" matInput formControlName="password" [errorStateMatcher]="matcher" required
+              [type]="hide ? 'password' : 'text'">
+            <a mat-icon matSuffix style="width: 80%; height: 60%;">
+              <mat-icon class="icono-candado">lock</mat-icon>
+            </a>
+            <mat-error *ngIf="myForm.hasError('email') && !myForm.hasError('required')">
+              Por favor ingrese una Contraseña
+            </mat-error>
+            <mat-error *ngIf="myForm.hasError('required')">
+              La contraseña es <strong>requerida</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <button class="button" id="login" type="submit">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+          </span>
+          Ingresar
+        </button>
+
+        <div class="password-olvidada">
+          <a id="forgotPassword" (click)="forgotPassword()"
+            class="cursor font-medium text-cyan-600 hover:text-cyan-500 text-lg">¿Olvidó su contraseña?</a>
+        </div>
+      </form>
+
+    </p-card>
+  </div>
+</body>

@@ -1,0 +1,63 @@
+<button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Volver"
+  class="volver animate-fadeInDown"></button>
+
+<div class="pl-8 pb-3 animate-fadeInDown">
+  <h1>Reportes de títulos</h1>
+</div>
+
+<div class="grid p-fluid animate-fadeInDown">
+  <div class="flex flex-wrap mb-11 pl-8"
+    style="width: 100%; height: 100%; justify-content: flex-start; align-items: flex-start; gap: 24px; display: inline-flex">
+
+    <div class="cards flex-auto select-container" pTooltip="Registro libro de accionistas" tooltipPosition="top"
+      (click)="goShareholderLedgerRegister()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/titulosPeriodo.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Registro libro de accionistas</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Certificado de acciones"
+      tooltipPosition="top" (click)="goSharehodlerCertificate()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/accionistas.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Certificado de acciones</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Reporte Embargos"
+      tooltipPosition="top" (click)="goSeizureShareholder()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/embargos.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Reporte Embargos</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Reporte Garantías"
+      tooltipPosition="top" (click)="goWarrantyuShareholder()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/garantias.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Reporte Garantías</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Imprimir un título"
+      tooltipPosition="top" (click)="goTitleShareholder()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/titulos.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Imprimir un título</span>
+      </div>
+    </div>
+
+  </div>
+</div>

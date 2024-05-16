@@ -1,0 +1,274 @@
+::ng-deep .p-inputwrapper {
+  width: 100%;
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+
+    button {
+      background: #0C82C5;
+      border-radius: 100px;
+      padding: 10px 16px;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+
+    button:disabled {
+      background: rgba(31, 31, 31, 0.12);
+      color: #1C1B1F;
+    }
+  }
+
+  .valor-dividendos {
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 24px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 25px;
+      column-gap: 20px;
+
+      @media(max-width: 1000px) {
+        display: flex;
+        flex-direction: column;
+      }
+
+      div {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .descripcion {
+        grid-column-start: 1;
+        grid-column-end: 4;
+      }
+
+      .actions {
+        grid-column-start: 3;
+        grid-column-end: 4;
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        padding: 10px;
+        justify-content: flex-end;
+
+        button:nth-child(1) {
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          letter-spacing: 0.1px;
+          color: #0C82C5;
+        }
+
+        button:nth-child(2) {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 10px 24px;
+          gap: 10px;
+
+          /* Secundario/300 */
+
+          background: #0C82C5;
+          border-radius: 100px;
+
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          /* identical to box height, or 143% */
+
+          display: flex;
+          align-items: center;
+          text-align: center;
+          letter-spacing: 0.1px;
+
+          /* M3/sys/light/on-primary */
+
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+
+  .summary {
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      color: #7D7774;
+      font-family: 'Arial';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+    }
+
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 100%;
+      padding: 16px 24px;
+
+      span {
+        background: #0C82C5;
+        border-radius: 16px;
+        padding: 16px 40px;
+        color: white;
+
+        h2 {
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 20px;
+        }
+
+        p {
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 24px;
+          line-height: 40px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .distribucion-dividendos {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 24px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+
+    .accionis{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 16px;
+      gap: 12px;
+
+      width: 340px;
+      height: 52px;
+      left: 0px;
+      top: 0px;
+
+      background: #EAF9FC;
+      border-radius: 8px;
+    }
+    .tipo-accionista {
+      display: grid;
+      grid-template-columns: 1fr 2fr 2fr;
+      align-items: center;
+      column-gap: 20px;
+
+      p {
+        vertical-align: center;
+      }
+
+      div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+      }
+    }
+
+    .actions {
+      grid-column-start: 3;
+      grid-column-end: 4;
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      align-items: center;
+      padding: 10px;
+      justify-content: flex-end;
+
+      button:nth-child(1) {
+        font-family: 'Arial';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.1px;
+        color: #0C82C5;
+      }
+
+      button:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 24px;
+        gap: 10px;
+
+        /* Secundario/300 */
+
+        background: #0C82C5;
+        border-radius: 100px;
+
+        font-family: 'Arial';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        /* identical to box height, or 143% */
+
+        display: flex;
+        align-items: center;
+        text-align: center;
+        letter-spacing: 0.1px;
+
+        /* M3/sys/light/on-primary */
+
+        color: #FFFFFF;
+      }
+    }
+  }
+
+}

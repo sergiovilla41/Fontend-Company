@@ -1,0 +1,164 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt [value]="assemblyListState"
+    exportFilename="browsers" csvSeparator=";" [exportHeader]="'customExportHeader'" [rows]="5"
+    [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th scope="col" style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+
+<div class="animate-fadeInDown pl-8 pb-14" *ngIf="loadings && !isEditAssemblyOpen">
+
+  <div class="">
+    <h1>Asambleas</h1>
+  </div>
+  <div class="p-d-flex botones contenedor">
+
+    <button [disabled]="isAddAssemblyOpen" pButton pTooltip="Crear nueva asamblea" tooltipPosition="top" type="button"
+      *appRol class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-plus" iconPos="left"
+      (click)="openAddAssembly()"><span class="pl-2 responsiveButton">Nuevo</span></button>
+
+    <button [disabled]="isAddAssemblyOpen" pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button [disabled]="isAddAssemblyOpen" pButton type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-file-csv" iconPos="left"
+      pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"><span class="pl-2 responsiveButton">CSV</span></button>
+
+    <button [disabled]="isAddAssemblyOpen" pButton pRipple type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-pdf" iconPos="left" pTooltip="Descargar Pdf"
+      tooltipPosition="top" (click)="exportPdf()"><span class="pl-2 responsiveButton">PDF</span></button>
+
+    <button [disabled]="isAddAssemblyOpen" pButton pTooltip="Editar asamblea" tooltipPosition="top" type="button"
+      *appRol class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-cog" iconPos="left"
+      (click)="editAssembly()"><span class="pl-2 responsiveButton">Edición</span></button>
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+  </div>
+
+</div>
+
+<edit-assembly *ngIf="isEditAssemblyOpen"></edit-assembly>
+<add-assembly *ngIf="isAddAssemblyOpen"></add-assembly>
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;"
+  *ngIf="loadings && !isEditAssemblyOpen">
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="assemblyListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="50"
+      [rowsPerPageOptions]="[5, 20, 50, 100]"
+      [globalFilterFields]="['TIPO','ESTADO','FECHA_ASAMBLEA','NOTIFICAR_ASISTENTES','ESTADO_NOTIFICACION', 'OBSERVACION', 'ASISTENTES', 'QUORUM',]"
+      selectionMode="single" [(selection)]="assemblySeleccionado" (onRowSelect)="onRowSelect($event)"
+      [tableStyle]="{'min-width': '50rem'}" [lazy]="true" (onLazyLoad)="loadCustomers($event)"
+      [totalRecords]="totRegistros" [loading]="loadingsTable">
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" pSortableColumn="DESCRIPCION" style="min-width:250px">Descripción<p-sortIcon
+              field="DESCRIPCION"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="ESTADO" style="min-width:250px">Estado asamblea<p-sortIcon
+              field="ESTADO"></p-sortIcon>
+          </th>
+          <th scope="col" pSortableColumn="FECHA_ASAMBLEA" style="min-width:180px">Fecha asamblea<p-sortIcon
+              field="FECHA_ASAMBLEA"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="NOTIFICAR_ASISTENTES" style="min-width:250px">Notificar asistentes<p-sortIcon
+              field="NOTIFICAR_ASISTENTES"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="OBSERVACION" style="min-width:250px">Observaciones<p-sortIcon
+              field="OBSERVACION"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="QUORUM" style="min-width:250px">QUORUM<p-sortIcon
+              field="QUORUM"></p-sortIcon></th>
+          <th scope="col" pSortableColumn="ESTADO_NOTIFICACION" style="min-width:250px">Estado notificación<p-sortIcon
+              field="ESTADO_NOTIFICACION"></p-sortIcon></th>
+        </tr>
+        <tr>
+          <th scope="col" style="min-width:100px"></th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="DESCRIPCION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="ESTADO" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="FECHA_ASAMBLEA" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="NOTIFICAR_ASISTENTES" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="OBSERVACION" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="QUORUM" [showMenu]="false"></p-columnFilter>
+          </th>
+          <th scope="col" style="min-width:250px">
+            <p-columnFilter type="text" field="ESTADO_NOTIFICACION" [showMenu]="false"></p-columnFilter>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-assemblyListState>
+        <tr>
+          <td>
+            <p-tableRadioButton [value]="assemblyListState"></p-tableRadioButton>
+          </td>
+
+          <td style="min-width:250px">{{assemblyListState.DESCRIPCION}}</td>
+          <td style="min-width:250px">{{assemblyListState.ESTADO}}</td>
+          <td style="min-width:180px">{{assemblyListState.FECHA_ASAMBLEA | date:'yyyy-MM-dd'}}</td>
+          <td style="min-width:250px">{{assemblyListState.NOTIFICAR_ASISTENTES}}</td>
+          <td style="min-width:250px"><abbr title="{{assemblyListState.OBSERVACION}}"
+              style="text-decoration: none;">{{(assemblyListState.OBSERVACION || '').slice(0, 20) }}{{
+              assemblyListState.OBSERVACION && assemblyListState.OBSERVACION .length > 20 ? '...' : '' }}</abbr></td>
+          <td style="min-width:250px">{{assemblyListState.QUORUM}}</td>
+          <td style="min-width:250px">{{assemblyListState.ESTADO_NOTIFICACION}}</td>
+
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="assembly"></p-confirmDialog>
+  </div>
+</div>

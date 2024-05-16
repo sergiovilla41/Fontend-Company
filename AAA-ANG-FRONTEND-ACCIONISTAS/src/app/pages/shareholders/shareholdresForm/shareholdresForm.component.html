@@ -1,0 +1,681 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+<div class="px-5 text-center-test animate-fadeIn pt-20" *ngIf="!loadings">
+  <div class="field col-12 md:col-6">
+    <p-skeleton width="15rem" styleClass="mb-9" class="px-5" height="2rem" borderRadius="16px"></p-skeleton>
+    <div class="grid gap-4 p-fluid px-8">
+      <div class="w-full px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8">
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+          <div class="w-full flex flex-wrap flex-col pb-3">
+            <p-skeleton height="4rem" borderRadius="16px"></p-skeleton>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="px-5 text-center-test animate-fadeIn" *ngIf="loadings">
+  <div>
+    <button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Cerrar" class="volver"></button>
+  </div>
+
+  <form class="mt-8 space-y-6" [formGroup]="form">
+    <div class="card shadow ax-w-full border-b border-l border-slate-300 pb-5">
+      <div class="mb-11 pt-8 pl-12">
+        <h1>{{task}} de accionista</h1>
+      </div>
+
+      <div class="grid gap-4 p-fluid px-8">
+        <div class="w-full px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="primer_nombre" name="primer_nombre" ftype="text" pInputText>
+                  <label for="primer_nombre">Primer nombre</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('primer_nombre').invalid && (form.get('primer_nombre').dirty || form.get('primer_nombre').touched)">
+                <div *ngIf="form.get('primer_nombre').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="segundo_nombre" name="segundo_nombre" type="text" pInputText>
+                  <label for="segundo_nombre">Segundo nombre</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Segundo nombre, si aplica" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="primer_apellido" name="primer_apellido" ftype="text" pInputText>
+                  <label for="primer_apellido">Primer apellido</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('primer_apellido').invalid && (form.get('primer_apellido').dirty || form.get('primer_apellido').touched)">
+                <div *ngIf="form.get('primer_apellido').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="segundo_apellido" name="segundo_apellido" type="text" pInputText>
+                  <label for="segundo_apellido">Segundo apellido</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Segundo apellido, si aplica" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="tipo_documento" [(ngModel)]="selectedIdentificationtype"
+                    formControlName="selectedIdentificationtype"
+                    name="selectedIdentificationtype" optionLabel="DESCRIPCION" [filter]="true" filterBy="DESCRIPCION"
+                    [showClear]="true" placeholder="Tipo documento">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedIdentificationtype">
+                        <div>{{selectedIdentificationtype.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-tipo_documento pTemplate="item">
+                      <div class="">
+                        <div>{{tipo_documento.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedIdentificationtype').invalid && (form.get('selectedIdentificationtype').dirty || form.get('selectedIdentificationtype').touched)">
+                <div *ngIf="form.get('selectedIdentificationtype').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                    <p-inputNumber inputId="integeronly" name="identificacion" type="number" formControlName="identificacion"
+                      pTooltip="Campo obligatorio" tooltipPosition="top"></p-inputNumber>
+                    <label for="identificacion">Identificación</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('identificacion').invalid && (form.get('identificacion').dirty || form.get('identificacion').touched)">
+                <div *ngIf="form.get('identificacion').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                    <p-calendar [(ngModel)]="fecha_expedicion" formControlName="fecha_expedicion" dateFormat="dd-mm-yy"
+                      [maxDate]="maxDate" inputId="fecha_expedicion"></p-calendar>
+                    <label for="fecha_expedicion">Fecha de expedición</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Fecha de expedición de la identificación" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="lugar_expedicion" name="lugar_expedicion" type="text" pInputText>
+                  <label for="lugar_expedicion">Lugar de expedición</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Lugar de expedición de la identificación" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="tipo_persona" [(ngModel)]="selectedPersonType" formControlName="selectedPersonType"
+                    name="selectedPersonType" optionLabel="DESCRIPCION" [filter]="true" filterBy="DESCRIPCION"
+                    [showClear]="true" placeholder="Tipo de persona">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedPersonType">
+                        <div>{{selectedPersonType.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-tipo_persona pTemplate="item">
+                      <div class="">
+                        <div>{{tipo_persona.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedPersonType').invalid && (form.get('selectedPersonType').dirty || form.get('selectedPersonType').touched)">
+                <div *ngIf="form.get('selectedPersonType').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown class="" [options]="tipo_accionista" [(ngModel)]="selectedShareholderType"
+                    formControlName="selectedShareholderType" name="selectedShareholderType" optionLabel="DESCRIPCION"
+                    [filter]="true" filterBy="DESCRIPCION" [showClear]="true" placeholder="Tipo de accionista *">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedShareholderType">
+                        <div>{{selectedShareholderType.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-tipo_accionista pTemplate="item">
+                      <div class="">
+                        <div>{{tipo_accionista.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedShareholderType').invalid && (form.get('selectedShareholderType').dirty || form.get('selectedShareholderType').touched)">
+                <div *ngIf="form.get('selectedShareholderType').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="tipo_declarante" [(ngModel)]="selectedTypeOfFiler"
+                    [ngModelOptions]="{standalone: true}" name="selectedTypeOfFiler" optionLabel="DESCRIPCION" [filter]="true"
+                    filterBy="DESCRIPCION" [showClear]="true" placeholder="Tipo de declarante">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedTypeOfFiler">
+                        <div>{{selectedTypeOfFiler.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-tipo_declarante pTemplate="item">
+                      <div class="">
+                        <div>{{tipo_declarante.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Tipo de declarante" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="empresa" name="empresa" type="text" pInputText>
+                  <label for="empresa">Empresa</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Empresa" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="representante" name="representante" ftype="text" pInputText>
+                  <label for="representante">Representante</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Representante" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="direccion" name="direccion" type="text" pInputText>
+                  <label for="direccion">Dirección</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Dirección" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <p-inputNumber name="telefono_1" formControlName="telefono_1" mode="decimal" inputId="withoutgrouping"
+                  [useGrouping]="false"> </p-inputNumber>
+                <label for="telefono_1">Teléfono 1</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('telefono_1').invalid && (form.get('telefono_1').dirty || form.get('telefono_1').touched)">
+                <div *ngIf="form.get('telefono_1').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <p-inputNumber name="telefono_2" formControlName="telefono_2" mode="decimal" inputId="withoutgrouping"
+                  [useGrouping]="false"> </p-inputNumber>
+                <label for="telefono_2">Teléfono 2</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Teléfono 2" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="email_1" name="email_1" ftype="email" pInputText>
+                  <label for="email_1">Email 1</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Email" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <input formControlName="email_2" name="email_2" type="email" pInputText>
+                  <label for="email_2">Email 2</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Email 2" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="pais" [(ngModel)]="selectedCountry" formControlName="selectedCountry"
+                    name="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                    placeholder="Pais" (onChange)="onOptionChangeCountry()">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedCountry">
+                        <div>{{selectedCountry.name}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-pais pTemplate="item">
+                      <div class="">
+                        <div>{{pais.name}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedCountry').invalid && (form.get('selectedCountry').dirty || form.get('selectedCountry').touched)">
+                <div *ngIf="form.get('selectedCountry').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="departamento" [(ngModel)]="selectedDepartment" formControlName="selectedDepartment"
+                    name="selectedDepartment" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true"
+                    placeholder="Departamento *" (onChange)="onOptionChangeCities()">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedDepartment">
+                        <div>{{selectedDepartment.name}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-departamento pTemplate="item">
+                      <div class="">
+                        <div>{{departamento.name}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Segundo apellido, si aplica" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedDepartment').invalid && (form.get('selectedDepartment').dirty || form.get('selectedDepartment').touched)">
+                <div *ngIf="form.get('selectedDepartment').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8 pb-4">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="ciudad" [(ngModel)]="selectedCity" formControlName="selectedCity" name="selectedCity"
+                    optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Ciudad">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedCity">
+                        <div>{{selectedCity.name}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-ciudad pTemplate="item">
+                      <div class="">
+                        <div>{{ciudad.name}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedCity').invalid && (form.get('selectedCity').dirty || form.get('selectedCity').touched)">
+                <div *ngIf="form.get('selectedCity').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="banco" [(ngModel)]="selectedBank" [ngModelOptions]="{standalone: true}"
+                    name="selectedBank" optionLabel="DESCRIPCION" [filter]="true" filterBy="DESCRIPCION" [showClear]="true"
+                    placeholder="Banco">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedBank">
+                        <div>{{selectedBank.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-banco pTemplate="item">
+                      <div class="">
+                        <div>{{banco.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Banco" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="tipo_cuenta" [(ngModel)]="selectedaccountType" [ngModelOptions]="{standalone: true}"
+                    name="selectedaccountType" optionLabel="DESCRIPCION" [filter]="true" filterBy="DESCRIPCION"
+                    [showClear]="true" placeholder="Tipo de cuenta">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedaccountType">
+                        <div>{{selectedaccountType.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-tipo_cuenta pTemplate="item">
+                      <div class="">
+                        <div>{{tipo_cuenta.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Tipo de cuenta" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full p-float-label">
+                  <p-inputNumber name="nro_cuenta" formControlName="nro_cuenta" mode="decimal" inputId="withoutgrouping"
+                      [useGrouping]="false"> </p-inputNumber>
+                  <label for="nro_cuenta">Nro cuenta</label>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Nro cuenta" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 px-8">
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="nacionalidad"
+                    [(ngModel)]="selectedNacionalityType" formControlName="selectedNacionalityType"
+                    name="selectedNacionalityType" optionLabel="DESCRIPCION" [filter]="true" filterBy="DESCRIPCION"
+                    [showClear]="true" placeholder="Nacionalidad *">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedNacionalityType">
+                        <div>{{selectedNacionalityType.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-nacionalidad pTemplate="item">
+                      <div class="">
+                        <div>{{nacionalidad.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedNacionalityType').invalid && (form.get('selectedNacionalityType').dirty || form.get('selectedNacionalityType').touched)">
+                <div *ngIf="form.get('selectedNacionalityType').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+            <div class="w-full flex flex-wrap flex-col pb-3">
+              <div class="flex items-center gap-3">
+                <span class="w-full">
+                  <p-dropdown [options]="estado"
+                    [(ngModel)]="selectedState" formControlName="selectedState" name="selectedState"
+                    optionLabel="DESCRIPCION" [filter]="true" filterBy="DESCRIPCION" [showClear]="true"
+                    placeholder="Estado">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="" *ngIf="selectedState">
+                        <div>{{selectedState.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-estado pTemplate="item">
+                      <div class="">
+                        <div>{{estado.DESCRIPCION}}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </span>
+                <div>
+                  <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="left"
+                    style="color: #0c82c5;"></em>
+                </div>
+              </div>
+              <div class="mb-4"
+                *ngIf="form.get('selectedState').invalid && (form.get('selectedState').dirty || form.get('selectedState').touched)">
+                <div *ngIf="form.get('selectedState').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+                  class="animate-fadeInDown">
+                  <p>Este campo es obligatorio.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p-divider class="flex px-8"></p-divider>
+
+      <div class="card flex justify-content-center gap-2">
+        <p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
+      </div>
+
+      <div class="flex justify-end pt-3 px-8">
+        <button pButton (click)="addShareholder()" label="Guardar" class="p-button-rounded botonesPadding p-button-sm"></button>
+      </div>
+    </div>
+
+  </form>
+</div>

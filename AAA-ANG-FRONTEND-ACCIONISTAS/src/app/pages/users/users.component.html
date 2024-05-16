@@ -1,0 +1,166 @@
+<mat-progress-bar mode="indeterminate" *ngIf="!loadings"></mat-progress-bar>
+
+
+<div class="card animate-fadeInDown" *ngIf="!loadings">
+
+  <p-table [scrollable]="true" scrollHeight="70%" [tableStyle]="{'min-width': '60rem'}" #dt [value]="usersListState"
+    exportFilename="browsers" csvSeparator=";" [exportHeader]="'customExportHeader'" [rows]="5"
+    [tableStyle]="{'min-width': '50rem'}">
+
+    <ng-template pTemplate="caption">
+      <div class="">
+        <p-skeleton width="8rem" height="2rem"></p-skeleton>
+      </div>
+      <div class="">
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px"></p-skeleton>
+      </div>
+      <div class="p-d-flex botones contenedor">
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="8rem" height="2rem" borderRadius="16px" class="botonesPadding"></p-skeleton>
+        <p-skeleton width="10rem" styleClass="mb-2" class="px-5" borderRadius="16px" *ngIf="loadings"></p-skeleton>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="10rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+        <th style="width:20%"><p-skeleton width="8rem" height="2rem"></p-skeleton></th>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</div>
+
+<div class="animate-fadeInDown pl-8 pb-14" *ngIf="loadings">
+
+  <div class="">
+    <h1>Usuarios</h1>
+  </div>
+  <div class="p-d-flex botones contenedor">
+    <button [disabled]="usuarioSeleccionado && action === 'edit'" pButton pTooltip="Crear un nuevo usuario"
+      tooltipPosition="top" type="button" *appRol class="p-button-rounded botonesPadding p-button-sm"
+      icon="pi pi-plus" iconPos="left" (click)="newUser()"><span class="pl-2 responsiveButton">Nuevo</span></button>
+
+    <button pButton pTooltip="Descargar Excel" tooltipPosition="top" type="button"
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-file-excel" iconPos="left"
+      (click)="exportExcel()"><span class="pl-2 responsiveButton">Excel</span></button>
+
+    <button pButton type="button" class="p-button-rounded botonesPadding p-button-sm" icon="fa-solid fa-file-csv"
+      iconPos="left" pTooltip="Descargar Csv" tooltipPosition="top" (click)="exportCsv()"><span class="pl-2 responsiveButton">CSV</span></button>
+
+    <button pButton pRipple type="button" class="p-button-rounded botonesPadding p-button-sm"
+      icon="pi pi-file-pdf" iconPos="left" pTooltip="Descargar Pdf" tooltipPosition="top"
+      (click)="exportPdf()"><span class="pl-2 responsiveButton">PDF</span></button>
+
+    <button pButton pTooltip="Editar usuario" tooltipPosition="top" type="button" *appRol
+      class="p-button-rounded botonesPadding p-button-sm" icon="pi pi-cog" iconPos="left" (click)="handleEditUser()"><span class="pl-2 responsiveButton">Editar</span>
+    </button>
+
+    <span class="span">Total registros: {{totRegistros}}</span>
+
+  </div>
+
+  <div *ngIf="viewForm" class="pt-8 pb-20">
+    <app-usersForm></app-usersForm>
+  </div>
+
+
+</div>
+
+<div class="px-5 pl-12 ml-1 text-center-test animate-fadeIn" style="position: relative; z-index: 2;" *ngIf="loadings">
+
+  <div class="card shadow border-round border-gray-300 pb-5 animate-fadeInDown ">
+
+    <p-table [scrollable]="true" scrollHeight="400px" #dt [value]="usersListState" scrollHeight="60vh"
+      exportFilename="browsers" csvSeparator=";" [paginator]="true" [exportHeader]="'customExportHeader'" [rows]="1000"
+      [rowsPerPageOptions]="[10,20,30]"
+      [globalFilterFields]="['PRIMER_NOMBRE','SEGUNDO_NOMBRE','PRIMER_APELLIDO','SEGUNDO_APELLIDO','DOCUMENTO','TELEFONO','EMAIL', 'Fn_role.NOMBRE']"
+      selectionMode="single" [(selection)]="usuarioSeleccionado" [tableStyle]="{'min-width': '50rem'}">
+
+
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="min-width:100px"></th>
+          <th style="min-width:250px" pSortableColumn="PRIMER_NOMBRE">Primer nombre <p-sortIcon
+              field="PRIMER_NOMBRE"></p-sortIcon></th>
+          <th style="min-width:250px" pSortableColumn="SEGUNDO_NOMBRE">Segundo nombre <p-sortIcon
+              field="SEGUNDO_NOMBRE"></p-sortIcon></th>
+          <th style="min-width:250px" pSortableColumn="PRIMER_APELLIDO">Primer apellido <p-sortIcon
+              field="PRIMER_APELLIDO"></p-sortIcon></th>
+          <th style="min-width:250px" pSortableColumn="SEGUNDO_APELLIDO">Segundo apellido <p-sortIcon
+              field="SEGUNDO_APELLIDO"></p-sortIcon></th>
+          <th style="min-width:250px" pSortableColumn="DOCUMENTO">Documento<p-sortIcon field="DOCUMENTO"></p-sortIcon>
+          </th>
+          <th style="min-width:250px" pSortableColumn="TELEFONO">telefono<p-sortIcon field="TELEFONO"></p-sortIcon></th>
+          <th style="min-width:250px" pSortableColumn="EMAIL">Email<p-sortIcon field="EMAIL"></p-sortIcon>
+          </th>
+         <!--  <th style="min-width:250px" pSortableColumn="Fn_role.NOMBRE">ROL<p-sortIcon
+              field="Fn_role.NOMBRE"></p-sortIcon></th> -->
+        </tr>
+        <tr>
+          <th style="min-width:100px"></th>
+          <th style="min-width:250px">
+            <p-columnFilter type="text" field="PRIMER_NOMBRE"></p-columnFilter>
+          </th>
+          <th style="min-width:250px">
+            <p-columnFilter type="text" field="SEGUNDO_NOMBRE"></p-columnFilter>
+          </th>
+          <th style="min-width:250px">
+            <p-columnFilter type="text" field="PRIMER_APELLIDO"></p-columnFilter>
+          </th>
+          <th style="min-width:250px">
+            <p-columnFilter type="text" field="SEGUNDO_APELLIDO"></p-columnFilter>
+          </th>
+          <th style="min-width:250px">
+            <p-columnFilter type="text" field="DOCUMENTO"></p-columnFilter>
+          </th>
+          <th style="min-width:250px">
+            <p-columnFilter type="text" field="TELEFONO"></p-columnFilter>
+          </th>
+          <th style="min-width:250px">
+            <p-columnFilter type="text" field="EMAIL"></p-columnFilter>
+          </th>
+          <!-- <th style="min-width:250px">
+            <p-columnFilter type="text" field="Fn_role.NOMBRE"></p-columnFilter>
+          </th> -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-usersListState>
+        <tr>
+          <td style="min-width:100px">
+            <p-tableRadioButton class="centrar-imagen" [value]="usersListState"></p-tableRadioButton>
+          </td>
+          <td style="min-width:250px">{{usersListState.PRIMER_NOMBRE}}</td>
+          <td style="min-width:250px">{{usersListState.SEGUNDO_NOMBRE}}</td>
+          <td style="min-width:250px">{{usersListState.PRIMER_APELLIDO}}</td>
+          <td style="min-width:250px">{{usersListState.SEGUNDO_APELLIDO}}</td>
+          <td style="min-width:250px">{{usersListState.DOCUMENTO | number: '1.0-9'}}</td>
+          <td style="min-width:250px">{{usersListState.TELEFONO}}</td>
+          <td style="min-width:250px">{{usersListState.EMAIL}}</td>
+          <!-- <td style="min-width:250px">{{usersListState.Fn_role.NOMBRE}}</td> -->
+        </tr>
+      </ng-template>
+    </p-table>
+
+
+
+  </div>
+
+  <div class="card flex justify-content-center gap-2">
+    <p-confirmDialog key="users"></p-confirmDialog>
+  </div>
+
+</div>

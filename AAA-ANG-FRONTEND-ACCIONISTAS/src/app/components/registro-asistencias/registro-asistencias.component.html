@@ -1,0 +1,130 @@
+<div class="component">
+  <div class="options">
+    <button [disabled]="registeringQuestionType" (click)="registerQuestionType()"><i class="pi pi-plus"></i>
+      Nuevo</button>
+    <button (click)="exportExcel()" [disabled]="registeringQuestionType"><i class="pi pi-file-excel"></i></button>
+    <button (click)="exportCsv()" [disabled]="registeringQuestionType"><i class="fa-solid fa-file-csv"></i></button>
+    <button (click)="exportPdf()" [disabled]="registeringQuestionType"><i class="pi pi-file-pdf"></i></button>
+    <p>Total registros: {{totalAsistencias$ | async}}</p>
+  </div>
+  <div class="registro" *ngIf="registeringQuestionType">
+    <h1>Registro de la pregunta para votación</h1>
+    <form [formGroup]="form">
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown
+            [class.ng-dirty]="this.form.get('nombreAccionista').touched && this.form.get('nombreAccionista').invalid"
+            formControlName="nombreAccionista" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+            [options]="(accionistas$ | async)!" defaultLabel="Seleccione una opción" appendTo="body"
+            [virtualScroll]="true" [virtualScrollItemSize]="38" optionLabel="FULL_NAME" optionValue="ID_REGISTRO"
+            placeholder="Seleccione" />
+          <label>Nombre accionista asistente o representado</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <input formControlName="identificacionAsistente" pInputText [style]="{'min-width':'100%'}" appendTo="body" />
+          <label>Identificación accionista asistente ó representado</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown formControlName="tipoAsistente" [filter]="true" [style]="{'width':'100%'}"
+            [options]="(asistenciaTypes$ | async)!" optionLabel="DESCRIPCION" optionValue="ID_REGISTRO" appendTo="body"
+            placeholder="Seleccione el tipo de asistente" />
+          <label for="">Tipo asistente</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <input formControlName="nombreAsistente" pInputText [style]="{'min-width':'100%'}" appendTo="body" />
+          <label>Nombre asistente</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown formControlName="tipoDocumento" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+            [options]="(tipoDocumento$ | async)" appendTo="body" optionLabel="DESCRIPCION" optionValue="ID_REGISTRO"
+            placeholder="Seleccione el tipo de documento" />
+          <label>Tipo de documento</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <input formControlName="identification" pInputText [style]="{'min-width':'100%'}" appendTo="body" />
+          <label for="">Identificación</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div class="actions">
+        <button (click)="cancelar()">Cancelar</button>
+        <button (click)="guardar()">Guardar y nuevo</button>
+        <button (click)="nextStep()">Siguiente</button>
+      </div>
+    </form>
+  </div>
+  <p-table class="table" [value]="asistenciaData" [paginator]="true" [rows]="10"
+    [totalRecords]="totalAsistencias$ | async" [lazy]="true" (onLazyLoad)="loadAsistencias($event)"
+    [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Está presente</th>
+        <th>Calidad del asistente</th>
+        <th>Nombre del asistente</th>
+        <th>Tipo de documento</th>
+        <th>identificación</th>
+        <th>Accionista representado</th>
+        <th>Porcentaje de participación</th>
+        <th>Acciones</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>
+          <p-columnFilter type="text" field="TIPO_ASISTENTE" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="NOMBRE_COMPLETO_ASISTENTE" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="TIPO_DOCUMENTO" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="IDENTIFICACION" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="ACCIONISTA" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="PORCENTAJE_PARTICIPACION" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="TOTAL_ACCIONES" [showMenu]="false"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template class="tableBody" pTemplate="body" let-asistencia>
+      <tr>
+        <td><p-inputSwitch [(ngModel)]="asistencia.isPresent"></p-inputSwitch></td>
+        <td>{{asistencia.TIPO_ASISTENTE}}</td>
+        <td>{{asistencia.NOMBRE_COMPLETO_ASISTENTE}}</td>
+        <td>{{asistencia.TIPO_DOCUMENTO}}</td>
+        <td>{{asistencia.IDENTIFICACION}}</td>
+        <td>{{asistencia.ACCIONISTA}}</td>
+        <td>{{asistencia.PORCENTAJE_PARTICIPACION}}</td>
+        <td>{{asistencia.TOTAL_ACCIONES}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

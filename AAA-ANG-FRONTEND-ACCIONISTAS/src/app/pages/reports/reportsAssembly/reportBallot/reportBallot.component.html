@@ -1,0 +1,50 @@
+<mat-progress-bar mode="indeterminate" *ngIf="loadings" class="animate-fadeIn"></mat-progress-bar>
+
+<div class="animate-fadeInDown pl-8 mb-0">
+
+  <button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Volver"
+    class="volver animate-fadeInDown"></button>
+
+  <div>
+    <h1>Reporte de votaciones</h1>
+  </div>
+
+  <form class="mt-8 space-y-6" [formGroup]="form">
+
+    <div class="p-d-flex botones contenedor">
+      <div class="dropdown-container pr-7">
+
+        <p-dropdown [class.ng-dirty]="this.form.get('id').touched && this.form.get('id').invalid" formControlName="id"
+          [filter]="true" autoWidth="false" [style]="{'width':'350px'}" [options]="(asambleas$ | async)!"
+          defaultLabel="Seleccione una opción" appendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="10"
+          optionLabel="FULL_NAME" optionValue="ID_REGISTRO" placeholder="Seleccione una Asamblea">
+        </p-dropdown>
+
+
+        <div class="dropdown-validator pl-8 mt-0"
+          *ngIf="form.get('id').invalid && (form.get('id').dirty || form.get('id').touched)">
+          <div *ngIf="form.get('id').errors.required" style="color: #0c82c5; height: 1px; width: 100%;"
+            class="animate-fadeInDown">
+            <p>Este campo es obligatorio.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <button [disabled]="isButtonDisabled" pButton pTooltip="Generar Reporte" tooltipPosition="top" type="button"
+        class="p-button-rounded botonesPadding p-button-m" (click)="generatePdf()"><span
+          class="responsiveButton">Generar Reporte</span></button>
+
+    </div>
+
+  </form>
+
+  
+
+  <div class="contentImg animate-fadeIn" *ngIf="loadings">
+    <div class="imgContainer animate-pulse">
+      <img class="imgCarga" src="../../../../assets/img/icons/reportes/reporteVotaciones.svg" />
+    </div>
+  </div>
+
+</div>

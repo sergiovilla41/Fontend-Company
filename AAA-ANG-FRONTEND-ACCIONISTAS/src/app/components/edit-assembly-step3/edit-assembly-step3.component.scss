@@ -1,0 +1,155 @@
+.component{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .abierta {
+    .meassures {
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      padding: 20px 0px 13px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      justify-content: center;
+      align-items: center;
+
+      span {
+        text-align: center;
+        vertical-align: center;
+
+        p {
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: 0.001em;
+          color: #1F140F;
+        }
+
+        h1 {
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 24px;
+          line-height: 40px;
+          color: #0C82C5;
+        }
+      }
+
+      div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+          background: #0C82C5;
+          color: white;
+          padding: 10px 24px;
+          border-radius: 100px;
+        }
+      }
+
+    }
+
+
+  }
+
+  .cerrada {
+    .meassures {
+      box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: center;
+      align-items: center;
+
+      .data {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 5px;
+        background: #FDFDFD;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+        padding: 10px;
+
+        h2 {
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 20px;
+          letter-spacing: 0.001em;
+          color: #1F140F;
+        }
+
+        p {
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          text-align: left;
+          letter-spacing: 0.001em;
+          color: #1F140F;
+        }
+      }
+
+      div {
+        h1 {
+          font-family: 'Gotham Rounded';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 24px;
+          line-height: 40px;
+          text-align: center;
+          color: #2FC14F;
+        }
+
+        p {
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          text-align: center;
+          letter-spacing: 0.001em;
+          color: #1F140F;
+        }
+      }
+
+      .actions {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+
+        .actaButton {
+          background: #0C82C5;
+          border-radius: 100px;
+          padding: 10px 24px;
+          color: white;
+        }
+
+        .listadoButton {
+          border: 1px solid #0C82C5;
+          border-radius: 100px;
+          color: #0C82C5;
+          padding: 10px 24px;
+        }
+      }
+
+
+    }
+  }
+
+  .tableBody{
+    .respuesta{
+      display: flex;
+      flex-direction: row;
+      gap: 3px;
+    }
+  }
+
+}

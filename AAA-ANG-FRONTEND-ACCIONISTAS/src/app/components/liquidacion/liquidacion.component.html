@@ -1,0 +1,143 @@
+<div class="component">
+  <div class="options">
+    <button [disabled]="action" (click)="liquidar()"><i class="pi pi-plus"></i> Liquidar</button>
+    <button [disabled]="action" (click)="editar()"><i class="pi pi-cog"></i> Editar</button>
+    <button [disabled]="action" (click)="anular()"><i class="pi pi-cog"></i> Anular liquidación</button>
+    <button (click)="exportExcel()"[disabled]="action"><i class="pi pi-file-excel"></i></button>
+    <button (click)="exportCsv()"[disabled]="action"><i class="fa-solid fa-file-csv"></i></button>
+    <button (click)="exportPdf()"[disabled]="action"><i class="pi pi-file-pdf"></i></button>
+    <p>Total registros: {{totalRecords$ | async}}</p>
+  </div>
+  <div class="liquidar" *ngIf="action === 'liquidar'">
+    <h1>Liquidación de dividendos</h1>
+    <form [formGroup]="form"
+      [style]="{'grid-template-columns': (form.get('tipoLiquidacion').value === liquidacionTipos[0])? '2fr 1fr':'4fr 1fr'}">
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown formControlName="tipoLiquidacion" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+            [options]="liquidacionTipos" defaultLabel="Seleccione una opción" appendTo="body" />
+          <label>Seleccione como desea hacer la liquidación</label>
+        </div>
+        <div class="p-float-label" style="width: 100%; display: block;"
+          *ngIf="form.get('tipoLiquidacion').value === liquidacionTipos[0]">
+          <p-dropdown formControlName="tipoAccionista" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+            [options]="tipoAccionistas" appendTo="body" placeholder="Seleccione el tipo accionista" />
+          <label>Seleccione el tipo accionista</label>
+        </div>
+        <div class="p-float-label" style="width: 100%; display: block;"
+          *ngIf="form.get('tipoLiquidacion').value === liquidacionTipos[1]">
+          <p-dropdown formControlName="accionista" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}"
+            [options]="(accionistas$ | async)" appendTo="body" [virtualScroll]="true" [virtualScrollItemSize]="43"
+            placeholder="Seleccione un accionista" optionLabel="FULL_NAME" optionValue="ID_REGISTRO"/>
+          <label>Seleccione un accionista</label>
+        </div>
+        <div class="p-float-label" style="width: 100%; display: block;"
+          *ngIf="form.get('tipoLiquidacion').value === liquidacionTipos[1]">
+          <p-inputNumber formControlName="numeroCuotas" placeholder="Escribe el número de cuotas"
+            [style]="{'min-width':'100%'}"></p-inputNumber>
+          <label>Escribe el número de cuotas</label>
+        </div>
+      </div>
+      <div>
+        <button (click)="cancelar()">Cancelar</button>
+        <button (click)="onLiquidar()">Liquidar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="liquidar" *ngIf="action === 'editar'">
+    <h1>Edición de liquidación del titulo {{ selectedLiquidacion.TIPO_ACCIONISTA + ' ' + selectedLiquidacion.CONSECUTIVO}}</h1>
+    <form [formGroup]="form">
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown formControlName="estadoLiquidacion" [filter]="true" autoWidth="false" [style]="{'min-width':'100%'}" [options]="(liquidacionEstados$ | async)"
+            optionLabel="DESCRIPCION" defaultLabel="Seleccione una opción" appendTo="body" placeholder="Seleccione una opción" />
+          <label>Modifique aquí el estado de la liquidación</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <button (click)="cancelar()">Cancelar</button>
+        <button (click)="onEditar()">Editar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="liquidar" *ngIf="action === 'anular'">
+    <h1>Anular liquidación del titulo {{ selectedLiquidacion.TIPO_ACCIONISTA + ' ' + selectedLiquidacion.CONSECUTIVO}}</h1>
+    <form [formGroup]="form">
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <input type="text" [style]="{'min-width':'100%'}" pInputText >
+          <label>Observación</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <button (click)="cancelar()">Cancelar</button>
+        <button (click)="onAnular()">Anular</button>
+      </div>
+    </form>
+  </div>
+
+  <p-table class="table" [value]="(liquidaciones$ | async)!" [paginator]="true" [lazy]="true"
+    (onPage)="loadLiquidaciones($event)" (onLazyLoad)="loadLiquidaciones($event)" [(selection)]="selectedLiquidacion" [totalRecords]="(totalRecords$ | async)!" [rows]="10"
+    [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th></th>
+        <th>Titulo</th>
+        <th>Identificación</th>
+        <th>Accionista</th>
+        <th>Estado</th>
+        <th>Cuota</th>
+        <th>Acciones</th>
+        <th>Dividendo</th>
+        <th>Valor Factura</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>
+          <p-columnFilter type="text" field="TIPO_ACCIONISTA" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="IDENTIFICACION" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="NOMBRE" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="ESTADO" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="CUOTA" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="ACCIONES" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="DIVIDENDO" [showMenu]="false"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="VALOR_FACTURADO" [showMenu]="false"></p-columnFilter>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template class="tableBody" pTemplate="body" let-liquidacion>
+      <tr>
+        <td><p-tableRadioButton [value]="liquidacion"></p-tableRadioButton></td>
+        <td>{{liquidacion.TIPO_ACCIONISTA + ' ' + liquidacion.CONSECUTIVO}}</td>
+        <td>{{liquidacion.IDENTIFICACION}}</td>
+        <td>{{liquidacion.NOMBRE}}</td>
+        <td>{{liquidacion.ESTADO}}</td>
+        <td>{{liquidacion.CUOTA}}</td>
+        <td>{{liquidacion.ACCIONES}}</td>
+        <td>{{liquidacion.DIVIDENDO}}</td>
+        <td>{{liquidacion.VALOR_FACTURADO}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-confirmDialog key="liquidacion" [style]="{width: '50vw'}"></p-confirmDialog>

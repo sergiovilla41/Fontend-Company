@@ -1,0 +1,34 @@
+<button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Volver"
+  class="volver animate-fadeInDown"></button>
+
+<div class="pl-8 pb-3 animate-fadeInDown">
+  <h1>Liquidaciones-Pagos</h1>
+</div>
+
+<div class="grid p-fluid animate-fadeInDown">
+  <div class="flex flex-wrap mb-11 pl-8"
+    style="width: 100%; height: 100%; justify-content: flex-start; align-items: flex-start; gap: 24px; display: inline-flex">
+
+    <div class="cards flex-auto select-container" pTooltip="Liquidación y pago" tooltipPosition="top"
+      (click)="goSettlementPayment()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/liquidacion.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Liquidación y pago</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Consulta de pagos"
+      tooltipPosition="top" (click)="goPaymentQuery()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/pagos.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Consulta de pagos</span>
+      </div>
+    </div>
+
+
+  </div>
+</div>

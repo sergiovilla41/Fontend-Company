@@ -1,0 +1,121 @@
+<div class="component">
+  <div class="nuevo" *ngIf="action === 'nuevo'">
+    <h1>Registro de la pregunta para votación</h1>
+    <form [formGroup]="form">
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown formControlName="tipoVotacion"
+            [class.ng-dirty]="this.form.get('tipoVotacion').touched && this.form.get('tipoVotacion').invalid"
+            [filter]="true" placeholder="Seleccione una opción" autoWidth="false" [style]="{'min-width':'100%'}" [options]="(tipoVotaciones$ | async)!"
+            optionLabel="DESCRIPCION" appendTo="body" />
+          <label>Tipo de votaciónes</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown formControlName="estado"
+            [class.ng-dirty]="this.form.get('estado').touched && this.form.get('estado').invalid" [filter]="true"
+            [style]="{'width':'100%'}" [options]="estadoOptions" placeholder="Seleccione una opción" defaultLabel="Seleccione una opción" appendTo="body" />
+          <label for="">¿Desea cambiar el estado?</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div class="descripcion">
+        <span class="p-float-label" [style]="{'width': '100%'}">
+          <input formControlName="descripcionObjetivo" [class.ng-dirty]="this.form.get('descripcionObjetivo').touched && this.form.get('descripcionObjetivo').invalid" type="text" [style]="{'width': '100%'}" placeholder="Detalle del objetivo" pInputText />
+          <label for="">Detalle del objetivo</label>
+        </span>
+
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div class="actions">
+        <button (click)="onCancelar()">Cancelar</button>
+        <button (click)="onGuardar()">Guardar y nuevo</button>
+        <button (click)="onSiguiente()">Siguiente</button>
+      </div>
+    </form>
+  </div>
+  <div class="editar" *ngIf="action === 'editar'">
+    <h1>Registro de la pregunta para votación</h1>
+    <form [formGroup]="form">
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown id="tipoVotacion" formControlName="tipoVotacion" [filter]="true" autoWidth="false"
+            [style]="{'min-width':'100%'}" [options]="(tipoVotaciones$ | async)!" optionLabel="DESCRIPCION" appendTo="body" />
+          <label for="">Tipo de votación</label>
+        </div>
+        <em class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></em>
+      </div>
+      <div>
+        <div class="p-float-label" style="width: 100%; display: block;">
+          <p-dropdown [filter]="true" [style]="{'width':'100%'}" [options]="estadoOptions"
+            defaultLabel="Seleccione una opción" appendTo="body" />
+          <label for="">¿Desea cambiar el estado?</label>
+        </div>
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div class="descripcion">
+        <span class="p-float-label" [style]="{'width': '100%'}">
+          <input formControlName="descripcionObjetivo" type="text" [style]="{'width': '100%'}"
+            placeholder="Detalle del objetivo" pInputText />
+          <label for="">Formula la pregunta</label>
+        </span>
+
+        <i class="fa-sharp fa-solid fa-circle-info fa-lg" pTooltip="Campo obligatorio" tooltipPosition="top"
+          style="color: #0c82c5;"></i>
+      </div>
+      <div class="actions">
+        <button (click)="onCancelar()">Cancelar</button>
+        <button (click)="onEdit()">Guardar y nuevo</button>
+        <button (click)="onSiguiente()">Siguiente</button>
+      </div>
+    </form>
+  </div>
+  <p-table class="table" [value]="(votaciones$ | async)!" [(selection)]="selectedVotacion" [totalRecords]="votacionCount$ | async"
+    (selectionChange)="onChangeSelection()" [paginator]="true" [rows]="10"
+    [lazy]="true" (onLazyLoad)="loadAsistencias($event)" [rowsPerPageOptions]="[10, 25, 50]">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem;"></th>
+        <th>Tipo de votación</th>
+        <th>Descripción/Objetivo</th>
+        <th>Fecha de creación</th>
+        <th>Estado</th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>
+          <p-columnFilter type="text" field="TIPO_VOTACION"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="DESCRIPCION"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="FECHA_CREACION"></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter type="text" field="ESTADO"></p-columnFilter>
+        </th>
+
+      </tr>
+    </ng-template>
+    <ng-template class="tableBody" pTemplate="body" let-votacion>
+      <tr>
+        <td>
+          <p-tableRadioButton [value]="votacion"></p-tableRadioButton>
+        </td>
+        <td>{{votacion.TIPO_VOTACION}}</td>
+        <td>{{votacion.DESCRIPCION}}</td>
+        <td>{{votacion.FECHA_CREACION | date:'yyyy-MM-dd'}}</td>
+        <td>{{votacion.ESTADO}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

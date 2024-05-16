@@ -1,0 +1,43 @@
+<button pButton type="button" icon="pi pi-arrow-left" (click)="goBack()" label="Volver"
+  class="volver animate-fadeInDown"></button>
+
+<div class="pl-8 pb-3 animate-fadeInDown">
+  <h1>Reportes de asambleas</h1>
+</div>
+
+<div class="grid p-fluid animate-fadeInDown">
+  <div class="flex flex-wrap mb-11 pl-8"
+    style="width: 100%; height: 100%; justify-content: flex-start; align-items: flex-start; gap: 24px; display: inline-flex">
+
+    <div class="cards flex-auto select-container" pTooltip="Reporte de votaciones" tooltipPosition="top"
+      (click)="goReportBallot()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/reporteVotaciones.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Reporte de votaciones</span>
+      </div>
+    </div>
+
+    <div class="cards flex-auto select-container" pTooltip="Impresión de tarjetones"
+      tooltipPosition="top" (click)="goPrintingCards()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/tarjetones.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Impresión de tarjetones</span>
+      </div>
+    </div>
+
+<!--     <div class="cards flex-auto select-container" pTooltip="Acta de integración de Quorum"
+      tooltipPosition="top" (click)="goComptrollerReporting()">
+      <div class="contentCards">
+        <img style="width: 80px; height: 80px" src="../../../../assets/img/icons/reportes/quorum.svg" />
+      </div>
+      <div class="cardstext">
+        <span class="truncate">Acta de integración de Quorum</span>
+      </div>
+    </div> -->
+
+  </div>
+</div>

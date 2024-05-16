@@ -1,0 +1,92 @@
+::ng-deep p-inputnumber, .p-inputnumber {
+  width: 100%;
+}
+
+.component {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+
+    button {
+      background: #0C82C5;
+      border-radius: 100px;
+      padding: 10px 16px;
+      color: white;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 20px;
+    }
+
+    button:disabled {
+      background: rgba(31, 31, 31, 0.12);
+      color: #1C1B1F;
+    }
+  }
+
+  .liquidar {
+    background: #FFFFFF;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.06), 0px 2px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    h1 {
+      font-family: 'Arial';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+      color: #7D7774;
+      letter-spacing: 0.001em;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      justify-content: center;
+
+      div {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+        align-items: center;
+      }
+
+      div:has(button) {
+        justify-content: center;
+        gap: 30px;
+
+        button:nth-child(1) {
+          color: #0C82C5;
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+        }
+
+        button:nth-child(2) {
+          color: white;
+          font-family: 'Arial';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          background: #0C82C5;
+          border-radius: 100px;
+          padding: 10px 24px;
+        }
+      }
+    }
+
+  }
+}

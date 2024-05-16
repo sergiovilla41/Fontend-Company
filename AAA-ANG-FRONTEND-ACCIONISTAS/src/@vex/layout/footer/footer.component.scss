@@ -1,0 +1,32 @@
+:host {
+  bottom: 0;
+  display: block;
+  width: 100%;
+  z-index: var(--footer-z-index);
+}
+
+// .footer {
+//   background: var(--footer-background);
+//   height: var(--footer-height);
+//   position: relative;
+//   z-index: var(--footer-z-index);
+// }
+
+.footer {
+  display: flex;
+  background-color: #0c82c5;
+  color: #fff;
+  padding: 20px;
+}
+
+.column-60 {
+  flex: 60%;
+}
+
+.column-40 {
+  flex: 40%;
+}
+
+.pointer{
+  cursor: pointer;
+}
