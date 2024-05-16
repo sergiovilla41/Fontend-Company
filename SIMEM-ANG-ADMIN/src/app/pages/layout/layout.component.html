@@ -1,0 +1,24 @@
+<p-sidebar [(visible)]="isOpen">
+  <p-panelMenu
+    [model]="(menuOptions | async) ?? []"
+    [style]="{ width: '300px' }"
+  ></p-panelMenu>
+</p-sidebar>
+<toolbar-component (openMenu)="isOpen = true"></toolbar-component>
+<div class="layout-organization">
+  <router-outlet class="hide"></router-outlet>
+</div>
+<p-dialog
+  [modal]="true"
+  [showHeader]="false"
+  class="spinner-modal"
+  [(visible)]="visible"
+  [style]="{
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: 'transparent',
+    boxShadow: 'none'
+  }"
+>
+  <p-progressSpinner></p-progressSpinner>
+</p-dialog>

@@ -1,0 +1,25 @@
+<div class="modal-background" (click)="close()"></div>
+<div class="modal-container">
+  <div class="titles">SelectXM</div>
+  <div class="card">
+    <textarea
+      [(ngModel)]="selectXM"
+      id="select"
+      rows="15"
+      cols="150"
+      pInputTextarea
+      [autoResize]="false"
+    ></textarea>
+  </div>
+
+  <div class="container-button">
+    <button
+      pButton
+      class="button secondary"
+      severity="secondary"
+      label="Cerrar"
+      (click)="close()"
+    ></button>
+    <p-button class="button" (click)="onAcceptSelect()">Aceptar</p-button>
+  </div>
+</div>

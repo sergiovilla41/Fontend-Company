@@ -1,0 +1,376 @@
+<div class="content">
+  <p-toast></p-toast>
+
+  <form [formGroup]="formData">
+    <p class="titles">Básica</p>
+    <div class="container-columns">
+      <div
+        *ngIf="isLoadedbasicDataDataSet"
+        class="flex flex-column gap-1 control-column control-column-large"
+      >
+        <label for="nombreCategoria" class="label">Categoria</label>
+        <input
+          pInputText
+          formControlName="nombreCategoria"
+          pInputText
+          id="nombreCategoria"
+          aria-describedby="username-help"
+        />
+        <div class="flex container-button">
+          <simem-button-icon
+            [icon]="'pi pi-eye'"
+            (click)="onViewCategories()"
+          ></simem-button-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-medium">
+        <label for="descripcion" class="label">Descripción</label>
+        <input
+          pInputText
+          formControlName="descripcion"
+          pInputText
+          id="descripcion"
+          aria-describedby="username-help"
+        />
+        <small *ngIf="formData.get('descripcion')?.valid" id="titulo"
+          >* Campo requerido</small
+        >
+        <div *ngIf="!formData.get('descripcion')?.valid">
+          <small id="titulo" class="color-invalid">* Ingrese un valor</small>
+        </div>
+      </div>
+      <div class="flex flex-column gap-1 control-column control-column-medium">
+        <label for="idDuracionISO" class="label">Duración ISO</label>
+        <simem-dropdown-form
+          [requiered]="false"
+          [showClear]="true"
+          (dropDownNewValue)="handledDropDownNewValue($event)"
+          [itemObject]="{
+            itemSelected: basicDataDataSet!.idDuracionISO,
+            name: 'idDuracionISO',
+            items: durationISO
+          }"
+        ></simem-dropdown-form>
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="entidadOrigen" class="label">Entidad Origen</label>
+        <input
+          pInputText
+          formControlName="entidadOrigen"
+          pInputText
+          id="entidadOrigen"
+          aria-describedby="username-help"
+        />
+        <small *ngIf="formData.get('entidadOrigen')?.valid" id="entidadOrigen"
+          >* Campo requerido</small
+        >
+        <div *ngIf="!formData.get('entidadOrigen')?.valid">
+          <small id="entidadOrigen" class="color-invalid"
+            >* Ingrese un valor</small
+          >
+        </div>
+      </div>
+
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="idGranularidad" class="label">Granularidad</label>
+        <simem-dropdown-form
+          *ngIf="isLoadedbasicDataDataSet"
+          [disable]="typeViewSelected.name === 'Documentos'"
+          (dropDownNewValue)="handledDropDownNewValue($event)"
+          [itemObject]="{
+            itemSelected: formData.get('idGranularidad')?.value,
+            name: 'idGranularidad',
+            items: granularity
+          }"
+        ></simem-dropdown-form>
+      </div>
+
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="idPeriodicidad" class="label">Periodicidad</label>
+        <simem-dropdown-form
+          (dropDownNewValue)="handledDropDownNewValue($event)"
+          [itemObject]="{
+            itemSelected: basicDataDataSet!.idPeriodicidad,
+            name: 'idPeriodicidad',
+            items: periodicity
+          }"
+        ></simem-dropdown-form>
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="privacidad" class="label">Privacidad</label>
+
+        <p-inputSwitch formControlName="privacidad"></p-inputSwitch>
+      </div>
+
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="tema" class="label">Tema</label>
+        <input
+          readonly="true"
+          pInputText
+          formControlName="tema"
+          pInputText
+          id="tema"
+          class="disabled"
+          aria-describedby="username-help"
+        />
+      </div>
+
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="idTipoVista" class="label">Tipo Vista</label>
+
+        <simem-dropdown-form
+          (dropDownNewValue)="handledDropDownNewValue($event)"
+          [itemObject]="{
+            itemSelected: basicDataDataSet!.idTipoVista,
+            name: 'tipoVista',
+            items: typeView
+          }"
+        ></simem-dropdown-form>
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-large">
+        <label for="titulo" class="label">Titulo</label>
+        <input
+          pInputText
+          formControlName="titulo"
+          pInputText
+          id="titulo"
+          aria-describedby="username-help"
+        />
+        <small *ngIf="formData.get('titulo')?.valid" id="titulo"
+          >* Campo requerido</small
+        >
+        <div *ngIf="!formData.get('titulo')?.valid">
+          <small id="titulo" class="color-invalid">* Ingrese un valor</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-large">
+        <label for="labelsData" class="label">Etiquetas</label>
+        <input
+          pInputText
+          formControlName="labelsData"
+          pInputText
+          id="labelsData"
+          aria-describedby="username-help"
+        />
+        <div class="flex container-button">
+          <simem-button-icon
+            [icon]="'pi pi-eye'"
+            (click)="onViewLabels()"
+          ></simem-button-icon>
+        </div>
+      </div>
+    </div>
+
+    <p class="titles">Regulatorio</p>
+    <div class="container-columns">
+      <div class="flex flex-row gap-1 control-column control-column-small">
+        <label for="flex-row" class="label label-switch">Es Regulatorio</label>
+        <p-inputSwitch
+          (onChange)="handledIndRegulatorio($event)"
+          formControlName="indRegulatorio"
+        ></p-inputSwitch>
+      </div>
+
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="idPeriodicidad" class="label"
+          >Clasificación regulatoria</label
+        >
+        <simem-dropdown-form
+          (dropDownNewValue)="handledDropDownNewValue($event)"
+          [disable]="!formData.get('indRegulatorio')?.value"
+          [requiered]="
+            formData.get('indRegulatorio')?.value &&
+            formData.get('idConfiguracionClasificacionRegulatoria')?.value ===
+              null
+          "
+          [itemObject]="{
+            itemSelected:
+              basicDataDataSet!.idConfiguracionClasificacionRegulatoria,
+            name: 'idConfiguracionClasificacionRegulatoria',
+            items: clasificationRegulatory
+          }"
+        ></simem-dropdown-form>
+        <small
+          *ngIf="
+            formData.get('indRegulatorio')?.value &&
+            formData.get('idConfiguracionClasificacionRegulatoria')?.value !==
+              null
+          "
+          >* Campo requerido</small
+        >
+        <div
+          *ngIf="
+            formData.get('idConfiguracionClasificacionRegulatoria')?.value ===
+              null && formData.get('indRegulatorio')?.value
+          "
+        >
+          <small class="color-invalid">* Ingrese un valor</small>
+        </div>
+      </div>
+    </div>
+
+    <p class="titles">Técnica</p>
+
+    <div class="container-columns">
+      <div class="flex flex-row gap-1 control-column control-column-small">
+        <label for="datoObligatorio" class="label label-switch"
+          >Dato obligatorio</label
+        >
+        <p-inputSwitch
+          (onChange)="handledIndRegulatorio($event)"
+          formControlName="datoObligatorio"
+        ></p-inputSwitch>
+      </div>
+
+      <div class="flex flex-row gap-1 control-column control-column-small">
+        <label for="estado" class="label label-switch">Estado</label>
+        <p-inputSwitch
+          (onChange)="handledChangeStatus($event)"
+          formControlName="estado"
+        ></p-inputSwitch>
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="nbSynapse" class="label">NB Synapse</label>
+        <input
+          pInputText
+          formControlName="nbSynapse"
+          pInputText
+          id="nbSynapse"
+          aria-describedby="username-help"
+        />
+        <small *ngIf="formData.get('nbSynapse')?.valid" id="nbSynapse"
+          >* Campo requerido</small
+        >
+        <div *ngIf="!formData.get('nbSynapse')?.valid">
+          <small id="nbSynapse" class="color-invalid">* Ingrese un valor</small>
+        </div>
+      </div>
+
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="nombreArchivoDestino" class="label"
+          >Nombre Archivo Destino</label
+        >
+        <input
+          readonly="true"
+          class="disabled"
+          pInputText
+          formControlName="nombreArchivoDestino"
+          pInputText
+          id="nombreArchivoDestino"
+          aria-describedby="username-help"
+        />
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-large">
+        <label for="selectXM" class="label">SelectXM</label>
+
+        <textarea
+          formControlName="selectXM"
+          id="selectXM"
+          rows="5"
+          cols="300"
+          pInputTextarea
+          [autoResize]="false"
+        ></textarea>
+
+        <div class="flex container-message">
+          <span *ngIf="showCopyQuery" class="copy-message"
+            >Consulta origen copiada</span
+          >
+          <simem-button-icon
+            [icon]="'pi pi-copy'"
+            (click)="copySourceQuery()"
+          ></simem-button-icon>
+          <simem-button-icon
+            [icon]="'pi pi-eye'"
+            (click)="onViewSelecXM()"
+          ></simem-button-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="ultimaFechaActualizado" class="label"
+          >Última Fecha Actualizado</label
+        >
+        <input
+          readonly="true"
+          class="disabled"
+          pInputText
+          [value]="
+            formData.get('ultimaFechaActualizado')!.value | date : 'yyyy-MM-dd'
+          "
+          id="ultimaFechaActualizado"
+        />
+      </div>
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="ultimaFechaIndexado" class="label"
+          >Última Fecha Indexado</label
+        >
+        <input
+          readonly="true"
+          class="disabled"
+          pInputText
+          [value]="
+            formData.get('ultimaFechaIndexado')!.value | date : 'yyyy-MM-dd'
+          "
+          id="ultimaFechaIndexado"
+        />
+      </div>
+    </div>
+
+    <div class="container-columns">
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="valorDeltaInicial" class="label">Valor Delta Inicial</label>
+        <simem-calendar-form
+          (pickerNewDate)="handledPickerNewDate($event)"
+          [dateObject]="{
+                  date: basicDataDataSet!.valorDeltaInicial,
+                  name: 'valorDeltaInicial',
+                }"
+        ></simem-calendar-form>
+      </div>
+      <div class="flex flex-column gap-1 control-column control-column-small">
+        <label for="valorDeltaInicial" class="label">Valor Delta Final</label>
+
+        <simem-calendar-form
+          (pickerNewDate)="handledPickerNewDate($event)"
+          [dateObject]="{
+                    date: basicDataDataSet!.valorDeltaFinal,
+                    name: 'valorDeltaFinal',
+                  }"
+        ></simem-calendar-form>
+      </div>
+    </div>
+
+    <div class="flex container-buttons">
+      <simem-back-button-list
+        [title]="'Cancelar'"
+        [showIcon]="false"
+        (back)="goBack()"
+      ></simem-back-button-list>
+      <p-button label="Guardar" (click)="save()"></p-button>
+    </div>
+  </form>
+</div>

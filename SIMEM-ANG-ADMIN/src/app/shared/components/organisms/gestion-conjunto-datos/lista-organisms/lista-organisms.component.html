@@ -1,0 +1,267 @@
+<p-menu #menu [model]="items" [popup]="true"></p-menu>
+<p-card>
+  <p-table
+    #dt1
+    [autoLayout]="true"
+    [value]="dataSetslist"
+    [scrollable]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    styleClass="p-datatable-gridlines p-datatable-sm"
+    [paginator]="true"
+    [rowsPerPageOptions]="[20, 50, 100]"
+    [rows]="20"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="flex"
+           style="display: flex; justify-content: space-between; padding: 10px">
+        <simem-clear-filter-table [tableData]="dt1"
+                                  (clearFilterPicker)="handleClearFilterPicker()"></simem-clear-filter-table>
+        <p-button class="create-button" label="Crear conjunto de datos" icon="pi pi-plus"></p-button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="column-small" pSortableColumn="idDataSet" scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              DataSetId
+              <p-sortIcon field="idDataSet"></p-sortIcon>
+            </div>
+            <p-columnFilter field="idDataSet"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+
+        <th style="min-width: 350px !important"
+            pSortableColumn="idConfigurationFileGeneration"
+            scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Id Configuracion Generacion Archivos
+              <p-sortIcon field="idConfigurationFileGeneration"></p-sortIcon>
+            </div>
+            <p-columnFilter field="idConfigurationFileGeneration"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+
+        <th style="min-width: 350px !important"
+            pSortableColumn="title"
+            scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Nombre del conjunto de datos
+              <p-sortIcon field="title"></p-sortIcon>
+            </div>
+            <p-columnFilter field="title"
+                            display="row"
+                            (click)="$event.stopPropagation()">
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th style="min-width: 350px !important"
+            pSortableColumn="theme"
+            scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Tema
+              <p-sortIcon field="theme"></p-sortIcon>
+            </div>
+            <p-columnFilter field="theme"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+
+        <th style="min-width: 350px !important"
+            pSortableColumn="fileNameDestination"
+            scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Nombre archivo destino
+              <p-sortIcon field="fileNameDestination"></p-sortIcon>
+            </div>
+
+            <p-columnFilter field="fileNameDestination"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+
+        <th class="column-small" pSortableColumn="nameGranularity" scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Granularidad
+              <p-sortIcon field="nameGranularity"></p-sortIcon>
+            </div>
+
+            <p-columnFilter field="nameGranularity"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+
+        <th class="column-small" pSortableColumn="periodicity" scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Periodicidad
+              <p-sortIcon field="periodicity"></p-sortIcon>
+            </div>
+
+            <p-columnFilter field="periodicity"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+
+        <th style="min-width: 350px !important"
+            pSortableColumn="nbSynapse"
+            scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Nombre del pipeline
+              <p-sortIcon field="nbSynapse"></p-sortIcon>
+            </div>
+
+            <p-columnFilter field="nbSynapse"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+
+        <th class="column-small"
+            pSortableColumn="initialDeltaValue"
+            scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Delta Inicial
+              <p-sortIcon field="initialDeltaValue"></p-sortIcon>
+            </div>
+            <p-columnFilter type="date"
+                            display="menu"
+                            field="initialDeltaValue"
+                            display="row"
+                            dateFormat="yy-mm-dd"
+                            (click)="$event.stopPropagation()">
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-calendar (onSelect)="filter($event)"
+                            appendTo="body"
+                            dateFormat="yy-mm-dd"
+                            [showButtonBar]="true"></p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+        <th class="column-small" pSortableColumn="finalDeltaValue" scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Delta Final
+              <p-sortIcon field="finalDeltaValue"></p-sortIcon>
+            </div>
+            <p-columnFilter type="date"
+                            display="menu"
+                            field="finalDeltaValue"
+                            display="row"
+                            (click)="$event.stopPropagation()">
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-calendar (onSelect)="filter($event)"
+                            appendTo="body"
+                            dateFormat="yy-mm-dd"
+                            [showButtonBar]="true"></p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+
+        <th class="column-small"
+            pSortableColumn="generationFileMaster"
+            scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Maestra
+              <p-sortIcon field="generationFileMaster"></p-sortIcon>
+            </div>
+            <p-columnFilter field="generationFileMaster"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+        <th class="column-small" pSortableColumn="state" scope="col">
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Estado
+              <p-sortIcon field="state"></p-sortIcon>
+            </div>
+            <p-columnFilter type="boolean"
+                            field="state"
+                            display="row"
+                            (click)="$event.stopPropagation()"></p-columnFilter>
+          </div>
+        </th>
+        <th alignFrozen="right" pFrozenColumn class="column-xsmall" scope="col">
+          Acciones
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dataset>
+      <tr>
+        <td>{{ dataset.idDataSet }}</td>
+        <td>{{ dataset.idConfigurationFileGeneration }}</td>
+        <td>{{ dataset.title }}</td>
+        <td>{{ dataset.theme }}</td>
+        <td>{{ dataset.fileNameDestination }}</td>
+        <td>{{ dataset.nameGranularity }}</td>
+        <td>{{ dataset.periodicity }}</td>
+        <td>{{ dataset.nbSynapse }}</td>
+        <td class="center-column">
+          {{ dataset.initialDeltaValue | date : "yyyy-MM-dd" }}
+        </td>
+        <td class="center-column">
+          {{ dataset.finalDeltaValue | date : "yyyy-MM-dd" }}
+        </td>
+        <td>{{ dataset.generationFileMaster }}</td>
+        <td>{{ dataset.state ? "Activo" : "Inactivo" }}</td>
+        <td alignFrozen="right" pFrozenColumn class="row-actions">
+          <button class="icon-only"
+                  pButton
+                  type="button"
+                  (click)="
+                  pipelineId = dataset.pipelineRunId;
+                  onCreateItemMenu();
+              menu.toggle($event);
+              onClickMenu(dataset.idConfigurationFileGeneration, dataset.nbSynapse)
+            "
+                  label="">
+            <span class="material-symbols-rounded icon-menu"> more_vert </span>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<div class="card flex justify-content-center">
+  <p-dialog header="Confirmación de ejecución" class="pDialogBackground"
+            [(visible)]="visible"
+            [style]="{ width: '40vw' }">
+    <p>¿Estás seguro(a) de desea realizar esta ejecución?</p>
+    <ng-template pTemplate="footer">
+      <div class="div-button">
+        <button pButton
+        class="secondary"
+        severity="secondary"
+        (click)="visible = false">
+  Cancelar
+</button>
+        <button pButton class="example-button" (click)="onLanzarPipeline()">
+          Confirmar
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

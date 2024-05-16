@@ -1,0 +1,121 @@
+.hide {
+  display: none;
+}
+
+::ng-deep .p-sidebar-close {
+  color: var(--Secundario-S200);
+}
+
+::ng-deep .p-menuitem-text {
+  color: var(--Principal-P200);
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  flex-grow: 1 !important;
+}
+
+::ng-deep .p-menuitem-link-active {
+  background-color: var(--Primario-P50) !important;
+  border-left: 8px solid var(--Principal-P200) !important;
+}
+
+::ng-deep .p-sidebar-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.7rem;
+}
+
+::ng-deep .p-sidebar-content {
+  padding: 0;
+}
+
+::ng-deep .spinner-modal{
+  .p-dialog-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent !important;
+  }
+}
+
+::ng-deep .p-panelmenu-header-content {
+  background-color: transparent;
+  border: none;
+}
+
+::ng-deep .p-menuitem-icon {
+  margin-right: 0.5rem !important;
+  color: var(--Principal-P200);
+}
+
+::ng-deep .p-icon-wrapper {
+  order: 1 !important;
+}
+
+::ng-deep .p-panelmenu-panel {
+  margin-top: 4px;
+}
+
+::ng-deep .p-panelmenu-header-action {
+  gap: 10px;
+  padding: 0.8rem;
+  padding-inline: 1.4rem;
+  border-left: 8px solid transparent;
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+  width: 95%;
+
+  &:hover {
+    background-color: var(--G50);
+    border-left: 8px solid var(--Secundario-S200);
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+    width: 95%;
+  }
+}
+
+::ng-deep .p-panelmenu-content {
+  border: 0 !important;
+}
+
+::ng-deep .p-panelmenu {
+  width: unset !important;
+}
+
+::ng-deep .custom {
+  width: 30px;
+  height: 25px;
+  margin-right: 5px;
+  background-repeat: no-repeat;
+}
+
+::ng-deep .datos {
+  background-image: url("../../../assets/icons/datos.svg");
+}
+
+::ng-deep .inicio {
+  background-image: url("../../../assets/icons/inicio.svg");
+}
+
+::ng-deep .file-check {
+  background-image: url("../../../assets/icons/file-check.svg");
+}
+
+::ng-deep .rounded-user {
+  background-image: url("../../../assets/icons/rounded-user.svg");
+}
+
+::ng-deep .historial {
+  background-image: url("../../../assets/icons/Historial.svg");
+}
+
+.layout-organization{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-inline: 42px;
+  padding-top: 24px;
+}

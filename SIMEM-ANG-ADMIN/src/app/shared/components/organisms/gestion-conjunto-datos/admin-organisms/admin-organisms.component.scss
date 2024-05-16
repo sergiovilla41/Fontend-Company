@@ -1,0 +1,13 @@
+::ng-deep .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    color: var( --G50);
+    background:  var(--Principal-P200);
+    border-color: var(--Principal-P200);
+    border-radius: 12px 12px 0px 0px;
+}
+
+::ng-deep .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border-radius: 12px 12px 0px 0px;
+    border: 1px solid var(--Gris-G100);
+    background: var(--Gris-G50);
+    color: var(--Gris-G100);
+}

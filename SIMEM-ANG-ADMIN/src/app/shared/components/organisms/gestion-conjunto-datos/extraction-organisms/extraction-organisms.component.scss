@@ -1,0 +1,68 @@
+.container-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    gap: 24px;
+    top: 10px;
+  }
+  
+  .main{
+    display: flex;
+    flex-direction: column;
+    gap:  32px;
+  }
+  
+  .container-select {
+    width: 100%;
+    padding: 0 24px 0px 0px;
+    flex-direction: column;
+    display: flex;
+  }
+  
+  .secondary {
+    color:  var(--Principal-P200, #00278A);
+    background: #ffffff;
+    border: 1px solid  var(--Principal-P200, #00278A);
+  }
+  
+  .iconEdit {
+    color: #4B710E;
+  }
+  
+  .iconOk {
+    color: #1ce65c !important;
+    font-weight: bold;
+  }
+  
+  .iconDelete {
+    color: #ff0505 !important;
+  }
+  
+  .iconCancel {
+    color: #ff0505 !important;
+    font-weight: bold;
+  }
+  
+  .btnSpecial {
+    border: 0 !important;
+    background: none !important;
+    cursor: pointer;
+    padding: 5px !important;
+  }
+  
+  .margin-filter {
+    margin-bottom: 10px;
+  }
+  
+.div-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+}
+
+::ng-deep .p-element .p-component .p-dialog {
+  background: #ffffff !important;
+}

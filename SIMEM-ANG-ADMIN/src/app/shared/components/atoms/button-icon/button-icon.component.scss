@@ -1,0 +1,9 @@
+.secondary {
+  color: var(--Principal-P200, #00278a);
+  background: #ffffff;
+  border: 1px solid var(--Principal-P200, #00278a);
+}
+
+::ng-deep .p-button-icon {
+  margin-left: 10px;
+}

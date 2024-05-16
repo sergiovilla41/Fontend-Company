@@ -1,0 +1,55 @@
+<div class="content">
+  <p class="titulo1">{{title}}</p>
+  <div style="margin: 0px 0px 24px 0px">
+    <back-button-component *ngIf="isListDataset"></back-button-component>
+  </div>
+  <simem-lista-organisms
+    *ngIf="isListDataset"
+    [dataSets]="dataSets"
+    (changeView)="handleChangeView($event)"
+    (executePipeline)="executePipeline($event)"
+    (cancelPipeline)="cancelPipeline($event)"
+  ></simem-lista-organisms>
+
+  <simem-admin-organisms
+    *ngIf="isAdminDataset && isLoadedbasicDataDataSet"
+    [basicDataDataSet]="basicDataDataSet"
+    [isLoadedbasicDataDataSet]="isLoadedbasicDataDataSet"
+    [categories]="categories"
+    [durationISO]="durationISO"
+    [granularity]="granularity"
+    [periodicity]="periodicity"
+    [labels]="labels"
+    [HasRecord]="HasRecord"
+    [clasificationRegulatory]="clasificationRegulatory"
+    [typeView]="typeView"
+    [sourceColumns]="sourceColumns"
+    [purposeColumn]="purposeColumn"
+    [versionColumn]="versionColumn"
+    [targetColumn]="targetColumn"
+    [isLoadedTargetColumn]="isLoadedTargetColumn"
+    [isLoadedPurposeColumn]="isLoadedPurposeColumn"
+    (saveSourceColumns)="handleSaveSourceColumns($event)"
+    (saveSourceColumnsVersionPurpose)="
+      handlesaveSourceColumnsVersionPurpose($event)
+    "
+    (saveData)="handleSaveData($event)"
+    (changeView)="handleChangeView($event)"
+    (hasRecord)="handleHasRecord($event)"
+    [extractionInformation]="extractionInformation"
+    [extractionDataState]="extractionDataState"
+    (updateExtractionInformation)="handleUpdateExtractionInformation($event)"
+    (saveExtractionInformation)="handleSaveExtractionInformation($event)"
+    (deleteExtractionInformation)="handleDeleteExtractionInformation($event)"
+    [executionData]="executionData"
+    [executionDataState]="executionDataState"
+    (updateExecutionInformation)="handleUpdateExecutionInformation($event)"
+    (saveExecutionInformation)="handleSaveExecutionInformation($event)"
+    (deleteExecutionInformation)="handleDeleteExecutionInformation($event)"
+    [publicationData]="publicationData"
+    [publicationDataState]="publicationDataState"
+    (updatePublicationInformation)="handleUpdatePublicationInformation($event)"
+    (savePublicationInformation)="handleSavePublicationInformation($event)"
+    (deletePublicationInformation)="handleDeletePublicationInformation($event)"
+  ></simem-admin-organisms>
+</div>

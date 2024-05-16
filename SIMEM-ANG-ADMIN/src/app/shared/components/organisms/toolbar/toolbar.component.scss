@@ -1,0 +1,38 @@
+.toolbar-component{
+  width: 100%;
+  height: 55px;
+  background-color: var(--Principal-P200);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  color: var(--Secundario-S100);
+
+  div{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  p{
+    color: white;
+  }
+
+  .menu-button{
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+  .logo{
+    width: unset;
+  }
+
+  .separator{
+    width: 2px;
+    height: 50%;
+    background-color: var(--Secundario-S100);
+  }
+}

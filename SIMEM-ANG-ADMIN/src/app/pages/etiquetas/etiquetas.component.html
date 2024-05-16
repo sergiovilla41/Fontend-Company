@@ -1,0 +1,7 @@
+<etiquetas-template
+  [data]="(data | async) ?? []"
+  (onFetch)="fetchLabels()"
+  (onCreateLabel)="createLabel($event)"
+  (onEditLabel)="updateLabel($event)"
+></etiquetas-template>
+<p-toast key="labels"></p-toast>

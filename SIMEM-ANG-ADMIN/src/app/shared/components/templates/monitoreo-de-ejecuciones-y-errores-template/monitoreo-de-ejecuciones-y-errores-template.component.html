@@ -1,0 +1,105 @@
+<div class="content">
+  <p class="titulo1">Monitoreo de ejecuciones y errores</p>
+  <back-button-component></back-button-component>
+
+  <p-card>
+    <p-table [value]="executionMonitoring" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-gridlines p-datatable-sm" [paginator]="true" [rowsPerPageOptions]="[20, 50, 100]"
+      [rows]="20" [showCurrentPageReport]="true"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="NombreConjuntoDeDatos" style="min-width:260px">Nombre conjunto de datos <p-sortIcon
+              field="NombreConjuntoDeDatos"></p-sortIcon></th>
+          <th pSortableColumn="NombreArchivoDestino" style="min-width:250px">Nombre archivo destino <p-sortIcon
+              field="NombreArchivoDestino"></p-sortIcon></th>
+          <th pSortableColumn="Estado" style="min-width:170px">Estado <p-sortIcon field="Estado"></p-sortIcon></th>
+          <th pSortableColumn="FechaInicioEjecucion" style="min-width:210px">Inicio de la ejecución <p-sortIcon
+              field="FechaInicioEjecucion"></p-sortIcon></th>
+          <th pSortableColumn="FechaFinEjecucion" style="min-width:150px">Fin de la ejecución <p-sortIcon
+              field="FechaFinEjecucion"></p-sortIcon></th>
+          <th pSortableColumn="EsRegulatorio" style="min-width:160px">Es regulatorio <p-sortIcon
+              field="EsRegulatorio"></p-sortIcon></th>
+          <th pSortableColumn="FechaProximaEjecucion" style="min-width:250px">Fecha próxima ejecución <p-sortIcon
+              field="FechaProximaEjecucion"></p-sortIcon></th>
+          <th pSortableColumn="LanzadoPor" style="min-width:170px">Lanzado por <p-sortIcon
+              field="LanzadoPor"></p-sortIcon></th>
+          <th pSortableColumn="IdEjecucion" style="min-width:170px">Id ejecución <p-sortIcon
+              field="IdEjecucion"></p-sortIcon></th>
+          <th style="min-width:100px" alignFrozen="right" pFrozenColumn>Acciones</th>
+        </tr>
+        <tr>
+          <th style="min-width:260px">
+            <p-columnFilter type="text" field="NombreConjuntoDeDatos"></p-columnFilter>
+          </th>
+          <th style="min-width:250px">
+            <p-columnFilter type="text" field="NombreArchivoDestino"></p-columnFilter>
+          </th>
+          <th style="min-width:170px">
+            <p-columnFilter type="text" field="Estado"></p-columnFilter>
+          </th>
+          <th style="min-width:210px">
+            <p-columnFilter type="date" field="FechaInicioEjecucion">
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-calendar (onSelect)="filter($event)" appendTo="body" dateFormat="yy-mm-dd" [showButtonBar]="true"></p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </th>
+          <th style="min-width:200px">
+            <p-columnFilter type="date" field="FechaFinEjecucion">
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-calendar (onSelect)="filter($event)" appendTo="body" dateFormat="yy-mm-dd" [showButtonBar]="true"></p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </th>
+          <th style="min-width:160px">
+            <p-columnFilter type="boolean" field="EsRegulatorio"></p-columnFilter>
+          </th>
+          <th style="min-width:250px">
+            <p-columnFilter type="date" field="FechaProximaEjecucion">
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-calendar (onSelect)="filter($event)" appendTo="body" dateFormat="yy-mm-dd" [showButtonBar]="true"></p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </th>
+          <th style="min-width:170px">
+            <p-columnFilter type="text" field="LanzadoPor"></p-columnFilter>
+          </th>
+          <th style="min-width:170px">
+            <p-columnFilter type="text" field="IdEjecucion"></p-columnFilter>
+          </th>
+          <th style="min-width:100px" alignFrozen="right" pFrozenColumn>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-executionMonitoring>
+        <tr>
+          <td>{{executionMonitoring.NombreConjuntoDeDatos}}</td>
+          <td>{{executionMonitoring.NombreArchivoDestino}}</td>
+          <td>
+            <span class="material-symbols-rounded check_circle"
+              *ngIf="executionMonitoring.Estado == 'Finalizado'">check_circle</span>
+            <span class="material-symbols-rounded cancel"
+              *ngIf="executionMonitoring.Estado == 'Error' || executionMonitoring.Estado == 'Cancelado'">cancel</span>
+            <span class="material-symbols-rounded repeat" *ngIf="executionMonitoring.Estado == 'Iniciado'">repeat</span>
+            {{executionMonitoring.Estado}}
+          </td>
+          <td>{{executionMonitoring.FechaInicioEjecucion | date : "yyyy-MM-dd hh:mm"}}</td>
+          <td>{{executionMonitoring.FechaFinEjecucion | date : "yyyy-MM-dd hh:mm"}}</td>
+          <td>{{executionMonitoring.EsRegulatorio ? "Si" : "No" }}</td>
+          <td>{{executionMonitoring.FechaProximaEjecucion | date : "yyyy-MM-dd hh:mm"}}</td>
+          <td>{{executionMonitoring.LanzadoPor}}</td>
+          <td>{{executionMonitoring.IdEjecucion}}</td>
+          <td class="center-column" style="align-items: center" alignFrozen="right" pFrozenColumn>
+            <span class="material-symbols-rounded actions" (click)="showDetailExecutionMonitoring(executionMonitoring)">
+              visibility
+            </span>
+            <span class="material-symbols-rounded actions" (click)="showConfirmation()">
+              play_arrow
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

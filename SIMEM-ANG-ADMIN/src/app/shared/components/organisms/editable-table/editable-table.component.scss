@@ -1,0 +1,179 @@
+.action {
+  background-color: transparent;
+  border: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.container {
+  background-color: white;
+  padding: 24px;
+  box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.05),
+    0px 0px 1px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+  border-radius: 200px;
+  background: #00278a !important;
+}
+
+::ng-deep .p-inputswitch .p-inputswitch-slider:before {
+  width: 1rem;
+  height: 1rem;
+  margin-top: -0.5rem;
+}
+
+::ng-deep .p-inputswitch {
+  width: 2.8rem;
+  height: 1.3rem;
+}
+
+p {
+  margin: 0;
+}
+
+::ng-deep .p-datatable .p-datatable-thead > tr > th {
+  border-width: 1px;
+}
+
+::ng-deep .p-column-filter-row {
+  width: 100%;
+  margin-top: 10px;
+}
+
+::ng-deep .p-datatable-header {
+  background-color: transparent;
+  border: 0;
+}
+
+::ng-deep td .p-dropdown {
+  width: 100%;
+}
+
+::ng-deep td {
+  padding: 0.5rem;
+}
+
+::ng-deep .p-sortable-column:has(.switch){
+  align-items: center;
+}
+
+::ng-deep .p-inputtext{
+  width: 100%;
+}
+
+.column{
+  width: 300px;
+}
+
+.column-switch{
+  width: 100px;
+}
+
+.celda{
+  word-wrap: break-word;
+  max-width: 300px;
+  min-width: 300px;
+}
+
+.disabled{
+  pointer-events: none;
+}
+
+.celda-actions{
+  text-align: center;
+}
+
+.actions-column{
+  text-align: center;
+  width: 100px;
+}
+
+.celda:has(.centered) {
+  padding: 1.25rem;
+  max-width: none;
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .p-paginator {
+  border: 1px solid #e5e7eb;
+}
+
+.invalid {
+  border: 1px solid #e24c4c;
+}
+
+::ng-deep .invalid-number {
+  .p-inputtext {
+    border: 1px solid #e24c4c;
+  }
+}
+
+::ng-deep .invalid-dropdown {
+  .p-dropdown {
+    border: 1px solid #e24c4c;
+
+    .p-dropdown-trigger{
+      .p-icon{
+        color: #e24c4c;
+      }
+    }
+  }
+}
+
+::ng-deep .invalid-calendar {
+  .p-calendar .p-inputtext {
+    border: 1px solid #e24c4c;
+  }
+}
+
+.previsualizacion {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+}
+
+.showMore {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.lista {
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.texto-mediano-regular {
+  text-align: left;
+  margin: 0;
+  color: black;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.titulo1 {
+  margin: 0;
+}
+
+.modal {
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+::ng-deep .p-custom-modal {
+  .p-dialog .p-dialog-content:last-of-type {
+    border-radius: 8px !important;
+  }
+}

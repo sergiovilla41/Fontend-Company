@@ -1,0 +1,75 @@
+<div style="margin: 0px 0px 24px 0px">
+  <simem-back-button-list
+    [title]="'Volver'"
+    [showIcon]="true"
+    (back)="goBack()"
+  ></simem-back-button-list>
+</div>
+<p-card>
+  <p-tabView class="xm-tabs">
+    <p-tabPanel header="1. Información básica">
+      <simem-info-basica
+        [basicDataDataSet]="basicDataDataSet"
+        [categories]="categories"
+        [durationISO]="durationISO"
+        [granularity]="granularity"
+        [periodicity]="periodicity"
+        [clasificationRegulatory]="clasificationRegulatory"
+        [typeView]="typeView"
+        [labels]="labels"
+        [isLoadedbasicDataDataSet]="isLoadedbasicDataDataSet"
+        (saveData)="handleSaveData($event)"
+        (changeView)="goBack()"
+        (hasRecord)="handleHasRecord($event)"
+        [HasRecord]="HasRecord"
+      >
+      </simem-info-basica>
+    </p-tabPanel>
+    <p-tabPanel header="2. Extracciones" [disabled]="false">
+      <simem-extraction
+      [extractionInformation]="extractionInformation"
+      [extractionDataState]="extractionDataState"
+      [periodicity]="periodicity"
+      [idConfiguracionGeneracionArchivos]="basicDataDataSet.idConfiguracionGeneracionArchivos"
+      (updateExtractionInformation)="handleUpdateExtractionInformation($event)"
+      (saveExtractionInformation)="handleSaveExtractionInformation($event)"
+      (deleteExtractionInformation)="handleDeleteExtractionInformation($event)"
+      ></simem-extraction>
+    </p-tabPanel>
+    <p-tabPanel header="3. Columnas" [disabled]="false">
+      <simem-columnas-origen
+        [sourceColumns]="sourceColumns"
+        [purposeColumn]="purposeColumn"
+        [versionColumn]="versionColumn"
+        [targetColumn]="targetColumn"
+        [isLoadedTargetColumn]="isLoadedTargetColumn"
+        [isLoadedPurposeColumn]="isLoadedPurposeColumn"
+        (saveSourceColumns)="handleSaveSourceColumns($event)"
+        (saveSourceColumnsVersionPurpose)="
+          handlesaveSourceColumnsVersionPurpose($event)
+        "
+      ></simem-columnas-origen>
+    </p-tabPanel>
+    <p-tabPanel header="4. Reglas de calidad" [disabled]="false"> </p-tabPanel>
+    <p-tabPanel header="5. Ejecuciones" [disabled]="false">
+      <simem-execution
+      [data]="executionData"
+      [executionDataState]="executionDataState"
+      [idConfiguracionGeneracionArchivos]="basicDataDataSet.idConfiguracionGeneracionArchivos"
+      (updateExecutionInformation)="handleUpdateExecutionInformation($event)"
+      (saveExecutionInformation)="handleSaveExecutionInformation($event)"
+      (deleteExecutionInformation)="handleDeleteExecutionInformation($event)"
+      ></simem-execution>
+    </p-tabPanel>
+    <p-tabPanel header="6. Publicaciones" [disabled]="(basicDataDataSet.indRegulatorio == false)">
+      <simem-publication
+      [data]="publicationData"
+      [publicationDataState]="publicationDataState"
+      [idConfiguracionGeneracionArchivos]="basicDataDataSet.idConfiguracionGeneracionArchivos"
+      (updatePublicationInformation)="handleUpdatePublicationInformation($event)"
+      (savePublicationInformation)="handleSavePublicationInformation($event)"
+      (deletePublicationInformation)="handleDeletePublicationInformation($event)"
+      ></simem-publication>
+    </p-tabPanel>
+  </p-tabView>
+</p-card>

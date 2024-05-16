@@ -1,0 +1,204 @@
+::ng-deep  .p-dropdown {
+    width: 100%;
+  }
+  
+  ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    padding: 0.5rem 1.25rem;
+    color:  var(--Principal-P200, #00278A);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  ::ng-deep .p-dropdown-panel .p-dropdown-header {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+    background: #f9fafb;
+    margin: 0;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    background: var(--Colores-Gris-400);
+  }
+  
+  ::ng-deep .p-dropdown-panel .p-dropdown-header .p-dropdown-filter-icon {
+    right: 0.75rem;
+    color: var(--Colores-Gris-400);
+  }
+  
+  ::ng-deep .p-dropdown-filter-container {
+    position: relative;
+    width: 100%;
+  }
+
+  ::ng-deep .p-button {
+    background: var(--Principal-P200, #00278A);
+    border: 1px var(--Principal-P200, #00278A);
+    font-size: 1rem;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    padding: 10px 24px;
+    align-items: center;
+    gap: 8px;
+    
+  }
+  
+  ::ng-deep .p-button-label {
+   
+    font-family: "Nunito", Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+  
+ ::ng-deep .p-button-icon {
+    color: var(--Primario-P50, #e6e9f3);
+  } 
+
+  ::ng-deep .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: var(--Principal-P200, #00278A);
+}
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.card-title {
+    color: var(--Principal-P200, #00278A);
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.buttong {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+
+
+    padding: 10px 24px;
+    padding: 10px 24px;
+    align-items: center;
+    gap: 8px;
+    background: var(--Principal-P200, #00278A);
+}
+
+.container-button {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button {
+    padding:0.5em
+}
+
+.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.card-title {
+    color: var(--Principal-P200, #00278A);
+    font-family: "Open Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.buttong {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+
+
+    padding: 10px 24px;
+    padding: 10px 24px;
+    align-items: center;
+    gap: 8px;
+    background: var(--Principal-P200, #00278A);
+}
+
+.container-button {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+
+.button {
+  padding:0em 0.5em 0em;
+  width: 109px;
+}
+
+.secondary {
+  color: var(--Principal-P200, #00278a);
+  background: #ffffff;
+  border: 1px solid var(--Principal-P200, #00278a);
+}
+
+.titles {
+   
+  color: var(--Principal-P200, #00278A);
+  font-family: Nunito;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 0px;
+  margin: 15px 10px;
+}

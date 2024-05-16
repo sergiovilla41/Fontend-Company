@@ -1,0 +1,247 @@
+<p-toast></p-toast>
+<div class="main">
+  <div class="container-columns-2">
+    <div class="container-select">
+      <label for="username" class="label">Columnas destino</label>
+
+      <simem-dropdown-form
+        (dropDownNewValue)="handledDropDownNewValue($event)"
+        [itemObject]="{
+          itemSelected: idColumPurpose!,
+          name: 'csExidColumnaDestino',
+          items: purposeColumn
+        }"
+        [showClear]="true"
+      ></simem-dropdown-form>
+    </div>
+
+    <div class="flex flex-row gap-1 container-select">
+      <label for="username" class="label">Columna Versión</label>
+      <simem-dropdown-form
+        (dropDownNewValue)="handledDropDownNewValue($event)"
+        [itemObject]="{
+          itemSelected: idColumVersion!,
+          name: 'csExidColumnaVersion',
+          items: versionColumn
+        }"
+        [showClear]="true"
+      ></simem-dropdown-form>
+    </div>
+    <div class="flex container-buttons">
+      <p-button label="Guardar" (click)="saveColumnTargetVersion()"></p-button>
+    </div>
+  </div>
+
+  <p-card>
+    <p-table
+      #dt1
+      [autoLayout]="true"
+      editMode="row"
+      dataKey="idSourceColumn"
+      [value]="sourceColumnsData"
+      [paginator]="true"
+      [rows]="20"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+      [rowsPerPageOptions]="[20, 50, 100]"
+    >
+      <ng-template pTemplate="caption">
+        <div
+          class="flex"
+          style="display: flex; justify-content: space-between; padding: 10px"
+        >
+          <simem-clear-filter-table [tableData]="dt1"></simem-clear-filter-table>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th
+            style="min-width: 150px !important"
+            pSortableColumn="originColumn"
+            scope="col"
+          >
+            <div class="flex align-items-center">
+              <div class="margin-filter">
+                Columna origen
+                <p-sortIcon field="originColumn"></p-sortIcon>
+              </div>
+              <p-columnFilter
+                field="originColumn"
+                display="row"
+                (click)="$event.stopPropagation()"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+          <th
+            style="min-width: 150px !important"
+            pSortableColumn="numeration"
+            scope="col"
+          >
+            <div class="flex align-items-center">
+              <div class="margin-filter">
+                Numeración
+                <p-sortIcon field="numeration"></p-sortIcon>
+              </div>
+              <p-columnFilter
+                field="numeration"
+                display="row"
+                (click)="$event.stopPropagation()"
+              >
+              </p-columnFilter>
+            </div>
+          </th>
+
+          <th
+            style="min-width: 150px !important"
+            pSortableColumn="targetColumn"
+            scope="col"
+          >
+            <div class="flex align-items-center">
+              <div class="margin-filter">
+                Columna destino
+                <p-sortIcon field="targetColumn"></p-sortIcon>
+              </div>
+              <p-columnFilter
+                field="targetColumn"
+                display="row"
+                (click)="$event.stopPropagation()"
+              ></p-columnFilter>
+            </div>
+          </th>
+
+          <th
+            style="min-width: 300px !important"
+            pSortableColumn="dataType"
+            scope="col"
+          >
+            <div class="flex align-items-center">
+              <div class="margin-filter">
+                Tipo dato
+                <p-sortIcon field="dataType"></p-sortIcon>
+              </div>
+
+              <p-columnFilter
+                field="dataType"
+                display="row"
+                (click)="$event.stopPropagation()"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th
+            style="min-width: 160px !important"
+            pSortableColumn="description"
+            scope="col"
+          >
+            <div class="flex align-items-center" style="min-width: 200px">
+              <div class="margin-filter">
+                Descripción
+                <p-sortIcon field="description"></p-sortIcon>
+              </div>
+              <p-columnFilter
+                field="description"
+                display="row"
+                (click)="$event.stopPropagation()"
+              ></p-columnFilter>
+            </div>
+          </th>
+          <th
+            alignFrozen="right"
+            pFrozenColumn
+            style="min-width: 50px !important"
+            scope="col"
+          >
+            Acciones
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-sourceColumns
+        let-editing="editing"
+        let-ri="rowIndex"
+      >
+        <tr [pEditableRow]="sourceColumns">
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="originColumn" />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ sourceColumns.originColumn }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td>{{ sourceColumns.numeration }}</td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <simem-dropdown-form
+                  appendTo="body"
+                  (dropDownNewValue)="handledDropDownNewValue($event)"
+                  [itemObject]="{
+                    itemSelected: idTargetColumn,
+                    name: 'sctargetColumn',
+                    items: targetColumn
+                  }"
+                ></simem-dropdown-form>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ sourceColumns.targetColumn }}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+
+          <td>{{ sourceColumns.dataType }}</td>
+          <td>{{ sourceColumns.description }}</td>
+
+          <td alignFrozen="right" pFrozenColumn class="row-actions">
+            <div>
+              <div
+                class="flex align-items-center justify-content-center gap-2"
+                style="text-align: center"
+              >
+                <button
+                  *ngIf="!editing"
+                  [disabled]="esEdit"
+                  pRipple
+                  pInitEditableRow
+                  class="btnSpecial"
+                  (click)="onRowEditInit(sourceColumns.idSourceColumn)"
+                >
+                  <span class="material-symbols-outlined iconEdit">
+                    border_color
+                  </span>
+                </button>
+
+                <button
+                  *ngIf="editing"
+                  pRipple
+                  pSaveEditableRow
+                  (click)="onRowEditSave()"
+                  class="btnSpecial"
+                >
+                  <span class="material-symbols-outlined iconOk"> check </span>
+                </button>
+                <button
+                  *ngIf="editing"
+                  pRipple
+                  pCancelEditableRow
+                  class="btnSpecial"
+                  (click)="onRowEditCancel()"
+                >
+                  <span class="material-symbols-outlined iconCancel">
+                    close
+                  </span>
+                </button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+
+</div>

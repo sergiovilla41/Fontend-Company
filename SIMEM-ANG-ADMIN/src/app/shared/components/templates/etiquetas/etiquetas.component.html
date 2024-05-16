@@ -1,0 +1,16 @@
+<div class="content">
+  <p class="titulo1">Etiquetas</p>
+  <div style="margin: 0px 0px 24px 0px">
+    <back-button-component></back-button-component>
+  </div>
+  <editable-table
+    entityName="Etiqueta"
+    [data]="data"
+    [columns]="columns"
+    [createFormGroup]="createFormGroup"
+    [editFormGroup]="editFormGroup"
+    (onFetchData)="fetch()"
+    (onCreate)="createLabel($event)"
+    (onEdit)="editLabel($event)"
+  ></editable-table>
+</div>

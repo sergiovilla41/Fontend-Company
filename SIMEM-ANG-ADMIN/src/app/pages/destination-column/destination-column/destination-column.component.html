@@ -1,0 +1,7 @@
+<app-destination
+  [DestinationColumnClassification]="destinationColumns"
+  (onFetch)="fetchDestinationColumn()"
+  (addDestinationColumnClassification)="createDestinationColumn($event)"
+  (updateDestinationColumnClassification)="updateDestinationColumn($event)"
+></app-destination>
+<p-toast></p-toast>

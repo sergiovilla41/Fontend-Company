@@ -1,0 +1,114 @@
+<div class="modal-background" (click)="close()"></div>
+<div class="modal-container">
+  <span class="close" (click)="close()">&times;</span>
+  <h1>Monitoreo de ejecuciones y errores</h1>
+  <div class="scrollable-content">
+    <div class="grid grid-cols-1 px-4 py-4">
+      <div class="card-title">Nombre conjunto de datos</div>
+      <div class="card-body">
+        {{ detail.NombreConjuntoDeDatos }}
+      </div>
+      <br />
+      <div class="card-title">Id configuracion generacion archivos</div>
+      <div class="card-body">
+        {{ detail.IdConfiguracionGeneracionArchivos }}
+      </div>
+      <br />
+      <div class="sub-title">PipelineRunId</div>
+      <div class="card-body">
+        {{ detail.PipelineRunId }}
+      </div>
+
+      <br />
+
+      <p-table [value]="detail.Extracciones"[tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines p-datatable-sm">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Nombre extracción</th>
+            <th>Delta inicial actual</th>
+            <th>Delta Final actual</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-dato>
+          <tr>
+            <td>{{ dato.nombreExtraccion }}</td>
+            <td>{{ dato.fechaDeltaInicial }}</td>
+            <td>{{ dato.fechaDeltaFinal }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <br>
+      <div class="card3">
+        <div class="column3">
+          <div class="row">
+            <div class="card-title">Generación archivos</div>
+          </div>
+          <div class="row"><div class="sub-title">Delta inicial</div></div>
+          <div class="row">
+            <div class="card-body">{{ detail.ValorDeltaInicial }}</div>
+          </div>
+        </div>
+        <div class="column3">
+          <div class="row"></div>
+          <div class="row"><div class="sub-title">Delta final</div></div>
+          <div class="row">
+            <div class="card-body">{{ detail.ValorDeltaFinal}}</div>
+          </div>
+        </div>
+      </div>
+      <br />
+      
+      <div class="card-container">
+        <div class="columns-date">
+          <div class="column4">
+            <img
+              src="../../../../../assets/icons/calendar.svg"
+              alt="Icono SVG"
+            />
+          </div>
+        </div>
+        <div class="card-title">Cuando se ejecuta</div>               
+      </div>
+
+      <p-table [value]="ejecuciones" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines p-datatable-sm">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Hora</th>
+            <th>Día</th>
+            <th>Día de la semana</th>
+            <th>Mes</th>
+            <th>Indicativo día hábil</th>
+            <th>Activo</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-dato>
+          <tr>
+            <td>{{ dato.hora }}</td>
+            <td>{{ dato.dia }}</td>
+            <td>{{ dato.diaSemana }}</td>
+            <td>{{ dato.mes }}</td>
+            <td>{{ dato.indDiaHabil ? "Si" : "No" }}</td>
+            <td>{{ dato.indActivo ? "Si" : "No" }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <br />
+      <div class="card">
+        <div class="card-title">Clasificación deltas</div>
+        <div class="card-body">
+          {{ detail.ClasificacionDeltas }}
+        </div>
+      </div>
+
+      <br />
+      <div class="card-title">Observaciones</div>
+      <div class="card-body">
+        {{ detail.Observaciones }}
+      </div>
+    </div>
+  </div>
+  <br /><button class="buttong" (click)="close()">Cerrar</button>
+</div>
+

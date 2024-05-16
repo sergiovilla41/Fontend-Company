@@ -1,0 +1,14 @@
+<div class="content">
+  <div class="login">
+    <div class="login-behavior">
+      <img src="/assets/icons/logo-green.svg" alt="" />
+      <p class="texto-normal-semibold">¡Bienvenido!</p>
+      <p class="texto-mediano-regular">Te invitamos a iniciar sesión a través de tu cuenta de usuario SIMEM</p>
+      <button class="simem-button" (click)="login()">Ingresar</button>
+    </div>
+    <div class="image">
+      <img src="/assets/icons/Rectangle.svg" alt="" />
+    </div>
+  </div>
+</div>
+<message-component [userState]="userState" [visible]="modalVisible" (onHide)="hide()" (onLogout)="logout()"></message-component>

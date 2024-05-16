@@ -1,0 +1,17 @@
+<p-toast key="clasificacion"></p-toast>
+<div class="content">
+    <p class="titulo1">Clasificación regulatoria</p>
+    <back-button-component></back-button-component>
+    <editable-table
+      entityName="Clasificación regulatoria"
+      [headerDeltas]="headerDeltas"
+      [data]="dataRegulatoryClassification"
+      [columns]="columns"
+      [createFormGroup]="createFormGroup"        
+      [editFormGroup]="createFormGroup"
+      (onFetchData)="fetch()"
+      [errors]="errors"
+      (onCreate)="createLabel($event)"
+      (onEdit)="editLabel($event)"
+    ></editable-table>
+</div>

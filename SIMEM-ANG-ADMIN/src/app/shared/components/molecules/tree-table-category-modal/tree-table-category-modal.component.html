@@ -1,0 +1,81 @@
+<div class="modal-background" (click)="close()"></div>
+<div class="modal-container">
+  <div class="titles">Categorias</div>
+  <div class="card-title">
+    Categoria seleccionada <em class="category-selected">{{ nameCategory }}</em>
+  </div>
+  <div class="card">
+    <p-treeTable
+      #tt
+      [value]="categories"
+      [columns]="cols"
+      selectionMode="checkbox"
+      [(selection)]="selectedCategories"
+      [scrollable]="true"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [scrollable]="true"
+      scrollHeight="400px"
+      [scrollable]="true"
+      [filterMode]="filterMode"
+      (onNodeSelect)="onNodeSelect($event)"
+    >
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th scope="col" *ngFor="let col of columns">
+            {{ col.header }}
+          </th>
+        </tr>
+        <tr>
+          <th scope="col" *ngFor="let col of columns">
+            <input
+              pInputText
+              type="text"
+              (input)="
+                tt.filter(
+                  $any($event.target).value,
+                  col.field,
+                  col.filterMatchMode
+                )
+              "
+            />
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-rowNode
+        let-rowData="rowData"
+        let-columns="columns"
+      >
+        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+          <td *ngFor="let col of columns; let i = index">
+            <p-treeTableToggler
+              [rowNode]="rowNode"
+              *ngIf="i === 0"
+            ></p-treeTableToggler>
+            <p-treeTableCheckbox
+              [value]="rowNode"
+              *ngIf="i === 0"
+            ></p-treeTableCheckbox>
+            {{ rowData[col.field] }}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [attr.colspan]="cols.length">No se encontraron resultados !!!</td>
+        </tr>
+      </ng-template>
+    </p-treeTable>
+  </div>
+  <div class="container-button">
+    <button
+      pButton
+      class="button secondary"
+      severity="secondary"
+      (click)="close()"
+      label="Cerrar"
+    ></button>
+    <p-button class="button" (click)="onselecCategory()">Aceptar</p-button>
+  </div>
+</div>

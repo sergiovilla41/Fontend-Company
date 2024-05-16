@@ -1,0 +1,281 @@
+ 
+  ::ng-deep .p-card .p-card-content {
+    padding: 0;
+  }
+
+  ::ng-deep .p-sortable-column-icon {
+    color: var(--Principal-P200) !important;
+  }
+  
+  ::ng-deep .p-highlight{
+    color: unset;
+    background-color: unset;
+  }
+
+  ::ng-deep .p-datatable .p-datatable-header {
+    background: #ffffff;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-width: 1px 0 1px 0;
+    font-weight: 700;
+  }
+
+  .tabla {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    border-radius: 8px;
+    background: var(--Blanco, #fff);
+    box-shadow: 0px 2px 1px 0px rgba(0, 0, 0, 0.05),
+      0px 0px 1px 0px rgba(0, 0, 0, 0.25);
+    padding: 16px;
+  
+    .add {
+      display: block;
+      color: white;
+      border-radius: 100px;
+      background: var(--Colores-Primario-0, #409);
+      display: flex;
+      padding: 10px 24px;
+      align-items: center;
+      gap: 8px;
+  
+      &:hover {
+        cursor: pointer;
+      }
+  
+      &:disabled {
+        background: #eef1f3 0% 0% no-repeat padding-box;
+        color: #a2a2a2;
+        opacity: 1;
+        cursor: default;
+      }
+    }
+  
+    .button-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+  
+  ::ng-deep .p-datatable-thead > tr > th {
+    font-style: normal;
+    font-variant: normal;
+    font-size: 1rem;
+    font-family: "Nunito", sans-serif;
+    font-weight: bold;
+    text-align: left;
+    padding: 0.625rem;
+    border-bottom-width: 2px !important;
+    border-bottom-style: solid;
+    color: #373737;
+    line-height: 18px;
+  }
+
+  ::ng-deep .p-button {
+    color: #fff;
+    background: var(--Principal-P200);
+    border: 1px solid var(--Principal-P200);
+    padding: .5rem 1rem;
+    transition: background-color .15s, border-color .15s, box-shadow .15s;
+    border-radius: 20px;
+    height: inherit;
+    width: inherit;
+    display: flex;
+    align-items: right;
+    font-size: 1rem;    
+  }
+
+  .btn-derecho{
+    display: flex;    
+    justify-content: flex-end;
+  }
+
+
+
+  ::ng-deep .p-button-label {
+    font-family: "Nunito", Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+ ::ng-deep .p-button-icon {
+    color: var(--Primario-P50, #e6e9f3);
+  }
+  
+  .rItem {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  ::ng-deep .p-calendar-w-btn .p-datepicker-trigger {
+    color: #ffffff;
+    background: var(--Primario-0) !important;
+  }
+  
+  ::ng-deep .p-dropdown {
+    width: 100%;
+  }
+  
+  ::ng-deep .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    padding: 0.5rem 1.25rem;
+    color: var(--Primario-0) !important;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  ::ng-deep .p-dropdown-panel .p-dropdown-header {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+    margin: 0;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    background: var(--Colores-Gris-400);
+  }
+  
+  ::ng-deep .p-dropdown-panel .p-dropdown-header .p-dropdown-filter-icon {
+    right: 0.75rem;
+    color: var(--Colores-Gris-400);
+  }
+  
+  ::ng-deep .p-dropdown-filter-container {
+    position: relative;
+    width: 100%;
+  }
+  
+  .disabled {
+    background: #eef1f3 0% 0% no-repeat padding-box;
+    color: #a2a2a2;
+    opacity: 1;
+  }
+  
+  // .container-buttons {
+  //   display: flex;
+  //   justify-content: flex-end;
+  //   padding: 10px;
+  //   gap: 24px;
+  // }
+  
+  .container-columns-3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 0px 0px 0px;
+  }
+  
+  .container-columns-2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 24px;
+    padding: 24px 0px 24px 0px;
+  }
+  
+  .control-column-3 {
+    width: 33.33%;
+    padding: 0 24px 0px 0px;
+  }
+  
+  .container-select {
+    width: 33.33%;
+    padding: 0 24px 0px 0px;
+    flex-direction: column;
+    display: flex;
+  }
+  
+  .container-multiline-query {
+    width: 100%;
+    padding: 0 24px 0px 0px;
+  }
+  
+  .container-multiline {
+    width: 100%;
+    padding: 0 24px 24px 0px;
+  }
+  
+  .container-message {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    gap: 24px;
+  }
+  
+  .container-column-nodos {
+    display: flex;
+    flex-direction: row;
+    width: 33.33%;
+    justify-content: space-between;
+  }
+  
+  .container-nodos {
+    width: 50%;
+    padding: 0 24px 0px 0px;
+  }
+  
+  .secondary {
+    color: var(--Primario-0) !important;
+    background: #ffffff;
+    border: 1px solid var(--Primario-0) !important;
+  }
+  
+  .iconEdit {
+    color: var(--Secundario-S200) !important;
+  }
+  
+  .iconOk {
+    color: var(--check_circle) !important;
+    font-weight: bold;
+  }
+  
+  .iconCancel {
+    color: var(--cancel) !important;
+    font-weight: bold;
+  }
+  
+  .material-symbols-rounded {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+  }
+
+  .copy-message {
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    margin-top: -5px;
+    max-width: 25vw;
+    min-width: 155px;
+    padding: 14px 16px;
+    transform-origin: center;
+    color: rgba(255, 255, 255, 0.7);
+    background: #323232;
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+      0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  }
+  
+  .label-switch {
+    top: -10px;
+    position: relative;
+    display: inline;
+    padding-right: 5px;
+  }
+  .margin-filter {
+    margin-bottom: 10px;
+  }
+  
+  .btnSpecial {
+    border: 0 !important;
+    background: none !important;
+    cursor: pointer;
+    padding: 5px !important;
+  }
+  
+
+  

@@ -1,0 +1,14 @@
+.modal{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+::ng-deep .p-dialog-header {
+  padding: 0.5rem;
+}
+
+.parrafo-normal-semibold{
+  text-align: center;
+}

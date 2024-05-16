@@ -1,0 +1,19 @@
+<div class="content">
+  <p class="titulo1">Columna destino</p>
+  <div style="margin: 0px 0px 24px 0px">
+    <back-button-component></back-button-component>
+  </div>
+  <p-card>
+      <editable-table
+      entityName="DestinationColumn"
+      [data]="DestinationColumnClassification"
+      [columns]="columns"
+      [createFormGroup]="createFormGroup"
+      [editFormGroup]="createFormGroup"
+      (onFetchData)="fetch()"
+      (onCreate)="createDestinationColumn($event)"
+      (onEdit)="editDestinationColumn($event)"
+    ></editable-table>
+  </p-card>
+</div>
+

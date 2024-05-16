@@ -1,0 +1,18 @@
+<div class="content">
+  <p class="titulo1">Gestión de Usuarios</p>
+  <div style="margin: 0px 0px 24px 0px">
+    <back-button-component></back-button-component>
+  </div>
+  <editable-table
+    [data]="users"
+    [createFormGroup]="formGroup"
+    [editFormGroup]="editFormGroup"
+    [columns]="columns"
+    [entityName]="'Usuario'"
+    [download]="true"
+    (onCreate)="create($event)"
+    (onEdit)="edit($event)"
+    (onFetchData)="fetchUsers()"
+    [errors]="errors"
+  ></editable-table>
+</div>

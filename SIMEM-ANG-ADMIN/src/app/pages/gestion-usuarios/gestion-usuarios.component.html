@@ -1,0 +1,9 @@
+<gestion-usuarios-template
+  [users]="(users | async) ?? []"
+  [empresaDominioList]="(empresaDominioList | async) ?? []"
+  [columns]="(columns | async) ?? syncColumns"
+  (onFetchUsers)="fetchUsers()"
+  (onCreate)="createUser($event)"
+  (onEdit)="editUser($event)"
+></gestion-usuarios-template>
+<p-toast key="users"></p-toast>

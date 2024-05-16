@@ -1,0 +1,100 @@
+.container-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  gap: 24px;
+  top: 10px;
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  gap:  32px;
+}
+
+.container-columns-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-content: flex-start;
+}
+
+.container-columns-3 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0px 0px 0px;
+}
+
+.container-select {
+  width: 100%;
+  padding: 0 24px 0px 0px;
+  flex-direction: column;
+  display: flex;
+}
+
+.secondary {
+  color:  var(--Principal-P200, #00278A);
+  background: #ffffff;
+  border: 1px solid  var(--Principal-P200, #00278A);
+}
+
+.iconEdit {
+  color: #4B710E;
+}
+
+.iconOk {
+  color: #1ce65c !important;
+  font-weight: bold;
+}
+
+.iconDelete {
+  color: #ff0505 !important;
+}
+
+.iconCancel {
+  color: #ff0505 !important;
+  font-weight: bold;
+}
+
+.btnSpecial {
+  border: 0 !important;
+  background: none !important;
+  cursor: pointer;
+  padding: 5px !important;
+}
+
+.margin-filter {
+  margin-bottom: 10px;
+}
+
+::ng-deep .p-button {
+  background: var(--Principal-P200, #00278a);
+  border: 1px var(--Principal-P200, #00278a);
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  display: flex;
+  padding: 10px 24px;
+  align-items: center;
+  gap: 8px;
+
+}
+
+::ng-deep .p-button-label {
+  font-family: "Nunito", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+::ng-deep .p-datatable .p-datatable-header {
+  background: #ffffff;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  border-width: 1px 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 700;
+}

@@ -1,0 +1,17 @@
+<p-dropdown
+  [filter]="true"
+  filterBy="name"
+  [options]="itemObject.items"
+  [virtualScroll]="true"
+  [virtualScrollItemSize]="40"
+  [(ngModel)]="selectedItem"
+  optionLabel="name"
+  placeholder="Selecciona"
+  (ngModelChange)="onChange($event)"
+  class="ng-dirty ng-invalid"
+  [disabled]="disable"
+  [ngClass]="{ 'ng-dirty ng-invalid': requiered }"
+  [showClear]="showClear"
+  appendTo="body"
+  [style]="{ width: '100%' }"
+></p-dropdown>

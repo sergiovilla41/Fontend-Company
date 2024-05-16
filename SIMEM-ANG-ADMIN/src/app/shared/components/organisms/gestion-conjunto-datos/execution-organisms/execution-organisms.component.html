@@ -1,0 +1,325 @@
+<p-toast></p-toast>
+
+<p-card>
+  <p-table
+    #dt1
+    [value]="clonedData"
+    dataKey="idEjecucion"
+    editMode="row"
+    [autoLayout]="true"
+    [scrollable]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    styleClass="p-datatable-gridlines p-datatable-sm"
+    [paginator]="true"
+    [rowsPerPageOptions]="[20, 50, 100]"
+    [rows]="20"
+    currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div
+        class="flex"
+        style="display: flex; justify-content: space-between; padding: 10px"
+      >
+        <simem-clear-filter-table
+          [tableData]="dt1"
+        ></simem-clear-filter-table>
+        <p-button
+          type="button"
+          label="Nueva ejecución"
+          icon="pi pi-plus"
+          (click)="onAddNewRow()"
+          [disabled]="isEdit"
+        ></p-button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th
+          style="min-width: 150px !important"
+          pSortableColumn="mes.label"
+          scope="col"
+        >
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Mes
+              <p-sortIcon field="mes.label"></p-sortIcon>
+            </div>
+            <p-columnFilter
+              field="mes.label"
+              display="row"
+              (click)="$event.stopPropagation()"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th
+          style="min-width: 150px !important"
+          pSortableColumn="dia.label"
+          scope="col"
+        >
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Día
+              <p-sortIcon field="dia.label"></p-sortIcon>
+            </div>
+            <p-columnFilter
+              field="dia.label"
+              display="row"
+              (click)="$event.stopPropagation()"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th
+          style="min-width: 150px !important"
+          pSortableColumn="hora.label"
+          scope="col"
+        >
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Hora
+              <p-sortIcon field="hora.label"></p-sortIcon>
+            </div>
+            <p-columnFilter
+              field="hora.label"
+              display="row"
+              (click)="$event.stopPropagation()"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th
+          style="min-width: 350px !important"
+          pSortableColumn="diaSemana.label"
+          scope="col"
+        >
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Día de la semana
+              <p-sortIcon field="diaSemana.label"></p-sortIcon>
+            </div>
+            <p-columnFilter
+              field="diaSemana.label"
+              display="row"
+              (click)="$event.stopPropagation()"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th
+          style="min-width: 150px !important"
+          pSortableColumn="indDiaHabil.label"
+          scope="col"
+        >
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Ind día hábil
+              <p-sortIcon field="indDiaHabil.label"></p-sortIcon>
+            </div>
+            <p-columnFilter
+              field="indDiaHabil.label"
+              display="row"
+              (click)="$event.stopPropagation()"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th
+          style="min-width: 150px !important"
+          pSortableColumn="indActivo.label"
+          scope="col"
+        >
+          <div class="flex align-items-center">
+            <div class="margin-filter">
+              Ind activo
+              <p-sortIcon field="indActivo.label"></p-sortIcon>
+            </div>
+            <p-columnFilter
+              field="indActivo.label"
+              display="row"
+              (click)="$event.stopPropagation()"
+            ></p-columnFilter>
+          </div>
+        </th>
+        <th alignFrozen="right" pFrozenColumn class="column-xsmall" scope="col">
+          Acciones
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-execution
+      let-editing="editing"
+      let-ri="rowIndex"
+    >
+      <tr [pEditableRow]="execution">
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                [options]="lstMonth"
+                [(ngModel)]="execution.mes.value"
+                [style]="{ width: '100%' }"
+                appendTo="body"
+              ></p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ execution.mes.label }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                [options]="lstDay"
+                [(ngModel)]="execution.dia.value"
+                [style]="{ width: '100%' }"
+                appendTo="body"
+              ></p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ execution.dia.label }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                [options]="lstHour"
+                [(ngModel)]="execution.hora.value"
+                [style]="{ width: '100%' }"
+                appendTo="body"
+              ></p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ execution.hora.label }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                [options]="lstWeekDay"
+                [(ngModel)]="execution.diaSemana.value"
+                [style]="{ width: '100%' }"
+                appendTo="body"
+              ></p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ execution.diaSemana.label }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                [options]="lstWorkDayInd"
+                [(ngModel)]="execution.indDiaHabil.value"
+                [style]="{ width: '100%' }"
+                appendTo="body"
+              ></p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ execution.indDiaHabil.label }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown
+                [options]="lstActiveInd"
+                [(ngModel)]="execution.indActivo.value"
+                [style]="{ width: '100%' }"
+                appendTo="body"
+              ></p-dropdown>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{ execution.indActivo.label }}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td
+          style="text-align: center"
+          alignFrozen="right"
+          pFrozenColumn
+          class="row-actions"
+        >
+          <div
+            class="flex align-items-center justify-content-center gap-2"
+            style="text-align: center"
+          >
+            <button
+              *ngIf="!editing"
+              [disabled]="isEdit"
+              pRipple
+              pInitEditableRow
+              class="btnSpecial"
+              (click)="onRowEditInit(execution)"
+            >
+              <span class="material-symbols-outlined iconEdit">
+                border_color
+              </span>
+            </button>
+
+            <button
+              *ngIf="editing"
+              pRipple
+              pSaveEditableRow
+              class="btnSpecial"
+              (click)="onRowEditSave(execution)"
+            >
+              <span class="material-symbols-outlined iconOk"> check </span>
+            </button>
+
+            <button
+              *ngIf="editing"
+              pRipple
+              pCancelEditableRow
+              class="btnSpecial"
+              (click)="onRowEditCancel()"
+            >
+              <span class="material-symbols-outlined iconCancel"> close </span>
+            </button>
+
+            <button
+              *ngIf="!isEdit"
+              pRipple
+              pCancelEditableRow
+              class="btnSpecial"
+              (click)="showDialog(execution)"
+            >
+              <span class="material-symbols-outlined iconDelete"> delete </span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>
+
+<div class="card flex justify-content-center">
+  <p-dialog
+    [(visible)]="displayDialog"
+    [closable]="false"
+  >
+    <div class="dialog-content">
+      <p>¿Estás seguro(a) de que quieres eliminar esta ejecución?</p>
+    </div>
+    <ng-template pTemplate="footer">
+      <div class="div-button">
+        <button
+          pButton
+          class="secondary"
+          severity="secondary"
+          (click)="hideDialog()"
+        >
+          Cancelar
+        </button>
+        <button pButton class="example-button" (click)="deleteInfo()">
+          Confirmar
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

@@ -1,0 +1,12 @@
+.simem-button {
+  &:hover{
+    cursor: pointer;
+  }
+  display: flex;
+  padding: 10px 24px;
+  align-items: center;
+  gap: 8px;
+  background: var(--Principal-P200, #00278A);
+  color: white;
+  border:solid 1px var(--Principal-P200, #00278A);
+}

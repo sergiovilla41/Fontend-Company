@@ -1,0 +1,439 @@
+<p-dialog
+  [(visible)]="modalVisibility"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [showHeader]="false"
+  [blockScroll]="true"
+  [className]="'p-custom-modal'"
+>
+  <div class="modal">
+    <span>
+      <p class="texto-mediano-regular">Etiqueta</p>
+      <p class="titulo1">{{ modalTitle }}</p>
+    </span>
+    <span>
+      <strong>Conjuntos de datos asociados</strong>
+      <ul class="lista">
+        <li *ngFor="let item of modalList">{{ item }}</li>
+      </ul>
+    </span>
+    <span style="display: flex; justify-content: center">
+      <button class="boton-primario" (click)="modalVisibility = false">
+        Cerrar
+      </button>
+    </span>
+  </div>
+</p-dialog>
+
+<div class="container">
+  <form [formGroup]="formGroup">
+    <p-table
+      #dt1
+      class="table"
+      [value]="localData"
+      [scrollable]="true"
+      editMode="row"
+      dataKey="key"
+      [paginator]="true"
+      [rows]="20"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '40rem' }"
+      styleClass="p-datatable-gridlines p-datatable-sm"
+      currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+      [rowsPerPageOptions]="[20, 50, 100]"
+    >
+      <ng-template pTemplate="caption">
+        <div
+          class="flex"
+          style="
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 10px;
+          "
+        >
+          <button class="boton-primario" (click)="clearFilters(dt1)">
+            <i class="pi pi-filter-slash"></i> Limpiar todo
+          </button>
+          <span style="display: flex; gap: 24px">
+            <button
+              class="boton-secundario"
+              style="justify-self: flex-end"
+              [disabled]="data.length == 0"
+              (click)="exportCSV()"
+              *ngIf="download"
+            >
+              <i class="pi pi-download"></i> Descargar
+            </button>
+            <button
+              class="boton-primario"
+              style="align-self: flex-end"
+              *ngIf="create"
+              (click)="initAddRow()"
+              [disabled]="adding || isEditing"
+            >
+              <i class="pi pi-plus"></i> Agregar {{ entityName }}
+            </button>
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr *ngIf="headerDeltas">
+          <th colspan="12" style="text-align: center">
+            <h2 style="margin-top: 15px">Delta inicial</h2>
+          </th>
+          <th colspan="9" style="text-align: center">
+            <h2 style="margin-top: 15px">Delta Final</h2>
+          </th>
+        </tr>
+        <tr [ngClass]="{ disabled: adding || isEditing }">
+          <th *ngIf="orderabledRows"></th>
+          <th *ngIf="orderabledRows">Enumeración</th>
+          <th
+            *ngFor="let column of columnsData"
+            class="column.type == 'switch' ? 'column-switch' : 'column'"
+            [pSortableColumnDisabled]="adding || isEditing"
+            [pSortableColumn]="
+              column.type == 'select'
+                ? String(column.field) + '.label'
+                : String(column.field)
+            "
+          >
+            {{ column.header }}
+            <p-sortIcon
+              [field]="
+                column.type == 'select'
+                  ? String(column.field) + '.label'
+                  : String(column.field)
+              "
+            ></p-sortIcon>
+            <p-columnFilter
+              *ngIf="column.type == 'select'"
+              [field]="String(column.field) + '.label'"
+              (click)="$event.stopPropagation()"
+            >
+            </p-columnFilter>
+            <p-columnFilter
+              *ngIf="column.type == 'text' || column.type == 'number'"
+              (keydown.space)="$event.stopPropagation()"
+              [field]="String(column.field)"
+              (click)="$event.stopPropagation()"
+            >
+            </p-columnFilter>
+            <p-columnFilter
+              *ngIf="column.type == 'list'"
+              [field]="String(column.field)"
+              [showMenu]="false"
+              matchMode="listFilter"
+              (click)="$event.stopPropagation()"
+            >
+            </p-columnFilter>
+            <p-columnFilter
+              *ngIf="column.type == 'switch'"
+              [field]="String(column.field)"
+              matchMode="equals"
+              [showMenu]="false"
+              (click)="$event.stopPropagation()"
+            >
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-inputSwitch
+                  [disabled]="adding || isEditing"
+                  (onChange)="filter($event.checked)"
+                ></p-inputSwitch>
+              </ng-template>
+            </p-columnFilter>
+            <p-columnFilter
+              *ngIf="column.type == 'calendar'"
+              [field]="String(column.field)"
+              type="date"
+              (click)="$event.stopPropagation()"
+            >
+              <ng-template pTemplate="filter" let-filter="filterCallback">
+                <p-calendar
+                  appendTo="body"
+                  dateFormat="yy-mm-dd"
+                  [showButtonBar]="true"
+                  [disabled]="adding || isEditing"
+                  (onSelect)="filter($event)"
+                ></p-calendar>
+              </ng-template>
+            </p-columnFilter>
+          </th>
+          <th class="actions-column" pFrozenColumn alignFrozen="right">
+            Acciones
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template
+        pTemplate="body"
+        let-row
+        let-editing="editing"
+        let-i="rowIndex"
+      >
+        <tr
+          class="row"
+          [pEditableRow]="row"
+          #htmlTableRowElement
+          [pReorderableRow]="i"
+        >
+          <td *ngIf="orderabledRows">
+            <span class="pi pi-bars" pReorderableRowHandle></span>
+          </td>
+          <td *ngIf="orderabledRows">
+            {{ i + 1 }}
+          </td>
+          <td class="celda" *ngFor="let column of columnsData">
+            <p-cellEditor
+              *ngIf="
+                (column.type == 'text' || column.type == 'number') &&
+                formGroup?.get(String(column.field))
+              "
+            >
+              <ng-template pTemplate="input">
+                <input
+                  *ngIf="column.type == 'text'"
+                  type="text"
+                  pInputText
+                  [formControlName]="String(column.field)"
+                  [class.invalid]="
+                    submitted && formGroup.get(String(column.field))?.invalid
+                  "
+                />
+                <small
+                  *ngIf="
+                    submitted &&
+                    formGroup.get(String(column.field)) &&
+                    formGroup.get(String(column.field))?.invalid &&
+                    (formGroup.get(String(column.field))?.errors ?? {})[
+                      'required'
+                    ]
+                  "
+                  style="color: red"
+                >
+                  *Este campo es obligatorio</small
+                >
+                <p-inputNumber
+                  *ngIf="column.type == 'number'"
+                  [useGrouping]="false"
+                  [formControlName]="String(column.field)"
+                  [class.invalid-number]="
+                    submitted && formGroup.get(String(column.field))?.invalid
+                  "
+                ></p-inputNumber>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ row[column.field] ?? "N/A" }}
+              </ng-template>
+            </p-cellEditor>
+            <p-cellEditor
+              *ngIf="
+                column.type == 'switch' && formGroup?.get(String(column.field))
+              "
+            >
+              <ng-template pTemplate="input">
+                <p-inputSwitch
+                  type="text"
+                  class="centered"
+                  [formControlName]="String(column.field)"
+                ></p-inputSwitch>
+              </ng-template>
+              <ng-template pTemplate="output">
+                <p-inputSwitch
+                  [ngModelOptions]="{ standalone: true }"
+                  [disabled]="true"
+                  class="centered"
+                  [(ngModel)]="row[column.field]"
+                ></p-inputSwitch>
+              </ng-template>
+            </p-cellEditor>
+            <p-cellEditor
+              *ngIf="
+                column.type == 'calendar' &&
+                formGroup?.get(String(column.field))
+              "
+            >
+              <ng-template pTemplate="input">
+                <p-calendar
+                  [formControlName]="String(column.field)"
+                  appendTo="body"
+                  dateFormat="yy-mm-dd"
+                  [class.invalid-calendar]="
+                    submitted && formGroup.get(String(column.field))?.invalid
+                  "
+                ></p-calendar>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ (row[column.field] | date : "yyyy-MM-dd") ?? "N/A" }}
+              </ng-template>
+            </p-cellEditor>
+            <p-cellEditor
+              *ngIf="
+                column.type == 'select' && formGroup?.get(String(column.field))
+              "
+            >
+              <ng-template pTemplate="input">
+                <p-dropdown
+                  [options]="column.options"
+                  [disabled]="column.editable === false"
+                  [formControlName]="String(column.field)"
+                  appendTo="body"
+                  [class.invalid-dropdown]="
+                    submitted && formGroup.get(String(column.field))?.invalid
+                  "
+                ></p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ row[column.field].label ?? "N/A" }}
+              </ng-template>
+            </p-cellEditor>
+            <p
+              *ngIf="
+                (column.type == 'select' ||
+                  column.type == 'number' ||
+                  column.type == 'text') &&
+                !formGroup?.get(String(column.field))
+              "
+            >
+              {{
+                (column.type == "select"
+                  ? row[column.field].label
+                  : row[column.field]) ?? "N/A"
+              }}
+            </p>
+            <p-inputSwitch
+              *ngIf="
+                column.type == 'switch' && !formGroup?.get(String(column.field))
+              "
+              type="text"
+              class="centered"
+              [ngModelOptions]="{ standalone: true }"
+              [disabled]="true"
+              [(ngModel)]="row[column.field]"
+            ></p-inputSwitch>
+            <p
+              *ngIf="
+                column.type == 'calendar' &&
+                !formGroup?.get(String(column.field))
+              "
+            >
+              {{
+                row[column.field]
+                  ? (row[column.field] | date : "yyyy-MM-dd")
+                  : "N/A"
+              }}
+            </p>
+            <div
+              *ngIf="
+                column.type == 'list' &&
+                (getListField(row[column.field], column.listField) ?? []).join(
+                  ','
+                ).length > 20
+              "
+              class="previsualizacion"
+            >
+              {{
+                getListField(row[column.field], column.listField)
+                  .join(",")
+                  .substring(0, 20)
+              }}...
+              <mat-icon
+                class="showMore"
+                (click)="
+                  showModal(
+                    row[column.titleField],
+                    getListField(row[column.field], column.listField)
+                  )
+                "
+                svgIcon="localIcon:Ojo"
+              ></mat-icon>
+            </div>
+            <p
+              *ngIf="
+                column.type == 'list' &&
+                (getListField(row[column.field], column.listField) ?? []).join(
+                  ','
+                ).length == 0
+              "
+            >
+              N/A
+            </p>
+            <p
+              *ngIf="
+                column.type == 'list' &&
+                (getListField(row[column.field], column.listField) ?? []).join(
+                  ','
+                ).length < 20 &&
+                (getListField(row[column.field], column.listField) ?? []).join(
+                  ','
+                ).length > 0
+              "
+            >
+              {{
+                getListField(row[column.field], column.listField)
+                  .join(",")
+                  .substring(0, 20)
+              }}
+            </p>
+          </td>
+          <td
+            class="celda-actions"
+            style="text-align: center"
+            pFrozenColumn
+            alignFrozen="right"
+          >
+            <button
+              *ngIf="!editing && edit"
+              pInitEditableRow
+              (click)="initEditableRow(row)"
+              [disabled]="adding || isEditing"
+              class="action"
+            >
+              <mat-icon
+                *ngIf="!adding && !isEditing"
+                svgIcon="localIcon:Editar"
+              ></mat-icon>
+              <mat-icon
+                *ngIf="adding || isEditing"
+                svgIcon="localIcon:Editar-disabled"
+              ></mat-icon>
+            </button>
+            <button
+              *ngIf="!editing && (delete || bulk)"
+              (click)="deleteRow(row)"
+              class="action"
+            >
+              <mat-icon svgIcon="localIcon:Basurera"></mat-icon>
+            </button>
+            <button
+              *ngIf="editing"
+              (click)="validateForm(row, htmlTableRowElement)"
+              class="action"
+            >
+              <mat-icon
+                svgIcon="localIcon:check"
+              ></mat-icon>
+            </button>
+            <button
+              *ngIf="editing"
+              pCancelEditableRow
+              (click)="cancel()"
+              class="action"
+            >
+              <mat-icon svgIcon="localIcon:cerrar"></mat-icon>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </form>
+  <button
+    class="boton-primario"
+    style="align-self: flex-end"
+    *ngIf="bulk"
+    (click)="saveBulkData()"
+  >
+    <i class="pi pi-plus"></i> Guardar y continuar
+  </button>
+</div>
+<p-toast key="EditableTableToast"></p-toast>

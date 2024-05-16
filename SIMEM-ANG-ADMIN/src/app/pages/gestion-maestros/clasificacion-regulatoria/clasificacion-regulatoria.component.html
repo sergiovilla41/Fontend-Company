@@ -1,0 +1,7 @@
+<clasificacion-regulatoria-template
+  [dataRegulatoryClassification]="(dataRegulatoryClassification$ | async) ?? []"
+  (addRegulatoryClassification)="addRegulatoryClassification($event)"
+  (updateRegulatoryClassification)="updateRegulatoryClassification($event)"
+  (onFetch)="fetch()"
+></clasificacion-regulatoria-template>
+<p-toast></p-toast>

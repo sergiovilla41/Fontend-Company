@@ -1,0 +1,62 @@
+<p-dialog
+  [(visible)]="visible"
+  [style]="{ width: '50vw' }"
+  (onHide)="hide()"
+  [modal]="true"
+>
+  <div class="modal">
+    <img src="/assets/icons/warning.svg" alt="" />
+    <h2 class="titulo2">Ingreso no exitoso</h2>
+    <p
+      class="parrafo-normal-semibold"
+      *ngIf="userState == 'Pendiente Registro'"
+    >
+      Su registro está en proceso de revisión. Por favor, espere a que su
+      registro sea Aprobado.
+    </p>
+    <p class="parrafo-normal-semibold" *ngIf="userState == 'No procede'">
+      Su registro no ha sido aprobado. Para más información comuníquese a través
+      de {{ "Info@xm.com.co" }}.
+    </p>
+    <p
+      class="parrafo-normal-semibold"
+      *ngIf="userState == 'Inactivo' || userState == 'Fechas'"
+    >
+      Su cuenta ha expirado. Por favor, revise su correo electrónico o
+      comuníquese a través de {{ "Info@xm.com.co" }}.
+    </p>
+    <p class="parrafo-normal-semibold" *ngIf="userState == 'Correo invalido'">
+      El correo no es valido.
+    </p>
+    <p class="parrafo-normal-semibold" *ngIf="userState == 'Dominio'">
+      El dominio de su correo no está habilitado para registrarse, comuníquese a
+      través de {{ "Info@xm.com.co" }} para evaluar la habilitación de su
+      dominio.
+    </p>
+    <p class="parrafo-normal-semibold" *ngIf="userState == 'APP'">
+      Su cuenta no tiene permisos de acceso a esta aplicación
+    </p>
+    <p class="parrafo-normal-semibold" *ngIf="userState == 'Permisos'">
+      Su registro está en proceso de autorización. Por favor, espere a que su
+      registro sea Aprobado.
+    </p>
+    <p
+      class="parrafo-normal-semibold"
+      *ngIf="userState?.includes('Value cannot be null')"
+    >
+      Su usuario no se encuentra registrado por favor comuníquese a través de
+      {{ "Info@xm.com.co" }}
+    </p>
+    <div
+      style="
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 32px;
+      "
+    >
+      <button class="boton-primario" (click)="logout()">Cerrar sesión</button>
+      <button class="boton-secundario" (click)="hide()">Cerrar</button>
+    </div>
+  </div>
+</p-dialog>

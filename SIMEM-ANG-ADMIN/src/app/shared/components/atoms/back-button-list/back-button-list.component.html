@@ -1,0 +1,9 @@
+<button
+  pButton
+  label="{{ title }}"
+  class="secondary"
+  severity="secondary"
+  (click)="goBack()"
+>
+  <span *ngIf="showIcon" class="material-symbols-rounded"> arrow_left </span>
+</button>
